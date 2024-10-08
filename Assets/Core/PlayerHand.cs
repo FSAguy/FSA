@@ -3,6 +3,8 @@ using UnityEngine;
 
 namespace Core
 {
+    //TODO: make cards visible only to client player
+    //first uuhhhh make multiplayer work
     public class PlayerHand : PlayerCardContainer
     {
         [SerializeField] private BoxCollider zone;
@@ -14,13 +16,18 @@ namespace Core
         {
             base.Add(card);
             card.ShowCard();
+            card.FaceUp = true; 
             UpdateCardArrangement();
         }
 
         protected override void Add(List<Card> cards)
         {
             base.Add(cards);
-            cards.ForEach(card => card.ShowCard());
+            foreach (var card in cards)
+            {
+                card.ShowCard();
+                card.FaceUp = true;
+            }
             UpdateCardArrangement();
         }
 

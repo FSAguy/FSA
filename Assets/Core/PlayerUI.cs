@@ -10,6 +10,7 @@ namespace Core
         [SerializeField] private TMP_Text centText;
         [SerializeField] private Transform panel;
         private UICardPicker _picker;
+        private UIStackHandler _stackHandler;
 
         private void Awake()
         {
@@ -19,14 +20,7 @@ namespace Core
         private void Start()
         {
             _picker = new UICardPicker(this);
-            var stack = Board.Instance.Stack;
-            stack.ItemPushed += StackOnItemPushed;
-        }
-
-        private void StackOnItemPushed(IStackEffect obj)
-        {
-            var stackMember = obj.GetStackVisual();
-            stackMember.transform.SetParent(panel);
+            _stackHandler = new UIStackHandler(this);
         }
 
         private void PlayerOnCentsChanged()
@@ -44,7 +38,30 @@ namespace Core
             if (!Input.GetMouseButtonDown(0)) return;
             _picker.PickCard();
         }
-        
+
+        private class UIStackHandler
+        {
+            private readonly PlayerUI _ui;
+            public UIStackHandler(PlayerUI ui)
+            {
+                _ui = ui;
+                
+                var stack = Board.Instance.Stack;
+                stack.ItemPushed += OnItemPushed;
+                stack.ItemFizzled += OnItemFizzled;
+                stack.ItemResolved += OnItemFizzled; //TODO: Animate
+            }
+            private void OnItemFizzled(IStackEffect obj)
+            {
+                Destroy(_ui.panel.GetChild(0).gameObject);
+            }
+
+            private void OnItemPushed(IStackEffect obj)
+            {
+                var stackMember = obj.GetStackVisual();
+                stackMember.transform.SetParent(_ui.panel);
+            }
+        }
         private class UICardPicker
         {
             private readonly PlayerUI _ui;

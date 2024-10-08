@@ -1,28 +1,73 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 
 namespace Core
 {
     public static class CardAnimate
     {
+        //values, fresh outta my ass
         public const float MoveTime = 1f; // TODO: make this depend on game settings (game speed?)
-        public static void MoveTo(this Card card, Vector3 pos, Quaternion rot, float time = MoveTime, bool local = false)
+        private static readonly Vector3 FallPadding = new(-10f, 0);
+        private const float FallScale = 2f;
+        public enum Style {Slide, Fall}
+        public static void MoveTo(this Card card, Vector3 pos, Quaternion rot, 
+            float time = MoveTime, bool local = false, Style style = Style.Slide)
         {
-            LeanTween.cancel(card.gameObject);
+            var obj = card.GameObject();
+            // cancel all previous tweens and return scale to normal
+            LeanTween.cancel(obj);
+            obj.transform.localScale = Vector3.one; 
+            
+            switch (style)
+            {
+                case Style.Slide:
+                    MoveSlide(obj, pos, rot, time, local);
+                    break;
+                case Style.Fall:
+                    MoveFall(obj, pos, rot, time, local);
+                    break;
+            }
+
+            
+        }
+
+        private static void MoveFall(GameObject obj, Vector3 pos, Quaternion rot, float time, bool local)
+        {
             if (local)
             {
-                LeanTween.moveLocal(card.gameObject, pos, time).setEaseInOutExpo();
-                LeanTween.rotateLocal(card.gameObject, rot.eulerAngles, time).setEaseInQuint();
+                LeanTween.rotateLocal(obj, rot.eulerAngles, time);
+                obj.transform.localPosition = pos + FallPadding;
+                LeanTween.moveLocal(obj, pos, time).setEaseInExpo();
             }
             else
             {
-                LeanTween.move(card.gameObject, pos, time).setEaseInOutExpo();
-                LeanTween.rotate(card.gameObject, rot.eulerAngles, time).setEaseInQuint();
+                LeanTween.rotate(obj, rot.eulerAngles, time);
+                obj.transform.position = pos + FallPadding;
+                LeanTween.move(obj, pos, time).setEaseInExpo();
+            }
+
+            var ogScale = obj.transform.localScale;
+            obj.transform.localScale *= FallScale;
+            LeanTween.scale(obj, ogScale, time).setEaseInExpo();
+        }
+        
+        private static void MoveSlide(GameObject obj, Vector3 pos, Quaternion rot, float time, bool local)
+        {
+            if (local)
+            {
+                LeanTween.moveLocal(obj, pos, time).setEaseOutExpo();
+                LeanTween.rotateLocal(obj, rot.eulerAngles, time).setEaseOutQuad();
+            }
+            else
+            {
+                LeanTween.move(obj, pos, time).setEaseOutExpo();
+                LeanTween.rotate(obj, rot.eulerAngles, time).setEaseOutQuad();
             }
         }
 
-        public static void MoveTo(this Card card, Transform t, float time = MoveTime)
+        public static void MoveTo(this Card card, Transform t, float time = MoveTime, Style style = Style.Slide)
         {
-            MoveTo(card, t.position, t.rotation, time);
+            MoveTo(card, t.position, t.rotation, time, false, style);
         }
     }
 }

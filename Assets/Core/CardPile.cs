@@ -7,7 +7,7 @@ namespace Core
     public class CardPile : CardContainer
     { // TODO: card piles are either A - Draws, B - Discards, C - Monster Piles, D - Shops, E - Rooms
         // perhaps make separate classes???
-        [SerializeField] private bool faceUp = false;
+        [SerializeField] private bool faceUp;
         private SpriteRenderer _defaultRender;
         
 
@@ -23,7 +23,8 @@ namespace Core
             base.Add(card);
             card.ShowCard();
             card.FaceUp = faceUp;
-            card.MoveTo(transform);
+            card.MoveTo(transform, style: CardAnimate.Style.Fall);
+            CancelInvoke();
             Invoke(nameof(UpdateTopRender), CardAnimate.MoveTime);
         }
 
@@ -32,11 +33,12 @@ namespace Core
             base.Add(cards);
             for (var i = 0; i < cards.Count; i++)
             {
-                 var time = CardAnimate.MoveTime * Mathf.Pow((1f + i) / cards.Count, 2);
+                 var time = CardAnimate.MoveTime * Mathf.Pow((i + 1f) / Cards.Count, 2);
                  cards[i].ShowCard();
-                 cards[i].MoveTo(transform, time);
+                 cards[i].MoveTo(transform, time, CardAnimate.Style.Fall);
                  cards[i].FaceUp = faceUp;
             }
+            CancelInvoke();
             Invoke(nameof(UpdateTopRender), CardAnimate.MoveTime);
         }
 
@@ -44,13 +46,15 @@ namespace Core
         protected override void Remove(Card card)
         {
             base.Remove(card);
-            UpdateTopRender();
+            if (!IsInvoking(nameof(UpdateTopRender)))
+                UpdateTopRender();
         }
 
         protected override void Remove(List<Card> cards)
         {
             base.Remove(cards);
-            UpdateTopRender();
+            if (!IsInvoking(nameof(UpdateTopRender)))
+                UpdateTopRender();
         }
 
         private void UpdateTopRender()
@@ -60,10 +64,10 @@ namespace Core
             
             if (Cards.Count > 0)
             {
-                if (_defaultRender != null) _defaultRender.enabled = false;
+                _defaultRender.enabled = false;
                 Cards.Last().ShowCard();
             }
-            else if (_defaultRender != null) _defaultRender.enabled = true;
+            else _defaultRender.enabled = true;
         }
     }
 }

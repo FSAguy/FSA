@@ -18,7 +18,6 @@ namespace Core
         {
             var draw = _drawPile.Cards;
             var index = _drawPile.Cards.Count - amount;
-            Debug.Log(index);
 
             container.MoveInto(draw.GetRange(index, amount));
         }
