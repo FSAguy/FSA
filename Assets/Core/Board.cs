@@ -6,12 +6,12 @@ namespace Core
 {
     public class Board : MonoBehaviour
     {
-        private static Board _instance = null;
+        private static Board _instance;
         public static Board Instance
         {
             get
             {
-                if (_instance != null) return _instance;
+                if (_instance is not null) return _instance;
                 _instance = FindObjectOfType<Board>();
                 if (_instance != null) return _instance;
                 Debug.LogError("Board object missing!");
@@ -22,27 +22,57 @@ namespace Core
         [SerializeField] private List<Player> players;
         [SerializeField] private CardDatabase cardDatabase;
         [SerializeField] private DeckArrangement deckArrangement;
+        public GameStack Stack { get; private set; }
         
         private int _turnIdx;
-        private void Start()
+        private VoidContainer _voidContainer;
+
+        private void Awake()
         {
+            Stack = new GameStack();
+            _voidContainer = gameObject.AddComponent<VoidContainer>();
             foreach (var player in players)
             {
                player.PlayerPassed += OnPlayerPassed;
             }
-        
-            deckArrangement.Setup(cardDatabase);
         }
 
+        private void Start()
+        {
+            foreach (var player in players)
+            {
+               player.Cents = 0;
+               
+            }
+            deckArrangement.Setup(cardDatabase);
+            PlayerLoot(players[0], 3);
+        }
+
+        private void PlayerLoot(Player player, int amount)
+        {
+            deckArrangement.Draw(Deck.Loot, player.Hand, amount);
+        }
+
+        public void Discard(Card card)
+        {
+            deckArrangement.Discard(card);
+        }
+
+        // not sure if anything other than playing loot will use this
+        public void VoidCard(Card card)
+        {
+            _voidContainer.MoveInto(card);
+        }
+        
         private void OnPlayerPassed()
         {
-            throw new NotImplementedException();
+            Stack.Pop(); // TODO: change lol
         }
 
-        // Update is called once per frame
-        void Update()
+        public void PlayEffect(IStackEffect effect)
         {
-        
+            Stack.Push(effect);
         }
+
     }
 }

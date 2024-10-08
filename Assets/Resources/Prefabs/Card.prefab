@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5313247776284734180}
   - component: {fileID: 4245099450441677948}
   - component: {fileID: 2794318871790130188}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CharPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8172215780890428432}
   - component: {fileID: 5255361331086188061}
-  m_Layer: 0
+  - component: {fileID: 2175319287740508183}
+  m_Layer: 3
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,6 +163,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!65 &2175319287740508183
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2822870806213448232}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.81, y: 6.56, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3421130767832588146
 GameObject:
   m_ObjectHideFlags: 0
@@ -173,7 +195,7 @@ GameObject:
   - component: {fileID: 3650016766520100637}
   - component: {fileID: 4226435821308833185}
   - component: {fileID: 8599931767721686685}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: AttackText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -307,7 +329,7 @@ GameObject:
   - component: {fileID: 2347659343834208713}
   - component: {fileID: 1666563011969764131}
   - component: {fileID: 4652994589660787402}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: HpText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -439,7 +461,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5797028375521129674}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Card
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -474,7 +496,7 @@ GameObject:
   - component: {fileID: 3002414171341622086}
   - component: {fileID: 1429558850040023458}
   - component: {fileID: 5094267532947000616}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}

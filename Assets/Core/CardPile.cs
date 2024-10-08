@@ -1,82 +1,69 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Core
 {
     public class CardPile : CardContainer
     { // TODO: card piles are either A - Draws, B - Discards, C - Monster Piles, D - Shops, E - Rooms
         // perhaps make separate classes???
-        private readonly List<Card> _cards = new();
+        [SerializeField] private bool faceUp = false;
         private SpriteRenderer _defaultRender;
+        
 
         private void Awake()
         {
             _defaultRender = GetComponent<SpriteRenderer>();
         }
 
+        public override ContainerType ConType => ContainerType.Deck; // TODO: make cardpile abstract (See prev comment)
+
         protected override void Add(Card card)
         {
-            _cards.Insert(0, card);
+            base.Add(card);
+            card.ShowCard();
+            card.FaceUp = faceUp;
             card.MoveTo(transform);
-            Invoke(nameof(UpdateGraphic), Card.MOVETIME);
+            Invoke(nameof(UpdateTopRender), CardAnimate.MoveTime);
         }
 
         protected override void Add(List<Card> cards)
         {
+            base.Add(cards);
             for (var i = 0; i < cards.Count; i++)
             {
-                var time = Card.MOVETIME * Mathf.Pow((1f + i) / cards.Count, 2);
-                var card = cards[i];
-                _cards.Insert(0, card);
-                card.MoveTo(transform, time);
+                 var time = CardAnimate.MoveTime * Mathf.Pow((1f + i) / cards.Count, 2);
+                 cards[i].ShowCard();
+                 cards[i].MoveTo(transform, time);
+                 cards[i].FaceUp = faceUp;
             }
-            Invoke(nameof(UpdateGraphic), Card.MOVETIME);
+            Invoke(nameof(UpdateTopRender), CardAnimate.MoveTime);
         }
 
 
         protected override void Remove(Card card)
         {
-            _cards.Remove(card);
-            UpdateGraphic();
+            base.Remove(card);
+            UpdateTopRender();
         }
 
         protected override void Remove(List<Card> cards)
         {
-            _cards.RemoveAll(cards.Contains);
-            UpdateGraphic();
+            base.Remove(cards);
+            UpdateTopRender();
         }
 
-        private void UpdateGraphic()
+        private void UpdateTopRender()
         {
-            for (var i = 1; i < _cards.Count; i++)
-                _cards[i].HideCard();
+            for (var i = 0; i < Cards.Count - 1; i++)
+                Cards[i].HideCard();
             
-            if (_cards.Count > 0)
+            if (Cards.Count > 0)
             {
                 if (_defaultRender != null) _defaultRender.enabled = false;
-                _cards[0].ShowCard();
+                Cards.Last().ShowCard();
             }
-            else
-            {
-                _cards[0].HideCard();
-                if (_defaultRender != null) _defaultRender.enabled = true;
-            }
-        }
-
-        protected override bool CanAdd(Card card) => true;
-        protected override bool CanAdd(List<Card> cards) => true;
-
-        protected override bool CanRemove(Card card)
-        {
-            return _cards.Contains(card);
-        }
-
-        protected override bool CanRemove(List<Card> cards)
-        {
-            return cards.All(card => _cards.Contains(card));
+            else if (_defaultRender != null) _defaultRender.enabled = true;
         }
     }
 }

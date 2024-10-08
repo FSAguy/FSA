@@ -1,16 +1,13 @@
-﻿using System;
-using UnityEngine;
-using UnityEngine.UIElements;
+﻿using UnityEngine;
 
 namespace Core
 {
-    public class Card : MonoBehaviour
+    public abstract class Card : MonoBehaviour
     {
-        public const float MOVETIME = 2f; // TODO: make this depend on game settings (game speed?)
         
         private SpriteRenderer _renderer;
-        private bool _faceUp = false;
-        
+        private bool _faceUp;
+
         [SerializeField] private Sprite topSprite;
         [SerializeField] private Sprite bottomSprite;
         [SerializeField] private Deck deck;
@@ -42,22 +39,15 @@ namespace Core
             }
         }
 
-        public void MoveTo(Vector3 pos, Quaternion rot, float time)
-        {
-            LeanTween.cancel(gameObject);
-            LeanTween.move(gameObject, pos, time).setEaseInOutExpo();
-            LeanTween.rotate(gameObject, rot.eulerAngles, time).setEaseInExpo();
-        }
-
-        public void MoveTo(Transform t, float time = MOVETIME)
-        {
-            MoveTo(t.position, t.rotation, time);
-        }
+        public Sprite CurrentSprite => _renderer.sprite;
 
         private void Awake()
         {
             _renderer = GetComponentInChildren<SpriteRenderer>();
             FaceUp = false;
         }
+
+        public virtual CardAction PlayAction => null;
+        public virtual CardAction TapAction => null;
     }
 }
