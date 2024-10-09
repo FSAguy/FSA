@@ -6,7 +6,7 @@ namespace core
     public abstract class LivingCard : Card
     {
         public event Action<int> TookDamage;
-        public event Action HpChanged;
+        public event Action<int> HpChanged;
         public event Action Died;
         
         [SerializeField] private int startingHp;
@@ -25,7 +25,7 @@ namespace core
             set
             {
                 _currentHp = Mathf.Max(value, 0);
-                HpChanged?.Invoke();
+                HpChanged?.Invoke(_currentHp);
                 if (CurrentHp == 0) Died?.Invoke();
             }
         }
@@ -35,6 +35,7 @@ namespace core
         {
             base.Awake();
             Died += OnDeath;
+            ResetStats();
         }
 
         protected virtual void OnDeath()
@@ -51,6 +52,13 @@ namespace core
         public void HealToFull()
         {
             CurrentHp = startingHp;
+            // TODO: apply modifiers instead of startingHp
+        }
+
+        public void ResetStats()
+        {
+            CurrentHp = startingHp;
+            // TODO: the rest
         }
     }
 }

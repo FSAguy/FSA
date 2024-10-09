@@ -1,0 +1,38 @@
+﻿using System;
+using TMPro;
+using UnityEngine;
+
+namespace core
+{
+    public class LivingCardUI : CardUI
+    {
+        [SerializeField] private GameObject statPanel;
+        [SerializeField] private TMP_Text hpText;
+        [SerializeField] private TMP_Text evasionText;
+        [SerializeField] private TMP_Text attackText;
+
+        // TODO: react to evasion and attack, make them optional, colors and animations and shid
+        public override void Subscribe(Card card)
+        {
+            base.Subscribe(card);
+            if (card is not LivingCard livingCard)
+            {
+                Debug.LogError($"{card.name} is not LivingCard");
+                throw new Exception();
+            }
+
+            livingCard.HpChanged += OnHpChanged;
+        }
+
+        protected override void OnChangedFace(bool isUp)
+        {
+            base.OnChangedFace(isUp);
+            statPanel.SetActive(isUp);
+        }
+
+        private void OnHpChanged(int hp)
+        {
+            hpText.text = hp.ToString();
+        }
+    }
+}

@@ -1,18 +1,22 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace core
 {
     public abstract class Card : MonoBehaviour
     {
-        private SpriteRenderer _renderer;
+        public event Action<bool> ChangedFace;
+        private CardUI _ui;
         private bool _faceUp;
 
         [SerializeField] private Sprite topSprite;
         [SerializeField] private Sprite bottomSprite;
         [SerializeField] private Deck deck;
-        
-        public Sprite CurrentSprite => _renderer.sprite;
-        
+
+        [SerializeField] private GameObject cardPrefab;
+
+        public Sprite TopSprite => topSprite;
+        public Sprite BottomSprite => bottomSprite;
         public virtual CardAction PlayAction => null;
         public virtual CardAction TapAction => null;
         public Deck StartDeck => deck;
@@ -37,8 +41,8 @@ namespace core
             get => _faceUp;
             set
             {
-                _renderer.sprite = value ? topSprite : bottomSprite;
                 _faceUp = value;
+                ChangedFace?.Invoke(value);
             }
         }
 
@@ -49,7 +53,10 @@ namespace core
 
         protected virtual void Awake()
         {
-            _renderer = GetComponentInChildren<SpriteRenderer>();
+            var body = Instantiate(cardPrefab, transform);
+            body.transform.localPosition = Vector3.zero;
+            _ui = GetComponentInChildren<CardUI>();
+            _ui.Subscribe(this);
             FaceUp = false;
         }
 

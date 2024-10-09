@@ -84,6 +84,7 @@
     <Compile Include="Assets\core\IStackEffect.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\TestingZLegacyExt.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\GeneralSequencer.cs" />
+    <Compile Include="Assets\core\CardUI.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\GeneralEventsListeners.cs" />
     <Compile Include="Assets\core\VoidContainer.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\PathSpline2d.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Assets\LeanTween\Examples\Scripts\GeneralEasingTypes.cs" />
     <Compile Include="Assets\LeanTween\Framework\LeanTween.cs" />
     <Compile Include="Assets\core\CardContainer.cs" />
+    <Compile Include="Assets\core\LivingCardUI.cs" />
     <Compile Include="Assets\core\Board.cs" />
     <Compile Include="Assets\core\MonsterCard.cs" />
     <Compile Include="Assets\LeanTween\Framework\LeanTweenExt.cs" />
