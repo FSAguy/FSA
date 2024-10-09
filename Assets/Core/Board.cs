@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Core
+namespace core
 {
     public class Board : MonoBehaviour
     {
@@ -23,8 +23,9 @@ namespace Core
         [SerializeField] private CardDatabase cardDatabase;
         [SerializeField] private DeckArrangement deckArrangement;
         public GameStack Stack { get; private set; }
+        public Player ActivePlayer => players[_turnIdx];
         
-        private int _turnIdx;
+        private int _turnIdx; //TODO: properly use this
         private VoidContainer _voidContainer;
 
         private void Awake()

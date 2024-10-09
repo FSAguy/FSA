@@ -1,17 +1,20 @@
 ﻿using UnityEngine;
 
-namespace Core
+namespace core
 {
     public abstract class Card : MonoBehaviour
     {
-        
         private SpriteRenderer _renderer;
         private bool _faceUp;
 
         [SerializeField] private Sprite topSprite;
         [SerializeField] private Sprite bottomSprite;
         [SerializeField] private Deck deck;
-
+        
+        public Sprite CurrentSprite => _renderer.sprite;
+        
+        public virtual CardAction PlayAction => null;
+        public virtual CardAction TapAction => null;
         public Deck StartDeck => deck;
         // NEVER MUTATE DIRECTLY - USE CardContainer.MoveInto
         // probably dumb programming
@@ -39,15 +42,16 @@ namespace Core
             }
         }
 
-        public Sprite CurrentSprite => _renderer.sprite;
+        public void Discard()
+        {
+            Board.Instance.Discard(this);
+        }
 
-        private void Awake()
+        protected virtual void Awake()
         {
             _renderer = GetComponentInChildren<SpriteRenderer>();
             FaceUp = false;
         }
 
-        public virtual CardAction PlayAction => null;
-        public virtual CardAction TapAction => null;
     }
 }

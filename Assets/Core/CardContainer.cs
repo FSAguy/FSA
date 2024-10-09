@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace Core
+namespace core
 {
     // TODO: this entire thing must be changed.
     // We need a way to switch between physical cards and currently inaccessible cards (like, in a deck)

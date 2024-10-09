@@ -46,61 +46,67 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\LeanTween\Examples\Scripts\GeneralCameraShake.cs" />
-    <Compile Include="Assets\Core\VoidContainer.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\TestingUnitTests.cs" />
     <Compile Include="Assets\LeanTween\Framework\LTDescr.cs" />
-    <Compile Include="Assets\Core\CardDatabase.cs" />
+    <Compile Include="Assets\core\CardAnimate.cs" />
+    <Compile Include="Assets\core\cardlib\APenny.cs" />
+    <Compile Include="Assets\core\Deck.cs" />
+    <Compile Include="Assets\core\player\PlayerHand.cs" />
     <Compile Include="Assets\LeanTween\Framework\LeanTest.cs" />
-    <Compile Include="Assets\Core\LootPlayEffect.cs" />
+    <Compile Include="Assets\core\CardEffect.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\GeneralSimpleUI.cs" />
+    <Compile Include="Assets\core\effectlib\DiscardEffect.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\PathSplineEndless.cs" />
-    <Compile Include="Assets\Core\Deck.cs" />
+    <Compile Include="Assets\core\ContainerType.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\Following.cs" />
-    <Compile Include="Assets\Core\CardEffect.cs" />
+    <Compile Include="Assets\core\LivingCard.cs" />
+    <Compile Include="Assets\core\LootCardAction.cs" />
+    <Compile Include="Assets\core\player\PlayerUI.cs" />
     <Compile Include="Assets\LeanTween\Examples\Archived\TestingRigidbodyCS.cs" />
+    <Compile Include="Assets\core\player\Player.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\GeneralBasics2d.cs" />
-    <Compile Include="Assets\Core\Card.cs" />
-    <Compile Include="Assets\Core\PlayerCardContainer.cs" />
-    <Compile Include="Assets\Core\PlayerUI.cs" />
+    <Compile Include="Assets\core\GameStack.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\PathSplineTrack.cs" />
-    <Compile Include="Assets\Core\PlayerHand.cs" />
     <Compile Include="Assets\LeanTween\Examples\Archived\OldGUIExamplesCS.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\PathBezier.cs" />
-    <Compile Include="Assets\Core\ContainerType.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\PathSpline.cs" />
-    <Compile Include="Assets\Core\DeckBehaviour.cs" />
+    <Compile Include="Assets\core\CardAction.cs" />
+    <Compile Include="Assets\core\cardlib\Fly.cs" />
+    <Compile Include="Assets\core\effectlib\PlayersGainCentsEffect.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\TestingZLegacy.cs" />
-    <Compile Include="Assets\Core\LootCardAction.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\LogoCinematic.cs" />
-    <Compile Include="Assets\Core\CardLibrary\Isaac.cs" />
-    <Compile Include="Assets\Core\CardAnimate.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\GeneralAdvancedTechniques.cs" />
-    <Compile Include="Assets\Core\GameStack.cs" />
-    <Compile Include="Assets\Core\DeckArrangement.cs" />
+    <Compile Include="Assets\core\BoardCardContainer.cs" />
+    <Compile Include="Assets\core\CardPile.cs" />
+    <Compile Include="Assets\core\DeckArrangement.cs" />
+    <Compile Include="Assets\core\DeckBehaviour.cs" />
+    <Compile Include="Assets\core\cardlib\Isaac.cs" />
+    <Compile Include="Assets\core\IStackEffect.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\TestingZLegacyExt.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\GeneralSequencer.cs" />
-    <Compile Include="Assets\Core\IStackEffect.cs" />
-    <Compile Include="Assets\Core\CardAction.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\GeneralEventsListeners.cs" />
+    <Compile Include="Assets\core\VoidContainer.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\PathSpline2d.cs" />
     <Compile Include="Assets\LeanTween\Framework\LTSeq.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\PathBezier2d.cs" />
+    <Compile Include="Assets\core\effectlib\EffectAppender.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\PathSplinePerformance.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\GeneralEasingTypes.cs" />
     <Compile Include="Assets\LeanTween\Framework\LeanTween.cs" />
-    <Compile Include="Assets\Core\Board.cs" />
+    <Compile Include="Assets\core\CardContainer.cs" />
+    <Compile Include="Assets\core\Board.cs" />
+    <Compile Include="Assets\core\MonsterCard.cs" />
     <Compile Include="Assets\LeanTween\Framework\LeanTweenExt.cs" />
     <Compile Include="Assets\LeanTween\Framework\LeanSmooth.cs" />
     <Compile Include="Assets\LeanTween\Examples\Archived\TestingPunch.cs" />
-    <Compile Include="Assets\Core\CardPile.cs" />
-    <Compile Include="Assets\Core\BoardCardContainer.cs" />
+    <Compile Include="Assets\core\Card.cs" />
     <Compile Include="Assets\LeanTween\Framework\LeanAudio.cs" />
     <Compile Include="Assets\LeanTween\Framework\LTDescrOptional.cs" />
-    <Compile Include="Assets\Core\CardLibrary\APenny.cs" />
-    <Compile Include="Assets\Core\Player.cs" />
+    <Compile Include="Assets\core\CardDatabase.cs" />
+    <Compile Include="Assets\core\player\PlayerCardContainer.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\GeneralUISpace.cs" />
+    <Compile Include="Assets\core\IEffect.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\GeneralBasic.cs" />
-    <Compile Include="Assets\Core\CardContainer.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\PathSplines.cs" />
     <None Include="Library\PackageCache\com.unity.settings-manager@2.0.1\package.json" />
     <None Include="Library\PackageCache\com.unity.modules.subsystems@1.0.0\package.json" />
@@ -129,7 +135,6 @@
     <None Include="Library\PackageCache\com.unity.editorcoroutines@1.0.0\package.json" />
     <None Include="Library\PackageCache\com.unity.timeline@1.7.5\ValidationExceptions.json" />
     <None Include="Library\PackageCache\com.unity.collab-proxy@2.4.4\package.json" />
-    <None Include="D:\Projects\Unity\com.cloudedmountain.ide.neovim\package.json" />
     <None Include="Library\PackageCache\com.unity.textmeshpro@3.0.6\PackageConversionData.json" />
     <None Include="Library\PackageCache\com.unity.modules.unitywebrequestassetbundle@1.0.0\package.json" />
     <None Include="Library\PackageCache\com.unity.ide.visualstudio@2.0.18\package.json" />
@@ -902,10 +907,6 @@
     <ProjectReference Include="Unity.VisualScripting.Flow.Editor.csproj">
       <Project>{ca9d4bff-d24e-8be7-f6e5-e1516bee53fe}</Project>
       <Name>Unity.VisualScripting.Flow.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="CloudedMountain.Neovim.Editor.csproj">
-      <Project>{2b388da6-20fd-b71d-7dda-ef0b774305c7}</Project>
-      <Name>CloudedMountain.Neovim.Editor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

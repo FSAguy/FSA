@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Core
+namespace core
 {
     //TODO: make cards visible only to client player
     //first uuhhhh make multiplayer work

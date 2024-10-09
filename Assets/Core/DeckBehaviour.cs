@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Core
+namespace core
 {
     public class DeckBehaviour : MonoBehaviour
     {

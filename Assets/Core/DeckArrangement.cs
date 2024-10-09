@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-using static Core.Deck;
+﻿using UnityEngine;
+using static core.Deck;
 
-namespace Core
+namespace core
 {
     public class DeckArrangement : MonoBehaviour
     {

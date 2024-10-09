@@ -1,7 +1,4 @@
-﻿using System;
-using UnityEngine;
-
-namespace Core
+﻿namespace core
 {
     public abstract class PlayerCardContainer : CardContainer
     {

@@ -1,26 +1,26 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Core
+namespace core
 {
-    public abstract class CardEffect : IStackEffect
+    public class CardEffect : IStackEffect
     {
         private static readonly GameObject StackMemberClone = 
             Resources.Load<GameObject>("Prefabs/UI/CardEffectStackMember");
-        protected readonly Card OriginCard;
+        public readonly Card OriginCard;
+        private readonly IEffect _effect;
 
-        protected CardEffect(Card originCard)
+        public CardEffect(Card originCard, IEffect effect) 
         {
             OriginCard = originCard;
+            _effect = effect;
         }
 
-        public abstract void Resolve();
+        public void Resolve() => _effect.Resolve();
 
-        public abstract string GetEffectText();
+        public string GetEffectText() => _effect.GetEffectText();
 
-        public virtual void Fizzle()
-        {
-        }
+        public void Fizzle() => _effect.Fizzle();
 
         public GameObject GetStackVisual()
         {

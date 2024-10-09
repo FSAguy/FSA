@@ -1,8 +1,7 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace Core
+namespace core
 {
     public class Player : MonoBehaviour
     {

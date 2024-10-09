@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace Core
+namespace core
 {
     public class PlayerUI : MonoBehaviour
     {
@@ -25,7 +25,7 @@ namespace Core
 
         private void PlayerOnCentsChanged()
         {
-            centText.text = player.Cents + "$"; // TODO: change to ¢
+            centText.text = player.Cents + "¢"; 
         }
 
         public void PlayerPass()

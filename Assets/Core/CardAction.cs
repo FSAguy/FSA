@@ -1,4 +1,4 @@
-﻿namespace Core
+﻿namespace core
 {
     public abstract class CardAction
     {

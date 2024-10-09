@@ -914,10 +914,6 @@
       <Project>{ca9d4bff-d24e-8be7-f6e5-e1516bee53fe}</Project>
       <Name>Unity.VisualScripting.Flow.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="CloudedMountain.Neovim.Editor.csproj">
-      <Project>{2b388da6-20fd-b71d-7dda-ef0b774305c7}</Project>
-      <Name>CloudedMountain.Neovim.Editor</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

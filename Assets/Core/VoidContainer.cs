@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Core
+namespace core
 {
     // for when a card seems to sort of not exist, a container between containers
     // very spooky

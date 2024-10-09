@@ -1,11 +1,5 @@
 {
   "dependencies": {
-    "com.cloudedmountain.ide.neovim": {
-      "version": "file:D:/Projects/Unity/com.cloudedmountain.ide.neovim",
-      "depth": 0,
-      "source": "local",
-      "dependencies": {}
-    },
     "com.unity.collab-proxy": {
       "version": "2.4.4",
       "depth": 0,

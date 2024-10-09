@@ -1,18 +1,22 @@
-﻿namespace Core
+﻿using core.effectlib;
+
+namespace core
 {
     public abstract class LootCardAction : CardAction
     {
-        protected LootCardAction(Card card) : base(card)
-        {
-        }
 
         public sealed override CardEffect GenerateEffect(Player player)
         {
             Board.Instance.VoidCard(Origin);
-            return GenerateLootEffect(player);
+            var effect = new EffectAppender(
+                new DiscardEffect(Origin), GenerateLootEffect(player));
+            return new CardEffect(Origin, effect);
         }
 
-        public abstract LootPlayEffect GenerateLootEffect(Player player);
+        protected abstract IEffect GenerateLootEffect(Player player);
 
+        protected LootCardAction(Card card) : base(card)
+        {
+        }
     }
 }

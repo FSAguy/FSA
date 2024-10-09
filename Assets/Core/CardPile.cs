@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-namespace Core
+namespace core
 {
     public class CardPile : CardContainer
     { // TODO: card piles are either A - Draws, B - Discards, C - Monster Piles, D - Shops, E - Rooms
@@ -25,7 +25,7 @@ namespace Core
             card.FaceUp = faceUp;
             card.MoveTo(transform, style: CardAnimate.Style.Fall);
             CancelInvoke();
-            Invoke(nameof(UpdateTopRender), CardAnimate.MoveTime);
+            Invoke(nameof(UpdateTopRender), CardAnimate.AnimTime);
         }
 
         protected override void Add(List<Card> cards)
@@ -33,13 +33,13 @@ namespace Core
             base.Add(cards);
             for (var i = 0; i < cards.Count; i++)
             {
-                 var time = CardAnimate.MoveTime * Mathf.Pow((i + 1f) / Cards.Count, 2);
+                 var time = CardAnimate.AnimTime * Mathf.Pow((i + 1f) / Cards.Count, 2);
                  cards[i].ShowCard();
                  cards[i].MoveTo(transform, time, CardAnimate.Style.Fall);
                  cards[i].FaceUp = faceUp;
             }
             CancelInvoke();
-            Invoke(nameof(UpdateTopRender), CardAnimate.MoveTime);
+            Invoke(nameof(UpdateTopRender), CardAnimate.AnimTime);
         }
 
 

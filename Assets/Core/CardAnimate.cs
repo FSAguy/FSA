@@ -1,17 +1,18 @@
 ﻿using Unity.VisualScripting;
 using UnityEngine;
 
-namespace Core
+namespace core
 {
     public static class CardAnimate
     {
         //values, fresh outta my ass
-        public const float MoveTime = 1f; // TODO: make this depend on game settings (game speed?)
+        public const float AnimTime = 1f; // TODO: make this depend on game settings (game speed?)
         private static readonly Vector3 FallPadding = new(-10f, 0);
         private const float FallScale = 2f;
+        
         public enum Style {Slide, Fall}
         public static void MoveTo(this Card card, Vector3 pos, Quaternion rot, 
-            float time = MoveTime, bool local = false, Style style = Style.Slide)
+            float time = AnimTime, bool local = false, Style style = Style.Slide)
         {
             var obj = card.GameObject();
             // cancel all previous tweens and return scale to normal
@@ -65,7 +66,7 @@ namespace Core
             }
         }
 
-        public static void MoveTo(this Card card, Transform t, float time = MoveTime, Style style = Style.Slide)
+        public static void MoveTo(this Card card, Transform t, float time = AnimTime, Style style = Style.Slide)
         {
             MoveTo(card, t.position, t.rotation, time, false, style);
         }
