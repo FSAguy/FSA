@@ -3,17 +3,22 @@ using UnityEngine.UI;
 
 namespace core
 {
-    public class CardEffect : IStackEffect
+    public class CardEffect : IVisualStackEffect
     {
         private static readonly GameObject StackMemberClone = 
             Resources.Load<GameObject>("Prefabs/UI/CardEffectStackMember");
         public readonly Card OriginCard;
-        private readonly IEffect _effect;
+        private readonly IStackEffect _effect;
 
-        public CardEffect(Card originCard, IEffect effect) 
+        public CardEffect(Card originCard, IStackEffect effect) 
         {
             OriginCard = originCard;
             _effect = effect;
+        }
+
+        public void OnStackAdd()
+        {
+            _effect.OnStackAdd();
         }
 
         public void Resolve() => _effect.Resolve();
@@ -26,7 +31,7 @@ namespace core
         {
             var stackMember = Object.Instantiate(StackMemberClone);
             var cardImage = stackMember.transform.Find("CardImage").GetComponent<Image>();
-            cardImage.sprite = OriginCard.CurrentSprite;
+            cardImage.sprite = OriginCard.TopSprite;
             
             return stackMember;
         }

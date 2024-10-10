@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace core.effectlib
 {
-    public class PlayersGainCentsEffect : IEffect
+    public class PlayersGainCentsEffect : IStackEffect
     {
         private readonly Dictionary<Player, int> _gains;
         public PlayersGainCentsEffect(Dictionary<Player, int> gains) 

@@ -8,14 +8,12 @@ namespace core.cardlib
 
         private class APennyAction : LootCardAction
         {
-            protected override IEffect GenerateLootEffect(Player player)
+            protected override IStackEffect GenerateLootEffect(Player player)
             {
                 return new PlayersGainCentsEffect(player, 1);
             }
 
-            public APennyAction(Card card) : base(card)
-            {
-            }
+            public APennyAction(Card card) : base(card) { }
         }
     }
 }

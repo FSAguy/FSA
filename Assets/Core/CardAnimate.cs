@@ -7,7 +7,7 @@ namespace core
     {
         //values, fresh outta my ass
         public const float AnimTime = 1f; // TODO: make this depend on game settings (game speed?)
-        private static readonly Vector3 FallPadding = new(-10f, 0);
+        private static readonly Vector3 FallPadding = new(-10f, 0, -1);
         private const float FallScale = 2f;
         
         public enum Style {Slide, Fall}
@@ -47,9 +47,11 @@ namespace core
                 LeanTween.move(obj, pos, time).setEaseInExpo();
             }
 
-            var ogScale = obj.transform.localScale;
-            obj.transform.localScale *= FallScale;
-            LeanTween.scale(obj, ogScale, time).setEaseInExpo();
+            var stretchedScale = obj.transform.localScale;
+            var originalScale = stretchedScale;
+            stretchedScale *= FallScale;
+            obj.transform.localScale = stretchedScale;
+            LeanTween.scale(obj, originalScale, time).setEaseInExpo();
         }
         
         private static void MoveSlide(GameObject obj, Vector3 pos, Quaternion rot, float time, bool local)

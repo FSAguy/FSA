@@ -51,12 +51,15 @@ namespace core
                 stack.ItemFizzled += OnItemFizzled;
                 stack.ItemResolved += OnItemFizzled; //TODO: Animate
             }
-            private void OnItemFizzled(IStackEffect obj)
+            private void OnItemFizzled(IVisualStackEffect obj)
             {
-                Destroy(_ui.panel.GetChild(0).gameObject);
+                // todo: maybe introduce a mapping between objects instead of removing last always?
+                // though it is a STACK so probably ok
+                var amount = _ui.panel.childCount;
+                Destroy(_ui.panel.GetChild(amount - 1).gameObject);
             }
 
-            private void OnItemPushed(IStackEffect obj)
+            private void OnItemPushed(IVisualStackEffect obj)
             {
                 var stackMember = obj.GetStackVisual();
                 stackMember.transform.SetParent(_ui.panel);

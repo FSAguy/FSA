@@ -6,20 +6,20 @@ namespace core
 {
     public class GameStack
     {
-        public event Action<IStackEffect> ItemPushed;
-        public event Action<IStackEffect> ItemResolved;
-        public event Action<IStackEffect> ItemFizzled;
+        public event Action<IVisualStackEffect> ItemPushed;
+        public event Action<IVisualStackEffect> ItemResolved;
+        public event Action<IVisualStackEffect> ItemFizzled;
 
-        public List<IStackEffect> Stack { get; }
+        public List<IVisualStackEffect> Stack { get; }
 
-        public IStackEffect TopItem => Stack[0];
+        public IVisualStackEffect TopItem => Stack[0];
 
         public GameStack()
         {
-            Stack = new List<IStackEffect>();
+            Stack = new List<IVisualStackEffect>();
         }
 
-        public void Push(IStackEffect effect)
+        public void Push(IVisualStackEffect effect)
         {
             if (effect == null)
             {
@@ -28,6 +28,7 @@ namespace core
             }
             Stack.Insert(0, effect);
             ItemPushed?.Invoke(effect);
+            effect.OnStackAdd();
             Debug.Log($"Added effect: {effect.GetEffectText()}");
         }
 

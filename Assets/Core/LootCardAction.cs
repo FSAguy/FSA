@@ -13,7 +13,7 @@ namespace core
             return new CardEffect(Origin, effect);
         }
 
-        protected abstract IEffect GenerateLootEffect(Player player);
+        protected abstract IStackEffect GenerateLootEffect(Player player);
 
         protected LootCardAction(Card card) : base(card)
         {

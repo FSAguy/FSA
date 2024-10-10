@@ -70,7 +70,7 @@ namespace core
             Stack.Pop(); // TODO: change lol
         }
 
-        public void PlayEffect(IStackEffect effect)
+        public void PlayEffect(IVisualStackEffect effect)
         {
             Stack.Push(effect);
         }

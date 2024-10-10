@@ -1,9 +1,12 @@
-﻿using UnityEngine;
-
-namespace core
+﻿namespace core
 {
-    public interface IStackEffect : IEffect
+    public interface IStackEffect
     {
-        GameObject GetStackVisual();
+        const string NO_TEXT = "///";
+        void Resolve();
+        bool MayResolve() => true;
+        void Fizzle() { }
+        void OnStackAdd() { }
+        string GetEffectText();
     }
 }

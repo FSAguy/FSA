@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 054b85e6664d4f9698576de8e2ffaf99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  topSprite: {fileID: 21300000, guid: 0201ae56380f201438e8ff0aed7d54d9, type: 3}
-  bottomSprite: {fileID: 21300000, guid: 427382c4da917b44c967bace32073d75, type: 3}
+  topSprite: {fileID: 21300000, guid: 8a7b47df22973004a8cb1be53e4524bf, type: 3}
+  bottomSprite: {fileID: 21300000, guid: d1d603509b6a1704e8bcf662717436af, type: 3}
   deck: 1
   cardPrefab: {fileID: 4391577339411347212, guid: 8a9c2f946e13ace4c9d08f7ecf7d52a3, type: 3}
   startingHp: 1

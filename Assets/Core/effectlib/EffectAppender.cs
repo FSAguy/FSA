@@ -2,11 +2,11 @@
 
 namespace core.effectlib
 {
-    public class EffectAppender : IEffect
+    public class EffectAppender : IStackEffect
     {
-        private IEffect[] _effects;
+        private IStackEffect[] _effects;
 
-        public EffectAppender(params IEffect[] effects)
+        public EffectAppender(params IStackEffect[] effects)
         {
             _effects = effects;
         }
@@ -18,20 +18,25 @@ namespace core.effectlib
         public string GetEffectText()
         {
             var i = 0;
-            while (_effects[i].GetEffectText() == IEffect.NO_TEXT) 
+            while (_effects[i].GetEffectText() == IStackEffect.NO_TEXT) 
                 i++;
             
             var text = _effects[i++].GetEffectText();
             
             for (; i < _effects.Length; i++)
             {
-                if (_effects[i].GetEffectText() != IEffect.NO_TEXT)
+                if (_effects[i].GetEffectText() != IStackEffect.NO_TEXT)
                 {
                     text += ", then " + _effects[i].GetEffectText();
                 }
             }
 
             return text;
+        }
+
+        public void OnStackAdd()
+        {
+            foreach (var effect in _effects) effect.OnStackAdd();
         }
     }
 }

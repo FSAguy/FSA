@@ -1,6 +1,6 @@
 ﻿namespace core.effectlib
 {
-    public class DiscardEffect : IEffect
+    public class DiscardEffect : IStackEffect
     {
         private readonly Card _card;
         private readonly bool _explicitText;
@@ -18,7 +18,7 @@
 
         public string GetEffectText()
         {
-            return _explicitText ? $"discards {_card.name}" : IEffect.NO_TEXT;
+            return _explicitText ? $"discards {_card.name}" : IStackEffect.NO_TEXT;
         }
     }
 }
