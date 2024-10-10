@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace core
@@ -8,13 +7,6 @@ namespace core
     { // TODO: card piles are either A - Draws, B - Discards, C - Monster Piles, D - Shops, E - Rooms
         // perhaps make separate classes???
         [SerializeField] private bool faceUp;
-        private SpriteRenderer _defaultRender;
-        
-
-        private void Awake()
-        {
-            _defaultRender = GetComponent<SpriteRenderer>();
-        }
 
         public override ContainerType ConType => ContainerType.Deck; // TODO: make cardpile abstract (See prev comment)
 
@@ -61,13 +53,6 @@ namespace core
         {
             for (var i = 0; i < Cards.Count - 1; i++)
                 Cards[i].HideCard();
-            
-            if (Cards.Count > 0)
-            {
-                _defaultRender.enabled = false;
-                Cards.Last().ShowCard();
-            }
-            else _defaultRender.enabled = true;
         }
     }
 }
