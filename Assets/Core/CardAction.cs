@@ -2,13 +2,14 @@
 {
     public abstract class CardAction
     {
-        protected readonly Card Origin;
+        public readonly Card Origin;
         public CardAction(Card card)
         {
             Origin = card;
         }
-        public virtual bool MayUse => true;
-        public abstract CardEffect GenerateEffect(Player player);
-        
+        public abstract bool MayUse { get; }
+        public abstract CardEffect GenerateEffect();
+
+        public abstract string Text { get; }
     }
 }

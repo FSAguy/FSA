@@ -45,6 +45,7 @@
     <Analyzer Include="D:\Programs\Unity\2022.3.5f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\core\LootCard.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\GeneralCameraShake.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\TestingUnitTests.cs" />
     <Compile Include="Assets\LeanTween\Framework\LTDescr.cs" />
@@ -61,7 +62,6 @@
     <Compile Include="Assets\core\ContainerType.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\Following.cs" />
     <Compile Include="Assets\core\LivingCard.cs" />
-    <Compile Include="Assets\core\LootCardAction.cs" />
     <Compile Include="Assets\core\player\PlayerUI.cs" />
     <Compile Include="Assets\LeanTween\Examples\Archived\TestingRigidbodyCS.cs" />
     <Compile Include="Assets\core\player\Player.cs" />
@@ -79,6 +79,7 @@
     <Compile Include="Assets\core\effectlib\PlayersGainCentsEffect.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\TestingZLegacy.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\LogoCinematic.cs" />
+    <Compile Include="Assets\core\SimpleCardAction.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\GeneralAdvancedTechniques.cs" />
     <Compile Include="Assets\core\BoardCardContainer.cs" />
     <Compile Include="Assets\core\CardPile.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="Assets\LeanTween\Examples\Archived\TestingPunch.cs" />
     <Compile Include="Assets\core\GameState.cs" />
     <Compile Include="Assets\core\Card.cs" />
+    <Compile Include="Assets\core\player\CardActionSelector.cs" />
     <Compile Include="Assets\LeanTween\Framework\LeanAudio.cs" />
     <Compile Include="Assets\core\effectlib\RollCreatingEffect.cs" />
     <Compile Include="Assets\LeanTween\Framework\LTDescrOptional.cs" />

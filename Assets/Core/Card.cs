@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace core
@@ -12,14 +13,17 @@ namespace core
         [SerializeField] private Sprite topSprite;
         [SerializeField] private Sprite bottomSprite;
         [SerializeField] private Deck deck;
+        [SerializeField] private string cardName;
 
         [SerializeField] private GameObject cardPrefab;
 
         public Sprite TopSprite => topSprite;
         public Sprite BottomSprite => bottomSprite;
-        public virtual CardAction PlayAction => null;
-        public virtual CardAction TapAction => null;
+        
+        public virtual List<CardAction> Actions => new();
         public Deck StartDeck => deck;
+
+        public string CardName => cardName;
         // NEVER MUTATE DIRECTLY - USE CardContainer.MoveInto
         // probably dumb programming
         public CardContainer Container { get; set; }

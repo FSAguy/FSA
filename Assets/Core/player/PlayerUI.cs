@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace core
 {
@@ -8,13 +9,18 @@ namespace core
         [SerializeField] private Camera playerCamera;
         [SerializeField] private Player player;
         [SerializeField] private TMP_Text centText;
-        [SerializeField] private Transform panel;
+        [SerializeField] private Transform stackPanel;
+        [SerializeField] private Button backgroundCancelButton;
+        [SerializeField] private CardActionSelector actionSelector;
+        
         private UICardPicker _picker;
         private UIStackHandler _stackHandler;
 
         private void Awake()
         {
             player.CentsChanged += PlayerOnCentsChanged;
+            backgroundCancelButton.onClick.AddListener(SetDefaultUI);
+            SetDefaultUI();
         }
 
         private void Start()
@@ -36,7 +42,26 @@ namespace core
         private void Update()
         {
             if (!Input.GetMouseButtonDown(0)) return;
-            _picker.PickCard();
+            if (actionSelector.IsOpen) return;
+            var card = _picker.PickCard();
+            if (card is null || (card.Container.Owner != player && card.Container.Owner is not null)) 
+                SetDefaultUI();
+            else
+            {
+                OpenCancelButton();
+                actionSelector.Open(Input.mousePosition, card);
+            }
+        }
+
+        private void OpenCancelButton()
+        {
+            backgroundCancelButton.gameObject.SetActive(true);
+        }
+
+        private void SetDefaultUI()
+        {
+            actionSelector.Close();
+            backgroundCancelButton.gameObject.SetActive(false);
         }
 
         private class UIStackHandler
@@ -55,14 +80,14 @@ namespace core
             {
                 // todo: maybe introduce a mapping between objects instead of removing last always?
                 // though it is a STACK so probably ok
-                var amount = _ui.panel.childCount;
-                Destroy(_ui.panel.GetChild(amount - 1).gameObject);
+                var amount = _ui.stackPanel.childCount;
+                Destroy(_ui.stackPanel.GetChild(amount - 1).gameObject);
             }
 
             private void OnItemPushed(IVisualStackEffect obj)
             {
                 var stackMember = obj.GetStackVisual();
-                stackMember.transform.SetParent(_ui.panel);
+                stackMember.transform.SetParent(_ui.stackPanel);
             }
         }
         private class UICardPicker
@@ -72,18 +97,15 @@ namespace core
             {
                 _ui = ui;
             }
-            public void PickCard()
+            public Card PickCard()
             {
                 var pos = _ui.playerCamera.ScreenToWorldPoint(Input.mousePosition);
+            
                 if (!Physics.Raycast(
                         pos, Vector3.forward, out var hit,
-                        Mathf.Infinity, LayerMask.GetMask("Card"))) return;
+                        Mathf.Infinity, LayerMask.GetMask("Card"))) return null;
 
-                var card = hit.transform.GetComponentInParent<Card>();
-
-                if (card.Container is null || card.Container.Owner != _ui.player) return; // TODO: make it do different shid
-            
-                Board.Instance.PlayEffect(card.PlayAction.GenerateEffect(_ui.player));
+                return hit.transform.GetComponentInParent<Card>();
             }
         }
     }

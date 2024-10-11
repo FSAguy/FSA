@@ -2,18 +2,10 @@
 
 namespace core.cardlib
 {
-    public class APenny : Card
+    public class APenny : LootCard
     {
-        public override CardAction PlayAction => new APennyAction(this);
+        protected override CardAction LootPlayAction => 
+            new SimpleCardAction(this, new PlayersGainCentsEffect(Board.Instance.PriorityPlayer, 1));
 
-        private class APennyAction : LootCardAction
-        {
-            protected override IStackEffect GenerateLootEffect(Player player)
-            {
-                return new PlayersGainCentsEffect(player, 1);
-            }
-
-            public APennyAction(Card card) : base(card) { }
-        }
     }
 }

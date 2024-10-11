@@ -24,8 +24,10 @@ namespace core
         [SerializeField] private DeckArrangement deckArrangement;
         public GameStack Stack { get; private set; }
         public Player ActivePlayer => players[_turnIdx];
+        public Player PriorityPlayer => players[_priorityIdx];
         
         private int _turnIdx; //TODO: properly use this
+        private int _priorityIdx;
         private VoidContainer _voidContainer;
 
         private void Awake()
