@@ -1,26 +1,26 @@
-﻿using foursoulsauto.core.effectlib;
+﻿using System.Collections.Generic;
+using foursoulsauto.core.effectlib;
 
 namespace foursoulsauto.core.cardlib
 {
-    public class MoneyPill : LootCard
+    public class MoneyPill : Card
     {
-        protected override CardAction LootPlayAction
+        private IStackEffect GenerateEffect(EffectInput input)
         {
-            get
-            {
-                var player = Board.Instance.PriorityPlayer;
+            var player = Board.Instance.PriorityPlayer;
                 
-                var okay = new PlayersGainCentsEffect(player, 4);
-                var great = new PlayersGainCentsEffect(player, 7);
-                var bad = new PlayersGainCentsEffect(player, -4);
+            var okay = new PlayersGainCentsEffect(player, 4); // TODO: magic nums
+            var great = new PlayersGainCentsEffect(player, 7);
+            var bad = new PlayersGainCentsEffect(player, -4);
                 
-                var effects = new IStackEffect[] { okay, okay, great, great, bad, bad };
-                
-                return new SimpleCardAction(this,
-                    new RollCreatingEffect(new NonAttackDieRoll(player), effects)
-                    );
-            }
+            var effects = new IStackEffect[] { okay, okay, great, great, bad, bad };
+
+            return new RollCreatingEffect(new NonAttackDieRoll(player), effects);
         }
 
+        public override List<CardAction> Actions => new()
+        {
+            new LootCardAction( this, GenerateEffect )
+        };
     }
 }

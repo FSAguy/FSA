@@ -53,7 +53,6 @@ namespace foursoulsauto.core
         {
             // TODO: modified max hp (like +1hp treasures)
             CurrentHp = startingHp;
-            // TODO: apply modifiers instead of startingHp
         }
 
         public void ResetStats()

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using foursoulsauto.core.player;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace foursoulsauto.core
 {
@@ -20,14 +21,17 @@ namespace foursoulsauto.core
             }
         }
         
+        
         [SerializeField] private List<Player> players;
-        [SerializeField] private CardDatabase cardDatabase;
+        [SerializeField] private BoardCardList boardCardList;
         [SerializeField] private DeckArrangement deckArrangement;
         public GameStack Stack { get; private set; }
         public Player ActivePlayer => players[_turnIdx];
         public Player PriorityPlayer => players[_priorityIdx];
+        public List<Card> AllCards => deckArrangement.AllCards;
         
-        private int _turnIdx; //TODO: properly use this
+        //TODO: properly change theses on turn switch
+        private int _turnIdx; 
         private int _priorityIdx;
         private VoidContainer _voidContainer;
 
@@ -48,7 +52,7 @@ namespace foursoulsauto.core
                player.Cents = 0;
                
             }
-            deckArrangement.Setup(cardDatabase);
+            deckArrangement.Setup(boardCardList);
             PlayerLoot(players[0], 3);
         }
 

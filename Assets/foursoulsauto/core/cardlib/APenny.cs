@@ -1,11 +1,15 @@
-﻿using foursoulsauto.core.effectlib;
+﻿using System.Collections.Generic;
+using foursoulsauto.core.effectlib;
 
 namespace foursoulsauto.core.cardlib
 {
-    public class APenny : LootCard
+    public class APenny : Card
     {
-        protected override CardAction LootPlayAction => 
-            new SimpleCardAction(this, new PlayersGainCentsEffect(Board.Instance.PriorityPlayer, 1));
-
+        public override List<CardAction> Actions => new() {
+            new LootCardAction(
+                this,
+                input => new PlayersGainCentsEffect(Board.Instance.PriorityPlayer, 1) 
+                )
+        };
     }
 }

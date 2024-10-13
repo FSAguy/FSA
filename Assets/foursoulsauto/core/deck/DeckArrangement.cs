@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using static foursoulsauto.core.Deck;
 
 namespace foursoulsauto.core
@@ -8,10 +9,13 @@ namespace foursoulsauto.core
         //TODO: add Deck -> DeckBehaviour dictionary
         [SerializeField] private DeckBehaviour loot;
 
-        public void Setup(CardDatabase database)
+        public List<Card> AllCards { get; private set; } 
+
+        public void Setup(BoardCardList list)
         {
             // TODO: make this work for all decks
-            var lootCards = database.Cards.FindAll(card => card.StartDeck == Loot).ConvertAll(Instantiate);
+            AllCards = list.Cards.ConvertAll(Instantiate);
+            var lootCards = AllCards.FindAll(card => card.StartDeck == Loot);
             loot.Setup(lootCards);
         }
 

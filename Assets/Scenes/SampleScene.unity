@@ -2130,7 +2130,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   players:
   - {fileID: 1874364352}
-  cardDatabase: {fileID: 11400000, guid: 35badaec31646bd45ae5e53642c6f587, type: 2}
+  boardCardList: {fileID: 11400000, guid: 35badaec31646bd45ae5e53642c6f587, type: 2}
   deckArrangement: {fileID: 1614027806}
 --- !u!4 &2134601210
 Transform:
@@ -2287,7 +2287,7 @@ MonoBehaviour:
   centText: {fileID: 466853578}
   stackPanel: {fileID: 451023808}
   backgroundCancelButton: {fileID: 245740095}
-  actionSelector: {fileID: 656667674}
+  actionUI: {fileID: 656667674}
 --- !u!114 &2138386209
 MonoBehaviour:
   m_ObjectHideFlags: 0

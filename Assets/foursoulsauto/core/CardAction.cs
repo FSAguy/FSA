@@ -1,15 +1,28 @@
-﻿namespace foursoulsauto.core
+﻿using System;
+
+namespace foursoulsauto.core
 {
-    public abstract class CardAction
+    public class CardAction
     {
         public readonly Card Origin;
-        public CardAction(Card card)
-        {
-            Origin = card;
-        }
-        public abstract bool MayUse { get; }
-        public abstract CardEffect GenerateEffect();
+        private readonly Func<bool> _mayUseDelegate;
+        public string Text { get; private set; }
+        public Func<EffectInput, IStackEffect> _generatorFunc;
+        public EffectInput Input { get; }
 
-        public abstract string Text { get; }
+        public CardAction(Card origin, Func<EffectInput, IStackEffect> generatorFunc, string text, 
+            Func<bool> mayUseDelegate = null, EffectInput input = null)
+        {
+            Origin = origin;
+            Text = text;
+            _generatorFunc = generatorFunc;
+            _mayUseDelegate = mayUseDelegate ?? (() => true);
+            Input = input ?? new EffectInput();
+        }
+
+
+        public virtual bool MayUse => _mayUseDelegate() && Input.SomeInputExists;
+
+        public virtual CardEffect GenerateEffect() => new(Origin, _generatorFunc(Input));
     }
 }

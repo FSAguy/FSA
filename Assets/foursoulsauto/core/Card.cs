@@ -15,7 +15,6 @@ namespace foursoulsauto.core
         [SerializeField] private Sprite bottomSprite;
         [SerializeField] private Deck deck;
         [SerializeField] private string cardName;
-
         [SerializeField] private GameObject cardPrefab;
 
         public Sprite TopSprite => topSprite;
@@ -29,6 +28,8 @@ namespace foursoulsauto.core
         // probably dumb programming
         public CardContainer Container { get; set; }
 
+        //TODO: add "in play" parameter
+        
         public void HideCard()
         {
             gameObject.SetActive(false);//TODO

@@ -16,16 +16,16 @@ namespace foursoulsauto.core
             _effect = effect;
         }
 
-        public void OnStackAdd()
+        public virtual void OnStackAdd()
         {
             _effect.OnStackAdd();
         }
 
-        public void Resolve() => _effect.Resolve();
+        public virtual void Resolve() => _effect.Resolve();
 
         public string GetEffectText() => _effect.GetEffectText();
 
-        public void Fizzle() => _effect.Fizzle();
+        public virtual void Fizzle() => _effect.Fizzle();
 
         public GameObject GetStackVisual()
         {

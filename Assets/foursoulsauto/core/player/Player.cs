@@ -21,7 +21,7 @@ namespace foursoulsauto.core.player
             get => _cents;
             set
             {
-                _cents = value;
+                _cents = Mathf.Max(value, 0);
                 CentsChanged?.Invoke();
             }
         }
