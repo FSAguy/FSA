@@ -12,7 +12,6 @@ namespace foursoulsauto.core
 
         public List<IVisualStackEffect> Stack { get; }
 
-        public IVisualStackEffect TopItem => Stack[0];
 
         public GameStack()
         {
@@ -27,23 +26,27 @@ namespace foursoulsauto.core
                 return;
             }
             Stack.Insert(0, effect);
-            ItemPushed?.Invoke(effect);
-            effect.OnStackAdd();
-            Debug.Log($"Added effect: {effect.GetEffectText()}");
+            ItemPushed?.Invoke(effect); 
+            effect.OnStackAdd();// TODO: should be before ItemPushed.invoke, but then need to fix UI
+            Debug.Log($"Added effect:loot {effect.GetEffectText()}");
         }
 
         public void Pop()
         {
-            if (Stack[0].MayResolve())
+            var topItem = Stack[0];
+            Stack.Remove(topItem);
+            
+            if (topItem.MayResolve())
             {
-                Debug.Log($"Activating Effect: {Stack[0].GetEffectText()}");
-                Stack[0].Resolve();
-                ItemResolved?.Invoke(Stack[0]);
+                Debug.Log($"Activating Effect: {topItem.GetEffectText()}");
+                topItem.Resolve();
+                ItemResolved?.Invoke(topItem);
             }
             else
-                ItemFizzled?.Invoke(Stack[0]);
-
-            Stack.Remove(TopItem);
+            {
+                Debug.Log($"Effect fizzled: {topItem.GetEffectText()}");
+                ItemFizzled?.Invoke(topItem);
+            }
         }
     }
 }

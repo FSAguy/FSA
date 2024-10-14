@@ -57,7 +57,6 @@
     <Compile Include="Assets\foursoulsauto\core\CardEffect.cs" />
     <Compile Include="Assets\foursoulsauto\core\ContainerType.cs" />
     <Compile Include="Assets\LeanTween\Framework\LeanTest.cs" />
-    <Compile Include="Assets\foursoulsauto\core\cardlib\ABomb.cs" />
     <Compile Include="Assets\foursoulsauto\core\BoardCardList.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\GeneralSimpleUI.cs" />
     <Compile Include="Assets\foursoulsauto\core\VoidContainer.cs" />
@@ -86,6 +85,7 @@
     <Compile Include="Assets\foursoulsauto\core\effectlib\LootCardPlayEffect.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\LogoCinematic.cs" />
     <Compile Include="Assets\LeanTween\Examples\Scripts\GeneralAdvancedTechniques.cs" />
+    <Compile Include="Assets\foursoulsauto\core\cardlib\Bomb.cs" />
     <Compile Include="Assets\foursoulsauto\core\cardlib\Isaac.cs" />
     <Compile Include="Assets\foursoulsauto\core\deck\DeckBehaviour.cs" />
     <Compile Include="Assets\foursoulsauto\core\CardAction.cs" />

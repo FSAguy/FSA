@@ -3,7 +3,7 @@ using foursoulsauto.core.effectlib;
 
 namespace foursoulsauto.core.cardlib
 {
-    public class ABomb : Card
+    public class Bomb : Card
     {
         public override List<CardAction> Actions => new()
         {

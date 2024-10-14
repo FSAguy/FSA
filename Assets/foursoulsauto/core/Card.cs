@@ -42,8 +42,8 @@ namespace foursoulsauto.core
 
         public bool IsShown => gameObject.activeSelf; // TODO
 
-        public bool FaceUp
-        {
+        public bool FaceUp // TODO: should differ for clients in multiplayer
+        { //gee, cant wait for writing multiplayer code wheehee
             get => _faceUp;
             set
             {

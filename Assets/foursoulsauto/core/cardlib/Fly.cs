@@ -1,4 +1,5 @@
 ﻿using foursoulsauto.core.effectlib;
+using UnityEngine;
 
 namespace foursoulsauto.core.cardlib
 {

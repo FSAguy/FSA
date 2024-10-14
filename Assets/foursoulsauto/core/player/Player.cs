@@ -13,9 +13,21 @@ namespace foursoulsauto.core.player
         public PlayerHand Hand => hand;
         
         public event Action PlayerPassed;
+        public event Action LootPlaysChanged;
         public event Action CentsChanged;
 
         public bool HasLootPlays => _lootPlaysLeft > 0;
+
+        public int LootPlaysRemaining
+        {
+            get => _lootPlaysLeft;
+            set
+            {
+                _lootPlaysLeft = value;
+                LootPlaysChanged?.Invoke();
+            }
+        }
+        
         public int Cents
         {
             get => _cents;
@@ -31,9 +43,8 @@ namespace foursoulsauto.core.player
             PlayerPassed?.Invoke();
         }
 
-        public void PlayLoot(CardAction action)
+        public void PlayEffect(CardAction action)
         {
-            _lootPlaysLeft--;
             Board.Instance.PlayEffect(action.GenerateEffect());
         }
         

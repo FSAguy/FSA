@@ -1,8 +1,8 @@
+using System.Collections.Generic;
 using foursoulsauto.core;
 using foursoulsauto.core.player;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace foursoulsauto.ui
 {
@@ -10,30 +10,49 @@ namespace foursoulsauto.ui
     {
         [SerializeField] private Camera playerCamera;
         [SerializeField] private Player player;
-        [SerializeField] private TMP_Text centText;
+        [SerializeField] private TMP_Text playerCentText;
         [SerializeField] private Transform stackPanel;
-        [SerializeField] private Button backgroundCancelButton;
-        [SerializeField] private CardActionUI actionUI;
+        [SerializeField] private TMP_Text headerText;
         
-        private UICardPicker _picker;
-        private UIStackHandler _stackHandler;
+        private UIStackHandler _stackHandler; // TODO: almost definitely should be its own MonoBehaviour
 
+        public Player ControlledPlayer => player;
+        
+        public Card GetCardUnderMouse()
+        {
+            var pos = playerCamera.ScreenToWorldPoint(Input.mousePosition);
+                    
+            if (!Physics.Raycast(
+                    pos, Vector3.forward, out var hit,
+                    Mathf.Infinity, LayerMask.GetMask("Card"))) return null;
+        
+            return hit.transform.GetComponentInParent<Card>();
+        }
+
+        public void OpenHeader(string msg) // TODO: animations and colors and shit
+        {
+            headerText.gameObject.SetActive(true);
+            headerText.text = msg;
+        }
+
+        public void CloseHeader() // TODO: same as OpenHeader
+        {
+            headerText.gameObject.SetActive(false);
+        }
+        
         private void Awake()
         {
             player.CentsChanged += PlayerOnCentsChanged;
-            backgroundCancelButton.onClick.AddListener(SetDefaultUI);
-            SetDefaultUI();
         }
 
         private void Start()
         {
-            _picker = new UICardPicker(this);
             _stackHandler = new UIStackHandler(this);
         }
 
         private void PlayerOnCentsChanged()
         {
-            centText.text = player.Cents + "¢"; 
+            playerCentText.text = player.Cents + "¢"; 
         }
 
         public void PlayerPass()
@@ -41,79 +60,38 @@ namespace foursoulsauto.ui
             player.Pass();
         }
 
-        private void Update()
-        {
-            if (!Input.GetMouseButtonDown(0)) return;
-            if (actionUI.IsOpen) return;
-            var card = _picker.PickCard();
-            if (card is null || (card.Container.Owner != player && card.Container.Owner is not null)) 
-                SetDefaultUI();
-            else
-            {
-                OpenCancelButton();
-                actionUI.Open(Input.mousePosition, card);
-            }
-        }
-
-        private void OpenCancelButton()
-        {
-            backgroundCancelButton.gameObject.SetActive(true);
-        }
-
-        private void SetDefaultUI()
-        {
-            actionUI.Close();
-            backgroundCancelButton.gameObject.SetActive(false);
-        }
-
         private class UIStackHandler
         {
             private readonly PlayerUI _ui;
+            private Dictionary<IVisualStackEffect, GameObject> _effectToGameobject = new();
             public UIStackHandler(PlayerUI ui)
             {
                 _ui = ui;
-                
-                var stack = Board.Instance.Stack;
+
+                var stack = Board.Instance.Stack;//TODO: Animate
                 stack.ItemPushed += OnItemPushed;
                 stack.ItemFizzled += OnItemFizzled;
-                stack.ItemResolved += OnItemFizzled; //TODO: Animate
+                stack.ItemResolved += OnItemFizzled; //TODO: make fizzled and resolved different (cool disintegration effect)
             }
+            
             private void OnItemFizzled(IVisualStackEffect obj)
             {
-                // todo: maybe introduce a mapping between objects instead of removing last always?
-                // though it is a STACK so probably ok
-                var amount = _ui.stackPanel.childCount;
-                Destroy(_ui.stackPanel.GetChild(amount - 1).gameObject);
+                var stackMember = _effectToGameobject[obj];
+                _effectToGameobject.Remove(obj);
+                Destroy(stackMember);
             }
 
             private void OnItemPushed(IVisualStackEffect obj)
             {
                 var stackMember = obj.GetStackVisual();
                 stackMember.transform.SetParent(_ui.stackPanel);
-            }
-        }
-        private class UICardPicker
-        {
-            private readonly PlayerUI _ui;
-            public UICardPicker(PlayerUI ui)
-            {
-                _ui = ui;
-            }
-            public Card PickCard()
-            {
-                var pos = _ui.playerCamera.ScreenToWorldPoint(Input.mousePosition);
-            
-                if (!Physics.Raycast(
-                        pos, Vector3.forward, out var hit,
-                        Mathf.Infinity, LayerMask.GetMask("Card"))) return null;
-
-                return hit.transform.GetComponentInParent<Card>();
+                _effectToGameobject.Add(obj, stackMember);
             }
         }
 
-        public void PlayLoot(CardAction action)
+        public void GenerateEffect(CardAction action)
         {
-            player.PlayLoot(action);
+            player.PlayEffect(action);
         }
     }
 }
