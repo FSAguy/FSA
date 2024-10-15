@@ -4,13 +4,14 @@ namespace foursoulsauto.core
 {
     public class NonAttackDieRoll : DieRoll
     {
-        public NonAttackDieRoll(Player roller) : base(roller)
-        {
-        }
 
         protected override int GetResultAfterMods(int roll)
         {
             return roll; // TODO
+        }
+
+        public NonAttackDieRoll(Player roller, IStackEffect[] potentialEffects) : base(roller, potentialEffects)
+        {
         }
     }
 }

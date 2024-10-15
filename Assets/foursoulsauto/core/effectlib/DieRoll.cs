@@ -16,24 +16,31 @@ namespace foursoulsauto.core
         private static readonly DieRollUI StackMemberClone =
             Resources.Load<DieRollUI>("Prefabs/UI/RollStackMember");
         
-        protected Player Roller;
+        public Player Roller { get; private set; }
         
         private DieRollUI _stackMember;
+        private IStackEffect[] _potentialEffects;
             
         private int RawResult { get; set; }
         public int Result => Mathf.Clamp(GetResultAfterMods(RawResult), 1, 6);
         
         protected abstract int GetResultAfterMods(int roll);
 
-        protected DieRoll(Player roller)
+        protected DieRoll(Player roller, IStackEffect[] potentialEffects)
         {
             Roller = roller;
+            _potentialEffects = potentialEffects;
+            if (_potentialEffects.Length != 6)
+            {
+                Debug.LogError($"{this} Must have 6 potential effects!");
+                throw new Exception();
+            }  
         }
 
         public void ReRoll()
         {
             RawResult = Random.Range(1, 7);
-            _stackMember.UpdateSprite(RawResult);
+            _stackMember.UpdateSprite(RawResult); // TODO: maybe use the final result instead? what is less confusing?
         }
 
         public void OnStackAdd()
@@ -43,17 +50,21 @@ namespace foursoulsauto.core
 
         public void Resolve()
         {
+            var effect = _potentialEffects[Result - 1];
+            if (effect.MayResolve()) effect.Resolve();
+            else effect.Fizzle();
             RollResolved?.Invoke(Result);
         }
 
-        public string GetEffectText()
+        public string GetEffectText() // TODO: just show all the options? 
         {
             var text = $"Rolled a {RawResult}";
             if (RawResult != Result) text += $", effectively a {Result}";
+            text += "\n" + _potentialEffects[Result - 1].GetEffectText();
             return text;
         }
 
-        public GameObject GetStackVisual()
+        public GameObject GetStackVisual() 
         {
             var stackMember = Object.Instantiate(StackMemberClone.gameObject);
             _stackMember = stackMember.GetComponent<DieRollUI>();

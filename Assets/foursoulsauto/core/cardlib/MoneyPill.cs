@@ -15,7 +15,7 @@ namespace foursoulsauto.core.cardlib
                 
             var effects = new IStackEffect[] { okay, okay, great, great, bad, bad };
 
-            return new RollCreatingEffect(new NonAttackDieRoll(player), effects);
+            return new RollCreatingEffect(new NonAttackDieRoll(player, effects));
         }
 
         public override List<CardAction> Actions => new()
