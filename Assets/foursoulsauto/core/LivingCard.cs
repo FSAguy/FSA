@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using foursoulsauto.core.cardlib;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace foursoulsauto.core
 {
@@ -7,27 +10,56 @@ namespace foursoulsauto.core
     {
         public event Action<int> TookDamage;
         public event Action<int> HpChanged;
+        public event Action<int> EvasionChanged;
+        public event Action<int> AttackChanged;
         public event Action Died;
 
         [SerializeField] private int startingHp;
         [SerializeField] private int startingEvasion;
         [SerializeField] private int startingAttack;
-        
-        private int _currentHp;
-        private int _currentEvasion;
-        private int _currentAttack;
-        private bool _attackable; // as in, able to be attacked
+        [SerializeField] private bool attackable; // as in able to be attacked 
+
+        private int _hp;
+        private int _evasion;
+        private int _attack;
+
+        public bool IsDead => Hp <= 0 || !IsShown; // TODO: change IsShown to IsInPlay
+        public bool IsAlive => !IsDead;
+        public bool IsAttackable => attackable && IsAlive;
+
+        public override List<CardAction> Actions => attackable ? 
+            new List<CardAction> {new AttackDeclarationAction(this) } : 
+            base.Actions;
 
         // Never change CurrentHp when "taking damage", use TakeDamage for that
         // Change CurrentHp when healing or modifying hp without damage
-        public int CurrentHp
+        public int Hp
         {
-            get => _currentHp;
+            get => _hp;
             set
             {
-                _currentHp = Mathf.Max(value, 0);
-                HpChanged?.Invoke(_currentHp);
-                if (CurrentHp == 0) Died?.Invoke();
+                _hp = Mathf.Max(value, 0);
+                HpChanged?.Invoke(_hp);
+                if (Hp == 0) Died?.Invoke();
+            }
+        }
+
+        public int Attack // TODO: include modifiers 
+        {
+            get => _attack;
+            set
+            {
+                _attack = Mathf.Max(value, 0);
+                AttackChanged?.Invoke(_attack);
+            }
+        }
+        public int Evasion // TODO: include modifiers 
+        {
+            get => _evasion;
+            set 
+            {
+                _evasion = Mathf.Clamp(value, 1, 7); 
+                EvasionChanged?.Invoke(_evasion);
             }
         }
 
@@ -45,20 +77,21 @@ namespace foursoulsauto.core
 
         public void TakeDamage(int dmg)
         {
-            CurrentHp -= dmg;
+            Hp -= dmg;
             if (dmg > 0) TookDamage?.Invoke(dmg);
         }
 
         public void HealToFull()
         {
             // TODO: modified max hp (like +1hp treasures)
-            CurrentHp = startingHp;
+            Hp = startingHp;
         }
 
         public void ResetStats()
         {
-            CurrentHp = startingHp;
-            // TODO: the other stats
+            Hp = startingHp;
+            Attack = startingAttack;
+            Evasion = startingEvasion;
         }
     }
 }

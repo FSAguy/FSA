@@ -23,7 +23,7 @@ namespace foursoulsauto.core
             InpType = type;
             if (InpType == InputType.LivingCardTarget)
             {
-                _cardPredicate = card => card is LivingCard { CurrentHp: > 0 };
+                _cardPredicate = card => card is LivingCard { Hp: > 0 };
             }
         }
 

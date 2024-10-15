@@ -25,9 +25,9 @@ namespace foursoulsauto.core
 
         public string GetEffectText() => _effect.GetEffectText();
 
-        public virtual void Fizzle() => _effect.Fizzle();
+        public virtual void OnLeaveStack() => _effect.OnLeaveStack();
 
-        public GameObject GetStackVisual()
+        public GameObject CreateStackVisual()
         {
             var stackMember = Object.Instantiate(StackMemberClone);
             var cardImage = stackMember.transform.Find("CardImage").GetComponent<Image>();

@@ -1,4 +1,6 @@
-﻿namespace foursoulsauto.core
+﻿using UnityEngine;
+
+namespace foursoulsauto.core
 {
     // the usual game state where you can play cards, start fights, buy from shops, etc
     public class NormalGameState : GameState
@@ -16,6 +18,7 @@
         public override void EmptyStackPass()
         {
             // TODO: enter end turn state
+            Debug.Log("le turn end");
         }
     }
 }

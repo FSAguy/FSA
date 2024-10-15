@@ -8,7 +8,7 @@ namespace foursoulsauto.core.cardlib
         public override List<CardAction> Actions => new()
         {
             new LootCardAction(this, 
-                input => new DealDamageEffect(input.LivingCardTarget, 1), // TODO: magic num
+                input => new DealDamageEffect(input.LivingCardTarget, () => 1), // TODO: magic num
                 input:new EffectInput(InputType.LivingCardTarget)) 
         };
     }

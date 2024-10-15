@@ -20,7 +20,6 @@ namespace foursoulsauto.core
             Input = input ?? new EffectInput();
         }
 
-
         public virtual bool MayUse => _mayUseDelegate() && Input.SomeInputExists;
 
         public virtual CardEffect GenerateEffect() => new(Origin, _generatorFunc(Input));

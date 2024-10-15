@@ -9,15 +9,29 @@ namespace foursoulsauto.core.player
 
         private int _cents;
         private int _lootPlaysLeft = 1; // todo: change this lol
-        
+        private int _attacksLeft = 1; // todo: change lol
+
+        [SerializeField] private LivingCard character; //TODO: should not be serialized, its just easier for testing
+        public LivingCard Character => character;
         public PlayerHand Hand => hand;
+
+        public string CharName => Character.CardName;
         
         public event Action PlayerPassed;
         public event Action LootPlaysChanged;
         public event Action CentsChanged;
 
         public bool HasLootPlays => _lootPlaysLeft > 0;
+        public bool HasAttacksLeft => _attacksLeft > 0;
 
+        public int AttacksRemaining
+        {
+            get => _attacksLeft;
+            set
+            {
+                _attacksLeft = value; // TODO: invoke event
+            }
+        }
         public int LootPlaysRemaining
         {
             get => _lootPlaysLeft;

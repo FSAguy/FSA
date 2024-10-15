@@ -28,8 +28,6 @@ namespace foursoulsauto.core
         // probably dumb programming
         public CardContainer Container { get; set; }
 
-        //TODO: add "in play" parameter
-        
         public void HideCard()
         {
             gameObject.SetActive(false);//TODO
@@ -40,6 +38,7 @@ namespace foursoulsauto.core
             gameObject.SetActive(true);//TODO
         }
 
+        //TODO: add "in play" parameter, maybe as replacement
         public bool IsShown => gameObject.activeSelf; // TODO
 
         public bool FaceUp // TODO: should differ for clients in multiplayer
@@ -63,7 +62,7 @@ namespace foursoulsauto.core
             body.transform.localPosition = Vector3.zero;
             _ui = GetComponentInChildren<CardUI>();
             _ui.Subscribe(this);
-            FaceUp = false;
+            FaceUp = true; // TODO: should be false, true for testing
         }
 
     }

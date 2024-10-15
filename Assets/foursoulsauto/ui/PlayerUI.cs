@@ -83,7 +83,7 @@ namespace foursoulsauto.ui
 
             private void OnItemPushed(IVisualStackEffect obj)
             {
-                var stackMember = obj.GetStackVisual();
+                var stackMember = obj.CreateStackVisual();
                 stackMember.transform.SetParent(_ui.stackPanel);
                 _effectToGameobject.Add(obj, stackMember);
             }

@@ -23,6 +23,18 @@ namespace foursoulsauto.ui
             }
 
             livingCard.HpChanged += OnHpChanged;
+            livingCard.AttackChanged += OnAttackChanged;
+            livingCard.EvasionChanged += OnEvasionChanged;
+        }
+
+        private void OnAttackChanged(int attack)
+        {
+            attackText.text = attack.ToString();
+        }
+
+        private void OnEvasionChanged(int evasion)
+        {
+            evasionText.text = evasion.ToString();
         }
 
         protected override void OnChangedFace(bool isUp)

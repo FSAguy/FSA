@@ -16,17 +16,10 @@ namespace foursoulsauto.core.effectlib
             base.OnStackAdd();
         }
 
-        public override void Resolve()
+        public override void OnLeaveStack()
         {
             OriginCard.Discard();
-            base.Resolve();
-        }
-
-
-        public override void Fizzle()
-        {
-            OriginCard.Discard();
-            base.Fizzle();
+            base.OnLeaveStack();
         }
     }
 }

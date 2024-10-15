@@ -10,8 +10,9 @@ namespace foursoulsauto.core
         public event Action<IVisualStackEffect> ItemResolved;
         public event Action<IVisualStackEffect> ItemFizzled;
 
-        public List<IVisualStackEffect> Stack { get; }
+        private List<IVisualStackEffect> Stack { get; }
 
+        public bool IsEmpty => Stack.Count == 0;
 
         public GameStack()
         {
@@ -28,13 +29,20 @@ namespace foursoulsauto.core
             Stack.Insert(0, effect);
             ItemPushed?.Invoke(effect); 
             effect.OnStackAdd();// TODO: should be before ItemPushed.invoke, but then need to fix UI
-            Debug.Log($"Added effect:loot {effect.GetEffectText()}");
+            Debug.Log($"Added effect: {effect.GetEffectText()}");
+        }
+
+        public void CancelEffect(IVisualStackEffect effect)
+        {
+            if (Stack.Remove(effect)) ItemFizzled?.Invoke(effect); // no guarantee that the effect is still in stack
         }
 
         public void Pop()
         {
             var topItem = Stack[0];
             Stack.Remove(topItem);
+            
+            topItem.OnLeaveStack();
             
             if (topItem.MayResolve())
             {

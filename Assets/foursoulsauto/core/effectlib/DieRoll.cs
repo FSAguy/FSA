@@ -19,27 +19,27 @@ namespace foursoulsauto.core
         public Player Roller { get; private set; }
         
         private DieRollUI _stackMember;
-        private IStackEffect[] _potentialEffects;
+        protected IStackEffect[] PotentialEffects;
             
         private int RawResult { get; set; }
         public int Result => Mathf.Clamp(GetResultAfterMods(RawResult), 1, 6);
         
         protected abstract int GetResultAfterMods(int roll);
+        
+        // Unless using some subclass overloading this, DieRoll always requires 6 effects, one for each side of the die
+        protected virtual IStackEffect RolledEffect => PotentialEffects[Result - 1];
 
         protected DieRoll(Player roller, IStackEffect[] potentialEffects)
         {
             Roller = roller;
-            _potentialEffects = potentialEffects;
-            if (_potentialEffects.Length != 6)
-            {
-                Debug.LogError($"{this} Must have 6 potential effects!");
-                throw new Exception();
-            }  
+            PotentialEffects = potentialEffects;
         }
 
         public void ReRoll()
         {
             RawResult = Random.Range(1, 7);
+            // TODO: kinda cringe coupling, should probably use events instead and let the UI do its thing
+            // then again GetStackVisual basically demands coupling... TODO: thinkaboudit
             _stackMember.UpdateSprite(RawResult); // TODO: maybe use the final result instead? what is less confusing?
         }
 
@@ -50,32 +50,25 @@ namespace foursoulsauto.core
 
         public void Resolve()
         {
-            var effect = _potentialEffects[Result - 1];
-            if (effect.MayResolve()) effect.Resolve();
-            else effect.Fizzle();
+            if (RolledEffect.MayResolve()) RolledEffect.Resolve();
+            else RolledEffect.OnLeaveStack();
             RollResolved?.Invoke(Result);
         }
 
-        public string GetEffectText() // TODO: just show all the options? 
+        public string GetEffectText() 
         {
             var text = $"Rolled a {RawResult}";
             if (RawResult != Result) text += $", effectively a {Result}";
-            text += "\n" + _potentialEffects[Result - 1].GetEffectText();
+            text += "\n" + RolledEffect.GetEffectText();
             return text;
         }
 
-        public GameObject GetStackVisual() 
+        public GameObject CreateStackVisual() 
         {
             var stackMember = Object.Instantiate(StackMemberClone.gameObject);
             _stackMember = stackMember.GetComponent<DieRollUI>();
             
             return stackMember;
-        }
-
-        public void Fizzle()
-        {
-            Debug.LogError($"{this} fizzled. That is not supposed to happen.");
-            throw new Exception();
         }
     }
 }
