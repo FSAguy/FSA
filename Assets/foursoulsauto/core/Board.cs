@@ -71,6 +71,7 @@ namespace foursoulsauto.core
             }
             deckArrangement.Setup(boardCardList);
             PlayerLoot(players[0], 3);
+            PriorityPlayer.GainPriority();
         }
 
         private void PlayerLoot(Player player, int amount)
@@ -92,7 +93,10 @@ namespace foursoulsauto.core
         private void OnPlayerPassed()
         {
             if (Stack.IsEmpty) Phase.EmptyStackPass();
-            else Stack.Pop(); 
+            else Stack.Pop(); // TODO: only pop once priority has passed around in a circle
+            // probably implement the above by a counter
+            // TODO: pass priority to someone else you game hog
+            PriorityPlayer.GainPriority();
         }
 
         public void PlayEffect(IVisualStackEffect effect)

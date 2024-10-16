@@ -20,6 +20,7 @@ namespace foursoulsauto.core.player
         public event Action PlayerPassed;
         public event Action LootPlaysChanged;
         public event Action CentsChanged;
+        public event Action GainedPriority;
 
         public bool HasLootPlays => _lootPlaysLeft > 0;
         public bool HasAttacksLeft => _attacksLeft > 0;
@@ -60,6 +61,11 @@ namespace foursoulsauto.core.player
         public void PlayEffect(CardAction action)
         {
             Board.Instance.PlayEffect(action.GenerateEffect());
+        }
+
+        public void GainPriority()
+        {
+            GainedPriority?.Invoke();
         }
         
     }

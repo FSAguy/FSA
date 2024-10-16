@@ -34,7 +34,7 @@ namespace foursoulsauto.ui
 
         private void OnEvasionChanged(int evasion)
         {
-            evasionText.text = evasion.ToString();
+            evasionText.text = evasion + (evasion == 6 ? "" : "+");
         }
 
         protected override void OnChangedFace(bool isUp)

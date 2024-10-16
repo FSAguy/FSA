@@ -726,7 +726,7 @@ GameObject:
   - component: {fileID: 447829081}
   - component: {fileID: 447829080}
   m_Layer: 0
-  m_Name: Text (TMP)
+  m_Name: PassText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -748,8 +748,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0.14080048, y: -0.70410156}
+  m_SizeDelta: {x: -18.8695, y: -21.1226}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &447829080
 MonoBehaviour:
@@ -2318,6 +2318,7 @@ MonoBehaviour:
   playerCentText: {fileID: 466853578}
   stackPanel: {fileID: 451023808}
   headerText: {fileID: 1889583569}
+  passText: {fileID: 447829080}
 --- !u!114 &2138386209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2392,7 +2393,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6197648611988038924, guid: 0679c9bb59db65e48af26694af0bd8a0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 6197648611988038924, guid: 0679c9bb59db65e48af26694af0bd8a0, type: 3}
       propertyPath: m_LocalRotation.w

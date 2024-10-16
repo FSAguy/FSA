@@ -20,5 +20,7 @@ namespace foursoulsauto.core
             // TODO: enter end turn state
             Debug.Log("le turn end");
         }
+
+        public override string EmptyStackPassText => "End Turn";
     }
 }

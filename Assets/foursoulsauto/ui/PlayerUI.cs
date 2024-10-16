@@ -13,6 +13,7 @@ namespace foursoulsauto.ui
         [SerializeField] private TMP_Text playerCentText;
         [SerializeField] private Transform stackPanel;
         [SerializeField] private TMP_Text headerText;
+        [SerializeField] private TMP_Text passText;
         
         private UIStackHandler _stackHandler; // TODO: almost definitely should be its own MonoBehaviour
 
@@ -43,6 +44,14 @@ namespace foursoulsauto.ui
         private void Awake()
         {
             player.CentsChanged += PlayerOnCentsChanged;
+            player.GainedPriority += OnGainPriority;
+        }
+        private void UpdatePassText() => 
+            passText.text = Board.Instance.Stack.IsEmpty ? Board.Instance.Phase.EmptyStackPassText : "Pass";
+
+        private void OnGainPriority()
+        {
+            UpdatePassText();
         }
 
         private void Start()
@@ -58,6 +67,7 @@ namespace foursoulsauto.ui
         public void PlayerPass()
         {
             player.Pass();
+            UpdatePassText();
         }
 
         private class UIStackHandler
@@ -92,6 +102,7 @@ namespace foursoulsauto.ui
         public void GenerateEffect(CardAction action)
         {
             player.PlayEffect(action);
+            UpdatePassText();
         }
     }
 }

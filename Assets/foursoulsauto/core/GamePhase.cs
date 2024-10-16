@@ -7,6 +7,10 @@
         // TODO: maybe include what players can or cant do? maybe unnecessary 
         public abstract void Enter();
         public abstract void Leave();
+
         public abstract void EmptyStackPass();
+
+        public abstract string EmptyStackPassText { get; } // for stuff
+        
     }
 }

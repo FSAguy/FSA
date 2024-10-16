@@ -35,7 +35,7 @@ namespace foursoulsauto.core
         
         public override void Enter()
         {
-            AddAttackToStack();
+            // AddAttackToStack(); //TODO: maybe remove the comment? idk
         }
 
         public override void Leave()
@@ -47,5 +47,7 @@ namespace foursoulsauto.core
         {
             AddAttackToStack();
         }
+
+        public override string EmptyStackPassText => "Roll Attack";
     }
 }
