@@ -8,8 +8,11 @@ namespace foursoulsauto.core
     public abstract class Card : MonoBehaviour
     {
         public event Action<bool> ChangedFace;
+        public event Action<bool> ChangedCharge;
+        
         private CardUI _ui;
         private bool _faceUp;
+        private bool _charged;
 
         [SerializeField] private Sprite topSprite;
         [SerializeField] private Sprite bottomSprite;
@@ -38,6 +41,16 @@ namespace foursoulsauto.core
             gameObject.SetActive(true);//TODO
         }
 
+        public bool IsCharged
+        {
+            get => _charged;
+            set
+            {
+                _charged = value;
+                ChangedCharge?.Invoke(_charged);
+            }
+        }
+
         //TODO: add "in play" parameter, maybe as replacement
         public bool IsShown => gameObject.activeSelf; // TODO
 
@@ -63,6 +76,7 @@ namespace foursoulsauto.core
             _ui = GetComponentInChildren<CardUI>();
             _ui.Subscribe(this);
             FaceUp = true; // TODO: should be false, true for testing
+            _charged = true; 
         }
 
     }

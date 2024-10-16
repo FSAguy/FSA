@@ -6,7 +6,7 @@ namespace foursoulsauto.core
     {
         public readonly Card Origin;
         private readonly Func<bool> _mayUseDelegate;
-        public string Text { get; private set; }
+        public virtual string Text { get; private set; }
         public Func<EffectInput, IStackEffect> _generatorFunc;
         public EffectInput Input { get; }
 

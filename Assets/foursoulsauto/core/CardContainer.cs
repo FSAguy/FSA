@@ -5,8 +5,13 @@ using UnityEngine;
 
 namespace foursoulsauto.core
 {
-    // TODO: this entire thing must be changed.
-    // We need a way to switch between physical cards and currently inaccessible cards (like, in a deck)
+    // TODO: this enum might be dumb and bad??
+    public enum ContainerType
+    {
+        Nothing, Hand, Character, Item, Soul, Curse, Deck, Discard, Shop, Monster, Room
+    }
+    
+    // TODO: review this to see if it fulfills the needs of containing in play, not in play, and hidden (like in a deck) cards
     public abstract class CardContainer : MonoBehaviour
     {
         // TODO: maybe make CardContainer responsible for the visibility of the card?

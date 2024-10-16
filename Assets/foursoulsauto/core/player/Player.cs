@@ -11,8 +11,7 @@ namespace foursoulsauto.core.player
         private int _lootPlaysLeft = 1; // todo: change this lol
         private int _attacksLeft = 1; // todo: change lol
 
-        [SerializeField] private LivingCard character; //TODO: should not be serialized, its just easier for testing
-        public LivingCard Character => character;
+        public LivingCard Character { get; set; }
         public PlayerHand Hand => hand;
 
         public string CharName => Character.CardName;

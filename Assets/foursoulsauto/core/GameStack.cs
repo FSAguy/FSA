@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace foursoulsauto.core
@@ -35,6 +36,11 @@ namespace foursoulsauto.core
         public void CancelEffect(IVisualStackEffect effect)
         {
             if (Stack.Remove(effect)) ItemFizzled?.Invoke(effect); // no guarantee that the effect is still in stack
+        }
+
+        public IVisualStackEffect GetFirstWhere(Func<IVisualStackEffect, bool> predicate)
+        {
+            return Stack.First(predicate);
         }
 
         public void Pop()

@@ -5,7 +5,7 @@
         private Player _player;
         public sealed override Player Owner => _player;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             _player = GetComponentInParent<Player>();
         }

@@ -25,7 +25,8 @@ namespace foursoulsauto.ui
                     
             if (!Physics.Raycast(
                     pos, Vector3.forward, out var hit,
-                    Mathf.Infinity, LayerMask.GetMask("Card"))) return null;
+                    Mathf.Infinity, LayerMask.GetMask("Card"))
+                ) return null;
         
             return hit.transform.GetComponentInParent<Card>();
         }
@@ -40,18 +41,17 @@ namespace foursoulsauto.ui
         {
             headerText.gameObject.SetActive(false);
         }
+
+        private void UpdateTexts()
+        {
+            passText.text = Board.Instance.Stack.IsEmpty ? Board.Instance.Phase.EmptyStackPassText : "Pass";
+            playerCentText.text = player.Cents + "¢"; 
+        }
         
         private void Awake()
         {
-            player.CentsChanged += PlayerOnCentsChanged;
-            player.GainedPriority += OnGainPriority;
-        }
-        private void UpdatePassText() => 
-            passText.text = Board.Instance.Stack.IsEmpty ? Board.Instance.Phase.EmptyStackPassText : "Pass";
-
-        private void OnGainPriority()
-        {
-            UpdatePassText();
+            player.CentsChanged += UpdateTexts;
+            player.GainedPriority += UpdateTexts;
         }
 
         private void Start()
@@ -59,15 +59,10 @@ namespace foursoulsauto.ui
             _stackHandler = new UIStackHandler(this);
         }
 
-        private void PlayerOnCentsChanged()
-        {
-            playerCentText.text = player.Cents + "¢"; 
-        }
-
         public void PlayerPass()
         {
             player.Pass();
-            UpdatePassText();
+            UpdateTexts();
         }
 
         private class UIStackHandler
@@ -102,7 +97,7 @@ namespace foursoulsauto.ui
         public void GenerateEffect(CardAction action)
         {
             player.PlayEffect(action);
-            UpdatePassText();
+            UpdateTexts();
         }
     }
 }

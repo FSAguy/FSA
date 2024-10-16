@@ -1,12 +1,8 @@
-﻿using foursoulsauto.core.player;
-
-namespace foursoulsauto.core.effectlib
+﻿namespace foursoulsauto.core.effectlib
 {
     // wrapper effect for playing a loot card
     public class LootCardPlayEffect : CardEffect
     {
-        private readonly CardEffect _effect;
-
         public LootCardPlayEffect(Card originCard, IStackEffect effect) : base(originCard, effect) { }
 
         public override void OnStackAdd()
@@ -18,8 +14,8 @@ namespace foursoulsauto.core.effectlib
 
         public override void OnLeaveStack()
         {
-            OriginCard.Discard();
             base.OnLeaveStack();
+            OriginCard.Discard();
         }
     }
 }
