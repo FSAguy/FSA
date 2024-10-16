@@ -30,18 +30,18 @@ namespace foursoulsauto.core
         public Player PriorityPlayer => players[_priorityIdx];
         public List<Card> AllCards => deckArrangement.AllCards;
 
-        // TODO: game state should probably have a stack of its own
-        // for example, you always have the "normal" state at the bottom
-        // when you pop the normal state, you add the "end turn" state, which when popped adds the "start turn" state
-        // when attacking, we push the "attack" state, etc
-        public GameState State
+        // TODO: game phase should probably have a stack of its own
+        // for example, you always have the "normal" phase at the bottom
+        // when you pop the normal phase, you add the "end turn" phase, which when popped adds the "start turn" phase
+        // when attacking, we push the "attack" phase, etc
+        public GamePhase Phase
         {
-            get => _state;
+            get => _phase;
             set
             {
-                _state.Leave();
-                _state = value; 
-                _state.Enter();
+                _phase.Leave();
+                _phase = value; 
+                _phase.Enter();
             }
         }
 
@@ -49,7 +49,7 @@ namespace foursoulsauto.core
         private int _turnIdx; 
         private int _priorityIdx;
         private VoidContainer _voidContainer;
-        [SerializeField] private GameState _state;
+        [SerializeField] private GamePhase _phase;
 
         private void Awake()
         {
@@ -63,7 +63,7 @@ namespace foursoulsauto.core
 
         private void Start()
         {
-            _state = new NormalGameState();
+            _phase = new NormalGamePhase();
             foreach (var player in players)
             {
                player.Cents = 0;
@@ -91,7 +91,7 @@ namespace foursoulsauto.core
         
         private void OnPlayerPassed()
         {
-            if (Stack.IsEmpty) State.EmptyStackPass();
+            if (Stack.IsEmpty) Phase.EmptyStackPass();
             else Stack.Pop(); 
         }
 

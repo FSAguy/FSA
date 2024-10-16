@@ -19,8 +19,8 @@ namespace foursoulsauto.core.effectlib
         public void Resolve()
         {
             _attacker.AttacksRemaining--;
-            var state = new AttackGameState(_target, _attacker);
-            Board.Instance.State = state;
+            var state = new AttackGamePhase(_target, _attacker);
+            Board.Instance.Phase = state;
         }
 
         public string GetEffectText()

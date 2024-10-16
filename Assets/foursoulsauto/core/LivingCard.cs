@@ -8,6 +8,7 @@ namespace foursoulsauto.core
 {
     public abstract class LivingCard : Card
     {
+    
         public event Action<int> TookDamage;
         public event Action<int> HpChanged;
         public event Action<int> EvasionChanged;
@@ -33,6 +34,9 @@ namespace foursoulsauto.core
 
         // Never change CurrentHp when "taking damage", use TakeDamage for that
         // Change CurrentHp when healing or modifying hp without damage
+        // TODO: If a player or monster has 0HP at any point, and their death is not already on the stack,
+        //       their death is put on the stack the next time any player would receive priority. 
+        //       (death should not be added immediately! only after passing!)
         public int Hp
         {
             get => _hp;

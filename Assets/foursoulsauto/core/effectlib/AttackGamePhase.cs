@@ -2,13 +2,13 @@
 
 namespace foursoulsauto.core
 {
-    public class AttackGameState : GameState
+    public class AttackGamePhase : GamePhase
     {
         public LivingCard Defender { get; }
         public Player Attacker { get; }
         private IVisualStackEffect _currentAttack;
 
-        public AttackGameState(LivingCard defender, Player attacker)
+        public AttackGamePhase(LivingCard defender, Player attacker)
         {
             Defender = defender;
             Attacker = attacker;
@@ -30,7 +30,7 @@ namespace foursoulsauto.core
         private void OnFightOver()
         {
             Board.Instance.Stack.CancelEffect(_currentAttack);
-            Board.Instance.State = new NormalGameState(); // TODO: change once state is managed like a stack
+            Board.Instance.Phase = new NormalGamePhase(); // TODO: change once state is managed like a stack
         }
         
         public override void Enter()

@@ -3,7 +3,7 @@
 namespace foursoulsauto.core
 {
     // the usual game state where you can play cards, start fights, buy from shops, etc
-    public class NormalGameState : GameState
+    public class NormalGamePhase : GamePhase
     {
         public override void Enter()
         {
