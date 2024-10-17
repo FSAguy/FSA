@@ -10,7 +10,6 @@ namespace foursoulsauto.ui
     {
         [SerializeField] private Camera playerCamera;
         [SerializeField] private Player player;
-        [SerializeField] private TMP_Text playerCentText;
         [SerializeField] private Transform stackPanel;
         [SerializeField] private TMP_Text headerText;
         [SerializeField] private TMP_Text passText;
@@ -42,10 +41,9 @@ namespace foursoulsauto.ui
             headerText.gameObject.SetActive(false);
         }
 
-        private void UpdateTexts()
+        private void UpdateTexts() // TODO: should move contents to their own appropriate modules
         {
             passText.text = Board.Instance.Stack.IsEmpty ? Board.Instance.Phase.EmptyStackPassText : "Pass";
-            playerCentText.text = player.Cents + "¢"; 
         }
         
         private void Awake()

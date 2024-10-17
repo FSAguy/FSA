@@ -18,6 +18,7 @@ namespace foursoulsauto.core.player
         
         public event Action PlayerPassed;
         public event Action LootPlaysChanged;
+        public event Action AttacksLeftChanged;
         public event Action CentsChanged;
         public event Action GainedPriority;
 
@@ -29,9 +30,11 @@ namespace foursoulsauto.core.player
             get => _attacksLeft;
             set
             {
-                _attacksLeft = value; // TODO: invoke event
+                _attacksLeft = value; 
+                AttacksLeftChanged?.Invoke();
             }
         }
+        
         public int LootPlaysRemaining
         {
             get => _lootPlaysLeft;
