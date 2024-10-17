@@ -1,13 +1,14 @@
-﻿using foursoulsauto.core.player;
+﻿using System;
+using foursoulsauto.core.player;
 
 namespace foursoulsauto.core.effectlib
 {
     public class GainLootPlaysEffect : IStackEffect
     {
         private Player _target;
-        private int _amount;
+        private Func<int> _amount;
 
-        public GainLootPlaysEffect(Player target, int amount)
+        public GainLootPlaysEffect(Player target, Func<int> amount)
         {
             _target = target;
             _amount = amount;
@@ -15,12 +16,12 @@ namespace foursoulsauto.core.effectlib
 
         public void Resolve()
         {
-            _target.LootPlaysRemaining += _amount;
+            _target.LootPlaysRemaining += _amount.Invoke();
         }
 
         public string GetEffectText()
         {
-            return $"{_target.CharName} will gain {_amount} additional loot play" + (_amount > 1 ? "s" : "");
+            return $"{_target.CharName} will gain {_amount} additional loot play" + (_amount.Invoke() > 1 ? "s" : "");
         }
     }
 }

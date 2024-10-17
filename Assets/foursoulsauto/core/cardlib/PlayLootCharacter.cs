@@ -10,7 +10,7 @@ namespace foursoulsauto.core.cardlib
         public override List<CardAction> Actions => new()
         {
             new TapAction(this,
-                input => new GainLootPlaysEffect(Board.Instance.PriorityPlayer, 1),
+                input => new GainLootPlaysEffect(Board.Instance.PriorityPlayer, () => 1),
                 "gain loot play")
         };
     }

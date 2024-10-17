@@ -8,7 +8,7 @@ namespace foursoulsauto.core.cardlib
         protected override CardEffect GenerateRewards()
         {
             return new CardEffect(this, 
-                new PlayersGainCentsEffect(Board.Instance.ActivePlayer, 1));
+                new PlayersGainCentsEffect(Board.Instance.ActivePlayer, () => 1)); // TODO: value may be manipulated?
         }
     }
 }

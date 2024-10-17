@@ -14,7 +14,7 @@ namespace foursoulsauto.core.cardlib
         public override List<CardAction> Actions => new() {
             new LootCardAction(
                 this,
-                input => new PlayersGainCentsEffect(Board.Instance.PriorityPlayer, centAmount.Value) 
+                _ => new PlayersGainCentsEffect(Board.Instance.PriorityPlayer, () => centAmount.Value) 
                 )
         };
     }
