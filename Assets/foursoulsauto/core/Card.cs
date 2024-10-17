@@ -19,15 +19,15 @@ namespace foursoulsauto.core
         [SerializeField] private Sprite bottomSprite;
         [SerializeField] private Deck deck;
         [SerializeField] private string cardName;
-        [SerializeField] private GameObject cardPrefab;
 
         public Sprite TopSprite => topSprite;
         public Sprite BottomSprite => bottomSprite;
-        
-        public virtual List<CardAction> Actions => new();
         public Deck StartDeck => deck;
-
         public string CardName => cardName;
+
+        public virtual List<CardAction> Actions => new();
+        public virtual MagicNumber[] MagicNumbers => GetComponentsInChildren<MagicNumber>();
+        
         // NEVER MUTATE DIRECTLY - USE CardContainer.MoveInto
         // probably dumb programming
         public CardContainer Container { get; set; }
@@ -72,8 +72,6 @@ namespace foursoulsauto.core
 
         protected virtual void Awake()
         {
-            var body = Instantiate(cardPrefab, transform);
-            body.transform.localPosition = Vector3.zero;
             _ui = GetComponentInChildren<CardUI>();
             _ui.Subscribe(this);
             FaceUp = true; // TODO: should be false, true for testing

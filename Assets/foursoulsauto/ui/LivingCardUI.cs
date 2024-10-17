@@ -34,7 +34,8 @@ namespace foursoulsauto.ui
 
         private void OnEvasionChanged(int evasion)
         {
-            evasionText.text = evasion + (evasion == 6 ? "" : "+");
+            if (evasionText is not null) // TODO: should probably always have evasion and just hide it when unneeded
+                evasionText.text = evasion + (evasion == 6 ? "" : "+");
         }
 
         protected override void OnChangedFace(bool isUp)

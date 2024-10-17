@@ -62,16 +62,15 @@ namespace foursoulsauto.core
             }
         }
 
-        private void Start()
+        private void Start() // TODO: move this into a separate "begin game" method, recheck values
         {
             _phase = new NormalGamePhase();
             foreach (var player in players)
             {
                player.Cents = 0;
-               
             }
             deckArrangement.Setup(boardCardList);
-            PlayerLoot(players[0], 3);
+            PlayerLoot(players[0], 5);
             PriorityPlayer.GainPriority();
         }
 
