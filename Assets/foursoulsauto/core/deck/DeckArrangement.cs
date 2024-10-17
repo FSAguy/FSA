@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using static foursoulsauto.core.Deck;
+using static foursoulsauto.core.deck.Deck;
 
-namespace foursoulsauto.core
+namespace foursoulsauto.core.deck
 {
     public class DeckArrangement : MonoBehaviour
     {

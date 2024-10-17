@@ -1,7 +1,7 @@
 ﻿using System;
 using foursoulsauto.core.effectlib;
 
-namespace foursoulsauto.core
+namespace foursoulsauto.core.actionlib
 {
     public class LootCardAction : CardAction
     {

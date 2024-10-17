@@ -1,8 +1,6 @@
-﻿using System;
-using foursoulsauto.core.effectlib;
-using foursoulsauto.core.player;
+﻿using foursoulsauto.core.player;
 
-namespace foursoulsauto.core
+namespace foursoulsauto.core.effectlib
 {
     public class AttackRoll : DieRoll
     {

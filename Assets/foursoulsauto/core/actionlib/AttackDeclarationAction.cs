@@ -1,7 +1,6 @@
-﻿using System;
-using foursoulsauto.core.effectlib;
+﻿using foursoulsauto.core.effectlib;
 
-namespace foursoulsauto.core.cardlib
+namespace foursoulsauto.core.actionlib
 {
     public class AttackDeclarationAction : CardAction
     {

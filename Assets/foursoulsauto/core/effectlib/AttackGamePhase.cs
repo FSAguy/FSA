@@ -1,6 +1,6 @@
 ﻿using foursoulsauto.core.player;
 
-namespace foursoulsauto.core
+namespace foursoulsauto.core.effectlib
 {
     public class AttackGamePhase : GamePhase
     {

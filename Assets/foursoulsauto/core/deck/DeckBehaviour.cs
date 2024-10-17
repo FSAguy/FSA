@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace foursoulsauto.core
+namespace foursoulsauto.core.deck
 {
     public class DeckBehaviour : MonoBehaviour
     {

@@ -7,7 +7,8 @@ namespace foursoulsauto.ui
     public static class CardAnimate
     {
         //values, fresh outta my ass
-        public const float AnimTime = 1f; // TODO: make this depend on game settings (game speed?)
+        // TODO: make this depend on game settings (game speed?)
+        public const float AnimTime = 1f; 
         private static readonly Vector3 FallPadding = new(-10f, 0, -1);
         private const float FallScale = 2f;
         
@@ -29,8 +30,6 @@ namespace foursoulsauto.ui
                     MoveFall(obj, pos, rot, time, local);
                     break;
             }
-
-            
         }
 
         private static void MoveFall(GameObject obj, Vector3 pos, Quaternion rot, float time, bool local)
@@ -72,6 +71,14 @@ namespace foursoulsauto.ui
         public static void MoveTo(this Card card, Transform t, float time = AnimTime, Style style = Style.Slide)
         {
             MoveTo(card, t.position, t.rotation, time, false, style);
+        }
+
+
+        public static void TapAnim(this Card card, bool isCharged)
+        {
+            var turn = card.transform.rotation.eulerAngles + 
+                       new Vector3(0, 0, 90 * (isCharged ? 1 : -1)); // rotate 90 either left or right
+            LeanTween.rotate(card.gameObject, turn, AnimTime).setEaseOutExpo();
         }
     }
 }

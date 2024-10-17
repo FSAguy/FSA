@@ -13,6 +13,12 @@ namespace foursoulsauto.ui
         {
             _card = card;
             _card.ChangedFace += OnChangedFace;
+            _card.ChangedCharge += OnChangedCharge;
+        }
+
+        private void OnChangedCharge(bool obj)
+        {
+            _card.TapAnim(obj);
         }
 
         protected virtual void OnChangedFace(bool isUp)

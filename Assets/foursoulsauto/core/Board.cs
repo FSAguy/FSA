@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using foursoulsauto.core.deck;
 using foursoulsauto.core.player;
 using UnityEngine;
 using UnityEngine.Serialization;

@@ -1,4 +1,4 @@
-﻿namespace foursoulsauto.core
+﻿namespace foursoulsauto.core.deck
 {
     public enum Deck
     {

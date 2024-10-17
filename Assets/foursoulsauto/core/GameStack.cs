@@ -40,7 +40,7 @@ namespace foursoulsauto.core
 
         public IVisualStackEffect GetFirstWhere(Func<IVisualStackEffect, bool> predicate)
         {
-            return Stack.First(predicate);
+            return Stack.FirstOrDefault(predicate);
         }
 
         public void Pop()

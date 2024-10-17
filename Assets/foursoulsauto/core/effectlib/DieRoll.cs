@@ -5,7 +5,7 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
-namespace foursoulsauto.core
+namespace foursoulsauto.core.effectlib
 {
     public abstract class DieRoll : IVisualStackEffect
     {
