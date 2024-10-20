@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using foursoulsauto.core.player;
+using UnityEngine;
 
 namespace foursoulsauto.core.effectlib
 {
@@ -7,24 +8,30 @@ namespace foursoulsauto.core.effectlib
     // this requires players to be able to provide input *while the effect is resolving*
     // requires the GameStack to halt resolution while player is choosing
     // remember the card "Don't Starve" 
-    public class AttackDeclarationEffect : IStackEffect
+    public class AttackDeclarationEffect : IVisualStackEffect
     {
-        private Player _attacker;
-        private LivingCard _target;
+        private static readonly GameObject StackMemberClone = 
+            Resources.Load<GameObject>("Prefabs/UI/AttackStackMember");
         
-        public AttackDeclarationEffect(Player attacker, LivingCard target)
+        private Player _attacker;
+        
+        public AttackDeclarationEffect(Player attacker)
         {
-            _target = target;
             _attacker = attacker;
         }
 
         public bool MayResolve() =>
-            _attacker.Character.IsAlive && _attacker.HasAttacksLeft && _target.IsAttackable;
+            _attacker.Character.IsAlive && _attacker.HasAttacksLeft;
 
         public IEnumerator Resolve()
         {
+            // TODO: check that the player doesnt attack himself (dont think that is legal)
+            // TODO: sometimes player is forced to attack something else ("Mom's Eyeshadow", "Krampus")
+            var request = new EffectInput(card => card is LivingCard { IsAttackable: true });
+            _attacker.RequestInput(request);
+            yield return new WaitUntil(() => request.IsInputFilled);
             _attacker.AttacksRemaining--;
-            var state = new AttackGamePhase(_target, _attacker);
+            var state = new AttackGamePhase(request.CardInput as LivingCard, _attacker);
             Board.Instance.Phase = state;
 
             yield return null;
@@ -32,7 +39,12 @@ namespace foursoulsauto.core.effectlib
 
         public string GetEffectText()
         {
-            return $"{_attacker.CharName} will attack {_target.CardName}";
+            return $"{_attacker.CharName} will attack";
+        }
+
+        public GameObject CreateStackVisual()
+        {
+            return Object.Instantiate(StackMemberClone);
         }
     }
 }

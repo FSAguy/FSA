@@ -1,4 +1,5 @@
 using System;
+using foursoulsauto.core.effectlib;
 using UnityEngine;
 
 namespace foursoulsauto.core.player
@@ -15,6 +16,8 @@ namespace foursoulsauto.core.player
         public PlayerHand Hand => hand;
 
         public string CharName => Character.CardName;
+
+        public event Action<EffectInput> RequestedInput;
         
         public event Action PlayerPassed;
         public event Action LootPlaysChanged;
@@ -44,6 +47,9 @@ namespace foursoulsauto.core.player
                 LootPlaysChanged?.Invoke();
             }
         }
+
+        public bool MayAttack => // TODO: might be modified by game phases?
+            Board.Instance.ActivePlayer == this && Board.Instance.Stack.IsEmpty && HasAttacksLeft && Character.IsAlive; 
         
         public int Cents
         {
@@ -69,6 +75,15 @@ namespace foursoulsauto.core.player
         {
             GainedPriority?.Invoke();
         }
-        
+
+        public void RequestInput(EffectInput request)
+        {
+            RequestedInput?.Invoke(request);
+        }
+
+        public void DeclareAttack()
+        {
+            Board.Instance.Stack.Push(new AttackDeclarationEffect(this));
+        }
     }
 }

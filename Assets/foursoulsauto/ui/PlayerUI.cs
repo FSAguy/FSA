@@ -1,19 +1,24 @@
+using System.Collections;
 using System.Collections.Generic;
 using foursoulsauto.core;
 using foursoulsauto.core.player;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace foursoulsauto.ui
 {
+    // TODO: maybe add a separate UI between turns? So that we don't have an "Attack" button when not active?
     public class PlayerUI : MonoBehaviour
     {
         [SerializeField] private Camera playerCamera;
         [SerializeField] private Player player;
+        [SerializeField] private GameObject defaultUiPanel;
         [SerializeField] private Transform stackPanel;
-        [SerializeField] private TMP_Text headerText;
         [SerializeField] private TMP_Text passText;
-        
+        [SerializeField] private Button attackBtn;
+        [SerializeField] private EffectInputUI effectInputUI;
+
         private UIStackHandler _stackHandler; // TODO: almost definitely should be its own MonoBehaviour
 
         public Player ControlledPlayer => player;
@@ -30,26 +35,39 @@ namespace foursoulsauto.ui
             return hit.transform.GetComponentInParent<Card>();
         }
 
-        public void OpenHeader(string msg) // TODO: animations and colors and shit
+        public IEnumerator SelectInput(EffectInput request)
         {
-            headerText.gameObject.SetActive(true);
-            headerText.text = msg;
+            yield return effectInputUI.GetPlayerInput(request);
         }
 
-        public void CloseHeader() // TODO: same as OpenHeader
-        {
-            headerText.gameObject.SetActive(false);
-        }
-
-        private void UpdateTexts() // TODO: should move contents to their own appropriate modules
+        private void UpdateBottomPanel() // TODO: should move contents to their own appropriate modules
+        // most likely playerstatspanel which would be renamed, like, basicactionspanel?
         {
             passText.text = Board.Instance.Stack.IsEmpty ? Board.Instance.Phase.EmptyStackPassText : "Pass";
+            attackBtn.gameObject.SetActive(player.MayAttack);
+        }
+
+        public void Hide()
+        {
+            defaultUiPanel.SetActive(false);
+        }
+
+        public void Show()
+        {
+            defaultUiPanel.SetActive(true);
         }
         
         private void Awake()
         {
-            player.CentsChanged += UpdateTexts;
-            player.GainedPriority += UpdateTexts;
+            player.CentsChanged += UpdateBottomPanel;
+            player.GainedPriority += UpdateBottomPanel;
+            player.AttacksLeftChanged += UpdateBottomPanel;
+            player.RequestedInput += OnRequestedInput;
+        }
+
+        private void OnRequestedInput(EffectInput request)
+        {
+            StartCoroutine(effectInputUI.GetPlayerInput(request));
         }
 
         private void Start()
@@ -60,7 +78,7 @@ namespace foursoulsauto.ui
         public void PlayerPass()
         {
             player.Pass();
-            UpdateTexts();
+            UpdateBottomPanel();
         }
 
         private class UIStackHandler
@@ -95,7 +113,13 @@ namespace foursoulsauto.ui
         public void GenerateEffect(CardAction action)
         {
             player.PlayEffect(action);
-            UpdateTexts();
+            UpdateBottomPanel();
+        }
+
+        public void DeclareAttack()
+        {
+            player.DeclareAttack();
+            UpdateBottomPanel();
         }
     }
 }

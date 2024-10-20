@@ -30,7 +30,6 @@ namespace foursoulsauto.ui
         private void Stop()
         {
             _state = State.Idle;
-            ui.CloseHeader(); // TODO: make sure nothing else important is showing there
             CloseActionPanel();
         }
 
@@ -82,27 +81,7 @@ namespace foursoulsauto.ui
 
         private void GeneratingActionUpdate()
         {
-            if (!Input.GetMouseButtonDown(0)) return;
-            var card = ui.GetCardUnderMouse();
-            if (card is null) // user cancelled by pressing outside
-            {
-                ui.CloseHeader();
-                Stop();
-                return;
-            }
-            if (!_currentAction.Input.IsCardEligible(card))
-            {
-                ui.OpenHeader("Invalid selection");
-                return;
-            }
-
-            switch (_currentAction.Input.InpType)
-            {
-                case InputType.SingleCardTarget:
-                    _currentAction.Input.CardInput = card;
-                    break;
-            }
-            // TODO: selection may be multi staged (for example, destroy a card to steal another card)
+            if (!_currentAction.Input.IsInputFilled) return;
             ui.GenerateEffect(_currentAction);
             Stop();
         }
@@ -129,7 +108,7 @@ namespace foursoulsauto.ui
         
         private void CreateAction(CardAction action)
         {
-            CancelInvoke(nameof(Stop)); // TODO: delete after removing disgusting hack
+            CancelInvoke(nameof(Stop)); // TODO: delete after removing disgusting hack above
             if (!action.Input.SomeInputExists)
             {
                 Stop();
@@ -145,12 +124,7 @@ namespace foursoulsauto.ui
             
             _currentAction = action;
             _state = State.Generating;
-            switch (action.Input.InpType)
-            {
-                case InputType.SingleCardTarget:
-                    ui.OpenHeader("Select target");
-                    break;
-            }
+            StartCoroutine(ui.SelectInput(_currentAction.Input));
         }
     }
 }

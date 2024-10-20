@@ -9,7 +9,6 @@ namespace foursoulsauto.core
 {
     public abstract class LivingCard : Card
     {
-    
         public event Action<int> TookDamage;
         public event Action<int> HpChanged;
         public event Action<int> EvasionChanged;
@@ -28,10 +27,6 @@ namespace foursoulsauto.core
         public bool IsDead => Hp <= 0 || !IsShown; // TODO: change IsShown to IsInPlay
         public bool IsAlive => !IsDead;
         public bool IsAttackable => attackable && IsAlive;
-
-        public override List<CardAction> Actions => attackable ? 
-            new List<CardAction> {new AttackDeclarationAction(this) } : 
-            base.Actions;
 
         // Never change CurrentHp when "taking damage", use TakeDamage for that
         // Change CurrentHp when healing or modifying hp without damage

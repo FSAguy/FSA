@@ -8,14 +8,27 @@ namespace foursoulsauto.core
     public enum InputType {None, SingleCardTarget}
     public class EffectInput
     {
-        public Card CardInput;
         private readonly Func<Card, bool> _cardPredicate;
         
+        public Card _cardInput;
         public InputType InpType { get; }
+        public bool IsInputFilled { get; private set; } = false;
+
+        public Card CardInput
+        {
+            get => _cardInput;
+            set
+            {
+                if (!IsCardEligible(value)) throw new Exception("Input not valid!");
+                _cardInput = value;
+                IsInputFilled = true;
+            }
+        }
 
         public EffectInput()
         {
             InpType = InputType.None;
+            IsInputFilled = true;
         }
 
         public EffectInput(Func<Card, bool> cardPredicate)
@@ -41,5 +54,6 @@ namespace foursoulsauto.core
         // TODO: use this in the ui to make eligible cards glow?
         // TODO: make it only cards that are on the board by default maybe??
         public List<Card> EligibleCards => Board.Instance.AllCards.FindAll(card => _cardPredicate(card));
+
     }
 }
