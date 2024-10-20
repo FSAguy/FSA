@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using foursoulsauto.core.player;
@@ -24,12 +25,15 @@ namespace foursoulsauto.core.effectlib
         {
             _gains = new Dictionary<Player, Func<int>> { { player, value } };
         }
-        public void Resolve()
+        
+        public IEnumerator Resolve()
         {
             foreach (var pair in _gains)
             {
                 pair.Key.Cents += pair.Value.Invoke();
             }
+
+            yield return null;
         }
 
         public string GetEffectText()

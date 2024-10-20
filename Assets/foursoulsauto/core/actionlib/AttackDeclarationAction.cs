@@ -2,7 +2,7 @@
 
 namespace foursoulsauto.core.actionlib
 {
-    public class AttackDeclarationAction : CardAction
+    public class AttackDeclarationAction : CardAction // TODO: this should be deleted
     {
         public AttackDeclarationAction(LivingCard origin) : 
             base(origin, 

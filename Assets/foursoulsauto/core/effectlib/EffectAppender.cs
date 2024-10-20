@@ -1,4 +1,7 @@
-﻿namespace foursoulsauto.core.effectlib
+﻿using System.Collections;
+using System.Linq;
+
+namespace foursoulsauto.core.effectlib
 {
     // wrapper effect for chaining multiple effects together
     public class EffectAppender : IStackEffect
@@ -9,9 +12,9 @@
         {
             _effects = effects;
         }
-        public void Resolve()
+        public IEnumerator Resolve()
         {
-            foreach (var effect in _effects) effect.Resolve();
+            return _effects.Select(effect => effect.Resolve()).GetEnumerator();
         }
 
         public string GetEffectText()
@@ -34,6 +37,11 @@
         public void OnStackAdd()
         {
             foreach (var effect in _effects) effect.OnStackAdd();
+        }
+
+        public void OnLeaveStack()
+        {
+            foreach (var effect in _effects) effect.OnLeaveStack();
         }
     }
 }

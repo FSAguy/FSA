@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 
 namespace foursoulsauto.core.effectlib
 {
@@ -11,9 +12,10 @@ namespace foursoulsauto.core.effectlib
             _target = target;
         }
 
-        public void Resolve()
+        public IEnumerator Resolve()
         {
             _target.ReRoll();
+            yield return null;
         }
 
         public string GetEffectText()

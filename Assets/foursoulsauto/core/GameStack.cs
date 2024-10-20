@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace foursoulsauto.core
 {
-    public class GameStack
+    public class GameStack : MonoBehaviour
     {
         public event Action<IVisualStackEffect> ItemPushed;
         public event Action<IVisualStackEffect> ItemResolved;
@@ -53,14 +54,19 @@ namespace foursoulsauto.core
             if (topItem.MayResolve())
             {
                 Debug.Log($"Activating Effect: {topItem.GetEffectText()}");
-                topItem.Resolve();
-                ItemResolved?.Invoke(topItem);
+                StartCoroutine(ResolveItem(topItem));
             }
             else
             {
                 Debug.Log($"Effect fizzled: {topItem.GetEffectText()}");
                 ItemFizzled?.Invoke(topItem);
             }
+        }
+
+        private IEnumerator ResolveItem(IVisualStackEffect effect)
+        {
+            yield return effect.Resolve();
+            ItemResolved?.Invoke(effect);
         }
     }
 }

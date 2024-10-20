@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using foursoulsauto.core.player;
 using foursoulsauto.ui;
 using UnityEngine;
@@ -48,11 +49,16 @@ namespace foursoulsauto.core.effectlib
             ReRoll();
         }
 
-        public void Resolve()
+        public IEnumerator Resolve()
         {
-            if (RolledEffect.MayResolve()) RolledEffect.Resolve();
-            else RolledEffect.OnLeaveStack();
+            if (RolledEffect.MayResolve()) yield return RolledEffect.Resolve();
             RollResolved?.Invoke(Result);
+            yield return null;
+        }
+
+        public void OnLeaveStack()
+        {
+            RolledEffect.OnLeaveStack();
         }
 
         public string GetEffectText() 

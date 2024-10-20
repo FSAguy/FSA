@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,12 +24,14 @@ namespace foursoulsauto.core.effectlib
             _targetDamageDict = new Dictionary<LivingCard, Func<int>> { { target, value } };
         }
 
-        public void Resolve()
+        public IEnumerator Resolve()
         {
             foreach (var pair in _targetDamageDict)
             {
                 pair.Key.TakeDamage(pair.Value());
             }
+
+            yield return null;
         }
         
         public string GetEffectText()

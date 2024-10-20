@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace foursoulsauto.core
@@ -21,7 +22,7 @@ namespace foursoulsauto.core
             _effect.OnStackAdd();
         }
 
-        public virtual void Resolve() => _effect.Resolve();
+        public virtual IEnumerator Resolve() => _effect.Resolve();
 
         public string GetEffectText() => _effect.GetEffectText();
 

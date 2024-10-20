@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using foursoulsauto.core.player;
 
 namespace foursoulsauto.core.effectlib
@@ -14,9 +15,10 @@ namespace foursoulsauto.core.effectlib
             _amount = amount;
         }
 
-        public void Resolve()
+        public IEnumerator Resolve()
         {
             _target.LootPlaysRemaining += _amount.Invoke();
+            yield return null;
         }
 
         public string GetEffectText()

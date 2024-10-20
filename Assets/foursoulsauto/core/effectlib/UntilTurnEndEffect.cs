@@ -1,4 +1,6 @@
-﻿namespace foursoulsauto.core.effectlib
+﻿using System.Collections;
+
+namespace foursoulsauto.core.effectlib
 {
     //TODO: this
     //requires some tashtit to remember the effect so it could cancel it once turn ends
@@ -8,7 +10,7 @@
     // wrapper (superclass?) effect for persistent effect disappearing at the end of the turn
     public class UntilTurnEndEffect : IStackEffect
     {
-        public void Resolve()
+        public IEnumerator Resolve()
         {
             throw new System.NotImplementedException();
         }

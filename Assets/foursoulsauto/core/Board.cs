@@ -50,11 +50,11 @@ namespace foursoulsauto.core
         private int _turnIdx; 
         private int _priorityIdx;
         private VoidContainer _voidContainer;
-        [SerializeField] private GamePhase _phase;
+        private GamePhase _phase;
 
         private void Awake()
         {
-            Stack = new GameStack();
+            Stack = gameObject.AddComponent<GameStack>();
             _voidContainer = gameObject.AddComponent<VoidContainer>();
             foreach (var player in players)
             {
