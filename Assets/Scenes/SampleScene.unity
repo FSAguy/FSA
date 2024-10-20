@@ -175,7 +175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0.38679248, g: 0.38679248, b: 0.38679248, a: 0.36862746}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -443,7 +443,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f2b724fb07d4ec1b2aa429ad451db36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ui: {fileID: 1362927796}
   centText: {fileID: 466853578}
   lootPlaysText: {fileID: 1218604314}
   attacksText: {fileID: 1565211246}
@@ -499,7 +498,6 @@ MonoBehaviour:
   actionPanel: {fileID: 656667673}
   cardTitle: {fileID: 395944684}
   buttonClone: {fileID: 7713953362178084007, guid: a07634a153aa8d3488c0120d3f74c98d, type: 3}
-  ui: {fileID: 1362927796}
 --- !u!1 &194631412
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,7 +548,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 33.1, y: 7.11, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -1135,6 +1133,7 @@ GameObject:
   - component: {fileID: 451023810}
   - component: {fileID: 451023809}
   - component: {fileID: 451023811}
+  - component: {fileID: 451023812}
   m_Layer: 0
   m_Name: StackPanel
   m_TagString: Untagged
@@ -1225,6 +1224,19 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &451023812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451023807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 233ce1b73d2e46ef8c867992a2f771cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stackPanel: {fileID: 451023808}
 --- !u!1 &466853577
 GameObject:
   m_ObjectHideFlags: 0
@@ -1408,7 +1420,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2feee998805a458cb9edd71a3285fd93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultUI: {fileID: 1362927796}
   inputScreen: {fileID: 59469752}
   header: {fileID: 881537911}
 --- !u!1 &574708661
@@ -2557,13 +2568,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b908febd405a03409d2643eabaa6f61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCamera: {fileID: 963194227}
-  player: {fileID: 1874364352}
   defaultUiPanel: {fileID: 1010908373}
-  stackPanel: {fileID: 451023808}
   passText: {fileID: 447829080}
   attackBtn: {fileID: 1041628176}
-  effectInputUI: {fileID: 549096058}
+  stackUI: {fileID: 451023812}
+  statsPanel: {fileID: 139115986}
 --- !u!224 &1362927797
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3302,6 +3311,7 @@ GameObject:
   - component: {fileID: 2138386207}
   - component: {fileID: 2138386206}
   - component: {fileID: 2138386209}
+  - component: {fileID: 2138386210}
   m_Layer: 0
   m_Name: UI
   m_TagString: Untagged
@@ -3371,6 +3381,22 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &2138386210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138386205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53a67b8197e547f3a06632198b9524e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultUI: {fileID: 1362927796}
+  actionUI: {fileID: 152232837}
+  effectUI: {fileID: 549096058}
+  player: {fileID: 1874364352}
 --- !u!4 &302586486973394655
 Transform:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ namespace foursoulsauto.core.effectlib
         private static readonly GameObject StackMemberClone = 
             Resources.Load<GameObject>("Prefabs/UI/AttackStackMember");
         
-        private Player _attacker;
+        private readonly Player _attacker;
         
         public AttackDeclarationEffect(Player attacker)
         {

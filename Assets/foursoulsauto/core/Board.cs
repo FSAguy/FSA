@@ -60,6 +60,7 @@ namespace foursoulsauto.core
             {
                player.PlayerPassed += OnPlayerPassed;
             }
+            deckArrangement.Setup(boardCardList);
         }
 
         private void Start() // TODO: move this into a separate "begin game" method, recheck values
@@ -69,7 +70,6 @@ namespace foursoulsauto.core
             {
                player.Cents = 0;
             }
-            deckArrangement.Setup(boardCardList);
             PlayerLoot(players[0], 5);
             PriorityPlayer.GainPriority();
         }

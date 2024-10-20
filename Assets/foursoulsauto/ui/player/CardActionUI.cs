@@ -3,27 +3,28 @@ using System.Collections.Generic;
 using foursoulsauto.core;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace foursoulsauto.ui
+namespace foursoulsauto.ui.player
 {
-    public class CardActionUI : MonoBehaviour
+    // TODO: make less dumb maybe?
+    public class CardActionUI : PlayerUIModule
     {
         private enum State { Idle, Selecting, Generating}
+
+        public event Action Stopped;
         
         [SerializeField] private GameObject actionPanel;
         [SerializeField] private TMP_Text cardTitle;
         [SerializeField] private Button buttonClone;
-        [SerializeField] private PlayerUI ui;
 
         private State _state = State.Idle;
         private List<Button> _buttons = new();
         private CardAction _currentAction;
-        public bool IsWorking => _state != State.Idle;
 
-        private void Awake()
+        protected override void Start()
         {
+            base.Start();
             Stop();
         }
         
@@ -31,6 +32,7 @@ namespace foursoulsauto.ui
         {
             _state = State.Idle;
             CloseActionPanel();
+            Stopped?.Invoke();
         }
 
         private void CloseActionPanel()
@@ -48,7 +50,6 @@ namespace foursoulsauto.ui
             switch (_state)
             {
                 case State.Idle:
-                    IdleUpdate();
                     break;
                 case State.Selecting:
                     SelectionUpdate();
@@ -59,17 +60,6 @@ namespace foursoulsauto.ui
             }
         }
 
-        private void IdleUpdate()
-        {
-            if (!Input.GetMouseButtonDown(0)) return;
-            var card = ui.GetCardUnderMouse();
-            if (card is null || // TODO: maybe should make logical clause below less confusing or standardize it
-                (card.Container.Owner != ui.ControlledPlayer && card.Container.Owner is not null)) 
-                return;
-            
-            SelectAction(Input.mousePosition, card);
-        }
-
         private void SelectionUpdate()
         {
             if (!Input.GetMouseButtonDown(0)) return;
@@ -78,15 +68,8 @@ namespace foursoulsauto.ui
             // TODO: either do the above of figure out better way
             Invoke(nameof(Stop), 0.1f); 
         }
-
-        private void GeneratingActionUpdate()
-        {
-            if (!_currentAction.Input.IsInputFilled) return;
-            ui.GenerateEffect(_currentAction);
-            Stop();
-        }
-
-        private void SelectAction(Vector3 pos, Card card)
+        
+        public void SelectAction(Card card, Vector3 pos)
         {
             _state = State.Selecting;
             actionPanel.transform.position = pos;
@@ -104,7 +87,6 @@ namespace foursoulsauto.ui
                 _buttons.Add(button);
             }
         }
-
         
         private void CreateAction(CardAction action)
         {
@@ -117,14 +99,22 @@ namespace foursoulsauto.ui
             
             if (action.Input.InpType == InputType.None)
             {
-                ui.GenerateEffect(action);
+                Manager.GenerateEffect(action);
                 Stop();
                 return;
             }
             
+            CloseActionPanel();
             _currentAction = action;
             _state = State.Generating;
-            StartCoroutine(ui.SelectInput(_currentAction.Input));
+            Manager.RequestInput(_currentAction.Input);
         }
+        
+        private void GeneratingActionUpdate()
+        {
+            if (!_currentAction.Input.IsInputFilled) return;
+            Manager.GenerateEffect(_currentAction);
+            Stop();
+        }   
     }
 }

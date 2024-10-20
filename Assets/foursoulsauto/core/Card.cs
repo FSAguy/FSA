@@ -77,6 +77,5 @@ namespace foursoulsauto.core
             FaceUp = true; // TODO: should be false, true for testing
             _charged = true; 
         }
-
     }
 }

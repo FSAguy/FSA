@@ -1,14 +1,18 @@
-﻿using foursoulsauto.core;
+﻿using System;
+using foursoulsauto.core;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace foursoulsauto.ui
 {
-    public class CardUI : MonoBehaviour
+    public class CardUI : MonoBehaviour, IPointerClickHandler
     {
         [SerializeField] private SpriteRenderer bodyRenderer;
         
-        //TODO: magic nums, as in numbers that can be modified with "magic marker"
         private Card _card;
+
+        public event Action<Card, PointerEventData> CardClicked;
+        
         public virtual void Subscribe(Card card)
         {
             _card = card;
@@ -24,6 +28,11 @@ namespace foursoulsauto.ui
         protected virtual void OnChangedFace(bool isUp)
         {
             bodyRenderer.sprite = isUp ? _card.TopSprite : _card.BottomSprite;
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            CardClicked?.Invoke(_card, eventData);
         }
     }
 }

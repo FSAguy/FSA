@@ -2,6 +2,8 @@
 
 namespace foursoulsauto.core.effectlib
 {
+    // TODO: make attackroll be created not when passing on an empty stack, but when there the stack BECOMES empty
+    // (on stack emptied)
     public class AttackGamePhase : GamePhase
     {
         public LivingCard Defender { get; }
@@ -35,7 +37,7 @@ namespace foursoulsauto.core.effectlib
         
         public override void Enter()
         {
-            // AddAttackToStack(); //TODO: maybe remove the comment? idk
+            AddAttackToStack(); //TODO: maybe remove the comment? idk
         }
 
         public override void Leave()
