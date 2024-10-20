@@ -98,8 +98,8 @@ namespace foursoulsauto.ui
 
             switch (_currentAction.Input.InpType)
             {
-                case InputType.LivingCardTarget:
-                    _currentAction.Input.LivingCardTarget = card as LivingCard;
+                case InputType.SingleCardTarget:
+                    _currentAction.Input.CardInput = card;
                     break;
             }
             // TODO: selection may be multi staged (for example, destroy a card to steal another card)
@@ -147,7 +147,7 @@ namespace foursoulsauto.ui
             _state = State.Generating;
             switch (action.Input.InpType)
             {
-                case InputType.LivingCardTarget:
+                case InputType.SingleCardTarget:
                     ui.OpenHeader("Select target");
                     break;
             }

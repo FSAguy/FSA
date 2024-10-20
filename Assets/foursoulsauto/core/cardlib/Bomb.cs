@@ -11,8 +11,8 @@ namespace foursoulsauto.core.cardlib
         public override List<CardAction> Actions => new()
         {
             new LootCardAction(this, 
-                input => new DealDamageEffect(input.LivingCardTarget, () => damageNum.Value), 
-                input:new EffectInput(InputType.LivingCardTarget)) 
+                input => new DealDamageEffect(input.CardInput as LivingCard, () => damageNum.Value), 
+                input:new EffectInput(card => card is LivingCard {IsAlive:true})) 
         };
     }
 }
