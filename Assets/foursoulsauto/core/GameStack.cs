@@ -29,8 +29,8 @@ namespace foursoulsauto.core
                 return;
             }
             Stack.Insert(0, effect);
-            ItemPushed?.Invoke(effect); 
             effect.OnStackAdd();// TODO: should be before ItemPushed.invoke, but then need to fix UI
+            ItemPushed?.Invoke(effect); 
             Debug.Log($"Added effect: {effect.GetEffectText()}");
         }
 

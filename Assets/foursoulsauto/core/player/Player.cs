@@ -68,7 +68,7 @@ namespace foursoulsauto.core.player
 
         public void PlayEffect(CardAction action)
         {
-            Board.Instance.PlayEffect(action.GenerateEffect());
+            Board.Instance.AddEffect(action.GenerateEffect());
         }
 
         public void GainPriority()
@@ -83,7 +83,7 @@ namespace foursoulsauto.core.player
 
         public void DeclareAttack()
         {
-            Board.Instance.Stack.Push(new AttackDeclarationEffect(this));
+            Board.Instance.AddEffect(new AttackDeclarationEffect(this));
         }
     }
 }

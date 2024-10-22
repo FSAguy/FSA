@@ -72,8 +72,6 @@ namespace foursoulsauto.core
 
         protected virtual void Awake()
         {
-            _ui = GetComponentInChildren<CardUI>();
-            _ui.Subscribe(this);
             FaceUp = true; // TODO: should be false, true for testing
             _charged = true; 
         }

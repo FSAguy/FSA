@@ -13,12 +13,12 @@ namespace foursoulsauto.ui
         [SerializeField] private TMP_Text attackText;
 
         // TODO: react to evasion and attack, make them optional, colors and animations and shid
-        public override void Subscribe(Card card)
+        protected override void Awake()
         {
-            base.Subscribe(card);
-            if (card is not LivingCard livingCard)
+            base.Awake();
+            if (TargetCard is not LivingCard livingCard)
             {
-                Debug.LogError($"{card.name} is not LivingCard");
+                Debug.LogError($"{TargetCard.name} is not LivingCard");
                 throw new Exception();
             }
 

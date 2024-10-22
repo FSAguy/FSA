@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using foursoulsauto.core.deck;
 using foursoulsauto.core.player;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace foursoulsauto.core
 {
@@ -89,7 +88,7 @@ namespace foursoulsauto.core
         {
             _voidContainer.MoveInto(card);
         }
-        
+ 
         private void OnPlayerPassed()
         {
             if (Stack.IsEmpty) Phase.EmptyStackPass();
@@ -99,10 +98,9 @@ namespace foursoulsauto.core
             PriorityPlayer.GainPriority();
         }
 
-        public void PlayEffect(IVisualStackEffect effect)
+        public void AddEffect(IVisualStackEffect effect)
         {
             Stack.Push(effect);
         }
-
     }
 }

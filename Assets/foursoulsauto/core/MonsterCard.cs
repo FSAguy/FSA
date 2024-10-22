@@ -7,7 +7,7 @@
         protected override void OnDeath()
         {
             base.OnDeath();
-            Board.Instance.Stack.Push(GenerateRewards());
+            Board.Instance.AddEffect(GenerateRewards());
         }
     }
 }

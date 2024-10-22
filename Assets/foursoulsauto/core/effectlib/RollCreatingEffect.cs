@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using UnityEngine;
+﻿using System.Collections;
 
 namespace foursoulsauto.core.effectlib
 {
@@ -16,7 +14,7 @@ namespace foursoulsauto.core.effectlib
 
         public IEnumerator Resolve()
         {
-            Board.Instance.Stack.Push(_roll);
+            Board.Instance.AddEffect(_roll);
             yield return null;
         }
 

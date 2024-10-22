@@ -26,7 +26,7 @@ namespace foursoulsauto.core.effectlib
         private void AddAttackToStack()
         {
             _currentAttack = new AttackRoll(Attacker, Defender);
-            Board.Instance.Stack.Push(_currentAttack);
+            Board.Instance.AddEffect(_currentAttack);
         }
 
         private void OnFightOver()

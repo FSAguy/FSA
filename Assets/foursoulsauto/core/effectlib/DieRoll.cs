@@ -13,13 +13,15 @@ namespace foursoulsauto.core.effectlib
         // TODO: make custom die graphics (very fancy)
         // TODO: add rolly roll sound
         public event Action<int> RollResolved;
+        public event Action<int> ResultChanged;
         
+        // TODO: doing this is bad and not good
+        // Should probably make a library for these things
         private static readonly DieRollUI StackMemberClone =
             Resources.Load<DieRollUI>("Prefabs/UI/RollStackMember");
         
         public Player Roller { get; private set; }
         
-        private DieRollUI _stackMember;
         protected IStackEffect[] PotentialEffects;
             
         private int RawResult { get; set; }
@@ -39,9 +41,7 @@ namespace foursoulsauto.core.effectlib
         public void ReRoll()
         {
             RawResult = Random.Range(1, 7);
-            // TODO: kinda cringe coupling, should probably use events instead and let the UI do its thing
-            // then again GetStackVisual basically demands coupling... TODO: thinkaboudit
-            _stackMember.UpdateSprite(RawResult); // TODO: maybe use the final result instead? what is less confusing?
+            ResultChanged?.Invoke(RawResult);
         }
 
         public void OnStackAdd()
@@ -71,10 +71,10 @@ namespace foursoulsauto.core.effectlib
 
         public GameObject CreateStackVisual() 
         {
-            var stackMember = Object.Instantiate(StackMemberClone.gameObject);
-            _stackMember = stackMember.GetComponent<DieRollUI>();
+            var stackMember = Object.Instantiate(StackMemberClone);
+            stackMember.Subscribe(this);
             
-            return stackMember;
+            return stackMember.gameObject;
         }
     }
 }

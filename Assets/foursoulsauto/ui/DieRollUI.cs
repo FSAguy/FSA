@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using foursoulsauto.core.effectlib;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,19 +10,26 @@ namespace foursoulsauto.ui
     {
         [SerializeField] private List<Sprite> sprites;
         [SerializeField] private Image dieRenderer;
-        
-        public void UpdateSprite(int value)
+
+        private DieRoll _roll;
+
+        public void Subscribe(DieRoll roll)
+        {
+            _roll = roll;
+            _roll.ResultChanged += UpdateSprite;
+        }
+
+        private void UpdateSprite(int value)
         {
             dieRenderer.sprite = sprites[value - 1];
         }
 
         private void Awake()
         {
-            if (sprites.Count != 6)
-            {
-                Debug.LogError($"{this} needs exactly 6 sprites.");
-                throw new Exception();
-            }
+            if (sprites.Count == 6) return;
+            
+            Debug.LogError($"{this} needs exactly 6 sprites.");
+            throw new Exception();
         }
     }
 }

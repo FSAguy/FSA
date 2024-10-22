@@ -9,30 +9,30 @@ namespace foursoulsauto.ui
     {
         [SerializeField] private SpriteRenderer bodyRenderer;
         
-        private Card _card;
+        protected Card TargetCard;
 
         public event Action<Card, PointerEventData> CardClicked;
-        
-        public virtual void Subscribe(Card card)
+
+        protected virtual void Awake()
         {
-            _card = card;
-            _card.ChangedFace += OnChangedFace;
-            _card.ChangedCharge += OnChangedCharge;
+            TargetCard = GetComponentInParent<Card>();
+            TargetCard.ChangedFace += OnChangedFace;
+            TargetCard.ChangedCharge += OnChangedCharge;
         }
 
         private void OnChangedCharge(bool obj)
         {
-            _card.TapAnim(obj);
+            TargetCard.TapAnim(obj);
         }
 
         protected virtual void OnChangedFace(bool isUp)
         {
-            bodyRenderer.sprite = isUp ? _card.TopSprite : _card.BottomSprite;
+            bodyRenderer.sprite = isUp ? TargetCard.TopSprite : TargetCard.BottomSprite;
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            CardClicked?.Invoke(_card, eventData);
+            CardClicked?.Invoke(TargetCard, eventData);
         }
     }
 }
