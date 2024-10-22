@@ -37,19 +37,22 @@ namespace foursoulsauto.core.effectlib
         public string GetEffectText()
         {
             if (_targetDamageDict.Count == 1)
-                return $"{_targetDamageDict.Keys.First()} takes {_targetDamageDict.Values.First().Invoke()} damage";
+                return $"{_targetDamageDict.Keys.First().CardName} " +
+                       $"takes {_targetDamageDict.Values.First().Invoke()} damage";
                     
             var effectText = "";
             var targets = _targetDamageDict.Keys;
         
             for (var i = 0; i < targets.Count - 1; i++)
             {
-                effectText += targets.ElementAt(i) + ", ";
+                var name = targets.ElementAt(i).CardName;
+                effectText += name + ", ";
             }
         
-            effectText += $"and {targets.Last()} ";
+            effectText += $"and {targets.Last().CardName} ";
         
-            if (_targetDamageDict.Values.Distinct().Count() == 1) // if there is only one value
+            var first = _targetDamageDict.Values.First().Invoke();
+            if (_targetDamageDict.Values.All(func => func.Invoke() == first)) // if there is only one value
             {
                 effectText += $"take {_targetDamageDict.Values.First().Invoke()} damage";
             }

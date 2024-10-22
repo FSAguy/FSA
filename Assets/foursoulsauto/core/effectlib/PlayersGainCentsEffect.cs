@@ -39,17 +39,17 @@ namespace foursoulsauto.core.effectlib
         public string GetEffectText()
         {
             if (_gains.Count == 1)
-                return $"{_gains.Keys.First()} will gain {_gains.Values.First().Invoke()}¢";
+                return $"{_gains.Keys.First().CharName} will gain {_gains.Values.First().Invoke()}¢";
             
             var effectText = "";
             var players = _gains.Keys;
 
             for (var i = 0; i < players.Count - 1; i++)
             {
-                effectText += players.ElementAt(i) + ", ";
+                effectText += players.ElementAt(i).CharName + ", ";
             }
 
-            effectText += $"and {players.Last()} ";
+            effectText += $"and {players.Last().CharName} ";
 
             var first = _gains.Values.First().Invoke();
             if (_gains.Values.All(func => func.Invoke() == first)) // if there is only one value
