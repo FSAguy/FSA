@@ -2,6 +2,6 @@
 {
     public enum Deck
     {
-        Loot, Monster, Treasure, Character, Room, BonusSouls
+        Loot, Monster, Treasure, Character, StartingItem, Room, BonusSouls
     }
 }

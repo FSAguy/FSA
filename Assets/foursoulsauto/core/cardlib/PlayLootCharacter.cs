@@ -5,7 +5,7 @@ using foursoulsauto.core.effectlib;
 namespace foursoulsauto.core.cardlib
 {
     // most common character that just gets an extra loot play as a tap
-    public class PlayLootCharacter : LivingCard
+    public class PlayLootCharacter : CharacterCard
     {
         public override List<CardAction> Actions => new()
         {
