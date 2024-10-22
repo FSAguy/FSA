@@ -11,7 +11,7 @@ namespace foursoulsauto.core.player
         private int _cents;
         private int _lootPlaysLeft = 1; // todo: change this lol
         private int _attacksLeft = 1; // todo: change lol
-
+        private bool _hasPriority;
         public LivingCard Character { get; set; }
         public PlayerHand Hand => hand;
 
@@ -23,10 +23,21 @@ namespace foursoulsauto.core.player
         public event Action LootPlaysChanged;
         public event Action AttacksLeftChanged;
         public event Action CentsChanged;
-        public event Action GainedPriority;
+        public event Action PriorityChanged;
 
         public bool HasLootPlays => _lootPlaysLeft > 0;
         public bool HasAttacksLeft => _attacksLeft > 0;
+
+        public bool HasPriority
+        {
+            get => _hasPriority;
+            set
+            {
+                _hasPriority = value;
+                PriorityChanged?.Invoke();
+            }
+        }
+
 
         public int AttacksRemaining
         {
@@ -69,11 +80,6 @@ namespace foursoulsauto.core.player
         public void PlayEffect(CardAction action)
         {
             Board.Instance.AddEffect(action.GenerateEffect());
-        }
-
-        public void GainPriority()
-        {
-            GainedPriority?.Invoke();
         }
 
         public void RequestInput(EffectInput request)

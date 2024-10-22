@@ -29,9 +29,9 @@ namespace foursoulsauto.core
                 return;
             }
             Stack.Insert(0, effect);
-            effect.OnStackAdd();// TODO: should be before ItemPushed.invoke, but then need to fix UI
-            ItemPushed?.Invoke(effect); 
+            effect.OnStackAdd();
             Debug.Log($"Added effect: {effect.GetEffectText()}");
+            ItemPushed?.Invoke(effect); 
         }
 
         public void CancelEffect(IVisualStackEffect effect)

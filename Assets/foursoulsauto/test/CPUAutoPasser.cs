@@ -1,4 +1,5 @@
-﻿using foursoulsauto.core.player;
+﻿using System.Collections;
+using foursoulsauto.core.player;
 using UnityEngine;
 
 namespace foursoulsauto.test
@@ -9,10 +10,19 @@ namespace foursoulsauto.test
 
         private void Awake()
         {
-            player.GainedPriority += OnGainedPriority;
+            player.PriorityChanged += OnPriorityChanged;
         }
 
-        private void OnGainedPriority()
+        private void OnPriorityChanged()
+        {
+            if (player.HasPriority)
+            {
+                Debug.Log("UHHHHH I THINK ILL PASS");
+                Invoke(nameof(Pass), 1f);
+            }
+        }
+
+        private void Pass()
         {
             player.Pass();
         }

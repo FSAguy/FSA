@@ -11,13 +11,14 @@ namespace foursoulsauto.ui.player
         [SerializeField] private GameObject defaultUiPanel;
         [SerializeField] private TMP_Text passText;
         [SerializeField] private Button attackBtn;
-        [SerializeField] private StackUI stackUI;
+        [SerializeField] private Button passBtn;
         [SerializeField] private PlayerStatsPanel statsPanel;
 
-        public void UpdateVisuals() 
+        private void UpdateVisuals()
         {
             passText.text = Board.Instance.Stack.IsEmpty ? Board.Instance.Phase.EmptyStackPassText : "Pass";
-            attackBtn.gameObject.SetActive(Manager.ControlledPlayer.MayAttack);
+            passBtn.interactable = Manager.ControlledPlayer.HasPriority;
+            attackBtn.interactable = Manager.ControlledPlayer.MayAttack;
             statsPanel.RedrawStats();
         }
 
@@ -37,7 +38,7 @@ namespace foursoulsauto.ui.player
             base.Start();
             var player = Manager.ControlledPlayer;
             player.CentsChanged += UpdateVisuals;
-            player.GainedPriority += UpdateVisuals;
+            player.PriorityChanged += UpdateVisuals;
             player.AttacksLeftChanged += UpdateVisuals;
         }
 

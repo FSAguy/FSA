@@ -26,9 +26,11 @@ namespace foursoulsauto.core
         [SerializeField] private DeckArrangement deckArrangement;
         
         public GameStack Stack { get; private set; }
-        public Player ActivePlayer => players[_turnIdx];
+        public Player ActivePlayer => players[_activeIdx];
         public Player PriorityPlayer => players[_priorityIdx];
         public List<Card> AllCards => deckArrangement.AllCards;
+
+        public int PlayerCount => players.Count;
 
         // TODO: game phase should probably have a stack of its own
         // for example, you always have the "normal" phase at the bottom
@@ -46,8 +48,9 @@ namespace foursoulsauto.core
         }
 
         //TODO: properly change theses on turn switch
-        private int _turnIdx; 
-        private int _priorityIdx;
+        private int _activeIdx; // who's turn is it
+        private int _priorityIdx; // who has priority
+        private int _popIdx; // when will the stack next pop
         private VoidContainer _voidContainer;
         private GamePhase _phase;
 
@@ -69,8 +72,16 @@ namespace foursoulsauto.core
             {
                player.Cents = 0;
             }
-            PlayerLoot(players[0], 5);
-            PriorityPlayer.GainPriority();
+            PlayerLoot(players[0], 3);
+            _activeIdx = -1; // because new turn increments it
+            NewTurn();
+        }
+
+        private void NewTurn()
+        {
+            _activeIdx = (_activeIdx + 1) % PlayerCount;
+            _popIdx = _priorityIdx = _activeIdx;
+            PriorityPlayer.HasPriority = true;
         }
 
         private void PlayerLoot(Player player, int amount)
@@ -91,16 +102,24 @@ namespace foursoulsauto.core
  
         private void OnPlayerPassed()
         {
+            // todo: maybe prevent passing by incorrect player?
+            Debug.Log($"{PriorityPlayer.CharName} index {_priorityIdx} passed");
             if (Stack.IsEmpty) Phase.EmptyStackPass();
-            else Stack.Pop(); // TODO: only pop once priority has passed around in a circle
-            // probably implement the above by a counter
-            // TODO: pass priority to someone else you game hog
-            PriorityPlayer.GainPriority();
+            else
+            {
+                PriorityPlayer.HasPriority = false;
+                _priorityIdx = (_priorityIdx + 1) % PlayerCount;
+                if (_priorityIdx == _popIdx) Stack.Pop(); 
+            }
+
+            Debug.Log($"{_priorityIdx} turn");
+            PriorityPlayer.HasPriority = true;
         }
 
         public void AddEffect(IVisualStackEffect effect)
         {
             Stack.Push(effect);
+            _popIdx = _priorityIdx;
         }
     }
 }
