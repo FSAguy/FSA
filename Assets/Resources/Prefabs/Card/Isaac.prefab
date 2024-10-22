@@ -49,11 +49,11 @@ MonoBehaviour:
   bottomSprite: {fileID: 21300000, guid: 90fc3447ae5b86b49bb75885e2f0ff9a, type: 3}
   deck: 3
   cardName: Isaac
-  cardPrefab: {fileID: 4391577339411347212, guid: dd199d88bd4237b4d8099bfc26ef41a3, type: 3}
   startingHp: 2
   startingEvasion: 0
   startingAttack: 1
   attackable: 0
+  StartingItem: {fileID: 3946218840384381937, guid: 85055e7870efb8847b6a6f65585184c5, type: 3}
 --- !u!1001 &2767707052107961327
 PrefabInstance:
   m_ObjectHideFlags: 0
