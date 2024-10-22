@@ -23,8 +23,18 @@ namespace foursoulsauto.core.effectlib
         public Player Roller { get; private set; }
         
         protected IStackEffect[] PotentialEffects;
-            
-        private int RawResult { get; set; }
+        private int _rawResult;
+
+        public int RawResult
+        {
+            get => _rawResult;
+            set
+            {
+                var prev = _rawResult;
+                _rawResult = value;
+                if (prev != _rawResult) ResultChanged?.Invoke(_rawResult);
+            }
+        } 
         public int Result => Mathf.Clamp(GetResultAfterMods(RawResult), 1, 6);
         
         protected abstract int GetResultAfterMods(int roll);
@@ -41,7 +51,6 @@ namespace foursoulsauto.core.effectlib
         public void ReRoll()
         {
             RawResult = Random.Range(1, 7);
-            ResultChanged?.Invoke(RawResult);
         }
 
         public void OnStackAdd()

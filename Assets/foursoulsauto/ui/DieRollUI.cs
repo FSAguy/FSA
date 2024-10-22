@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using foursoulsauto.core.effectlib;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,6 +18,7 @@ namespace foursoulsauto.ui
         {
             _roll = roll;
             _roll.ResultChanged += UpdateSprite;
+            UpdateSprite(_roll.RawResult);
         }
 
         private void UpdateSprite(int value)
