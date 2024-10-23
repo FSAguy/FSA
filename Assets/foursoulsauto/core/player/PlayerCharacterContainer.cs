@@ -4,12 +4,10 @@ using UnityEngine;
 
 namespace foursoulsauto.core.player
 {
-    public class PlayerCharacterContainer : PlayerCardContainer
+    public class PlayerCharacterContainer : CardContainer
     {
         [SerializeField] private Card _charCard; // TODO: remove post testing
         
-        public override ContainerType ConType => ContainerType.Character;
-
         protected override void Awake() // TODO: see above todo
         {
             base.Awake();

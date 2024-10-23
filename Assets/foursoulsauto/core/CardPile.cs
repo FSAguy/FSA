@@ -9,8 +9,6 @@ namespace foursoulsauto.core
         // perhaps make separate classes???
         [SerializeField] private bool faceUp;
 
-        public override ContainerType ConType => ContainerType.Deck; // TODO: make cardpile abstract (See prev comment)
-
         protected override void Add(Card card)
         {
             base.Add(card);

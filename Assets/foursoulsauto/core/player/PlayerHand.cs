@@ -6,12 +6,10 @@ namespace foursoulsauto.core.player
 {
     //TODO: make cards visible only to client player
     //first uuhhhh make multiplayer work
-    public class PlayerHand : PlayerCardContainer
+    public class PlayerHand : CardContainer
     {
         [SerializeField] private BoxCollider zone;
         [SerializeField] private float prefDistance;
-
-        public override ContainerType ConType => ContainerType.Hand;
 
         protected override void Add(Card card)
         {

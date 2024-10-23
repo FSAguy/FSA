@@ -1,25 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using foursoulsauto.core.player;
 using UnityEngine;
 
 namespace foursoulsauto.core
 {
-    // TODO: this enum might be dumb and bad??
-    public enum ContainerType
-    {
-        Nothing, Hand, Character, Item, Soul, Curse, Deck, Discard, Shop, Monster, Room
-    }
-    
     // TODO: review this to see if it fulfills the needs of containing in play, not in play, and hidden (like in a deck) cards
     public abstract class CardContainer : MonoBehaviour
     {
+        private Player _playerOwner; // will be null if controlled by board
         // TODO: maybe make CardContainer responsible for the visibility of the card?
         public List<Card> Cards { get; } = new();
 
-        public virtual Player Owner => null;
-        public abstract ContainerType ConType { get; }
-        
+        protected virtual void Awake()
+        {
+            _playerOwner = GetComponentInParent<Player>();
+        }
+
+        public Player Owner => _playerOwner;
 
         protected virtual void Add(Card card)
         {
