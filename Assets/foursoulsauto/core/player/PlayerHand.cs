@@ -8,6 +8,8 @@ namespace foursoulsauto.core.player
     //first uuhhhh make multiplayer work
     public class PlayerHand : CardContainer
     {
+        // TODO: make the cards squish together when there are too many of them
+        // TODO: fix location error from changing the pivot of the cards to be top left
         [SerializeField] private BoxCollider zone;
         [SerializeField] private float prefDistance;
 
