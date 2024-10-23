@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5516524367458416188}
+  - {fileID: 5130628475530109299}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3946218840384381937
@@ -49,7 +49,7 @@ MonoBehaviour:
   bottomSprite: {fileID: 21300000, guid: b9ba2607b52f6384ba005f3dc7544ce3, type: 3}
   deck: 4
   cardName: The D6
---- !u!1001 &2088983276188254966
+--- !u!1001 &1675490784284120505
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -110,8 +110,8 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 974e5aecf5c13ec47bf3c48e6d026a31, type: 3}
---- !u!4 &5516524367458416188 stripped
+--- !u!4 &5130628475530109299 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5797028375521129674, guid: 974e5aecf5c13ec47bf3c48e6d026a31, type: 3}
-  m_PrefabInstance: {fileID: 2088983276188254966}
+  m_PrefabInstance: {fileID: 1675490784284120505}
   m_PrefabAsset: {fileID: 0}

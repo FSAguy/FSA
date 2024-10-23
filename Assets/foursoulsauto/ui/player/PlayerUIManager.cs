@@ -47,6 +47,7 @@ namespace foursoulsauto.ui.player
 
         private void OnCardClicked(Card card, PointerEventData pointerData)
         {
+            Debug.Log($"clicked {card.CardName}");
             switch (_state)
             {
                 case State.Default:

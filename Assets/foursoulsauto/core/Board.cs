@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using foursoulsauto.core.cardlib;
 using foursoulsauto.core.deck;
 using foursoulsauto.core.player;
 using UnityEngine;
@@ -67,14 +68,22 @@ namespace foursoulsauto.core
 
         private void Start() // TODO: move this into a separate "begin game" method, recheck values
         {
+            // TODO: remember On Start Of Game effects (eden, cant think of anything else)
             _phase = new NormalGamePhase();
             foreach (var player in players)
             {
                player.Cents = 0;
+               PlayerLoot(player, 3);
+               DrawPlayerNewCharacter(player);
             }
-            PlayerLoot(players[0], 3);
             _activeIdx = -1; // because new turn increments it
             NewTurn();
+        }
+
+        private void DrawPlayerNewCharacter(Player player) // TODO: the way characters are handled right now is kinda dogshit
+        {
+            player.Character = deckArrangement.GetTopOf(Deck.Character) as CharacterCard;
+            player.GainItem(deckArrangement.FindInDeck(Deck.StartingItem, card => card.CardName == player.Character.StartingItem));
         }
 
         private void NewTurn()

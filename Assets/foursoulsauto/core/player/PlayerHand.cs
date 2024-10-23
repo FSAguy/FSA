@@ -4,8 +4,6 @@ using UnityEngine;
 
 namespace foursoulsauto.core.player
 {
-    //TODO: make cards visible only to client player
-    //first uuhhhh make multiplayer work
     public class PlayerHand : CardContainer
     {
         // TODO: make the cards squish together when there are too many of them
@@ -16,7 +14,10 @@ namespace foursoulsauto.core.player
         protected override void Add(Card card)
         {
             base.Add(card);
+            // TODO: should probably use "enter play" or something
             card.ShowCard();
+            //TODO: make cards visible only to client player
+            //first uuhhhh make multiplayer work
             card.FaceUp = true; 
             UpdateCardArrangement();
         }
@@ -26,6 +27,7 @@ namespace foursoulsauto.core.player
             base.Add(cards);
             foreach (var card in cards)
             {
+                // TODO: should probably use "enter play" or something
                 card.ShowCard();
                 card.FaceUp = true;
             }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using foursoulsauto.ui;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ namespace foursoulsauto.core
     { // TODO: card piles are either A - Draws, B - Discards, C - Monster Piles, D - Shops, E - Rooms
         // perhaps make separate classes???
         [SerializeField] private bool faceUp;
+
+        public Card Top => Cards.LastOrDefault();
 
         protected override void Add(Card card)
         {

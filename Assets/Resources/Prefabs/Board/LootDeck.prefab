@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80c899d3563f4b5594f587cdfd325f89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _drawPile: {fileID: 4390153343528331383}
-  _discardPile: {fileID: 4305530996090532101}
+  drawPile: {fileID: 4390153343528331383}
+  discardPile: {fileID: 4305530996090532101}
 --- !u!1001 &5942488867844644026
 PrefabInstance:
   m_ObjectHideFlags: 0

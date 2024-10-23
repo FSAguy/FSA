@@ -71,9 +71,12 @@ namespace foursoulsauto.ui.player
         
         public void SelectAction(Card card, Vector3 pos)
         {
+            // TODO: ignore if the player does not own the card
+            
             _state = State.Selecting;
             actionPanel.transform.position = pos;
             actionPanel.SetActive(true);
+                                   
             cardTitle.text = card.CardName;
             _buttons = new List<Button>();
             foreach (var action in card.Actions)

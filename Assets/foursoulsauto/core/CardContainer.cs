@@ -9,16 +9,15 @@ namespace foursoulsauto.core
     // TODO: review this to see if it fulfills the needs of containing in play, not in play, and hidden (like in a deck) cards
     public abstract class CardContainer : MonoBehaviour
     {
-        private Player _playerOwner; // will be null if controlled by board
-        // TODO: maybe make CardContainer responsible for the visibility of the card?
         public List<Card> Cards { get; } = new();
 
         protected virtual void Awake()
         {
-            _playerOwner = GetComponentInParent<Player>();
+            Owner = GetComponentInParent<Player>();
         }
 
-        public Player Owner => _playerOwner;
+        // TODO: maybe make CardContainer responsible for the visibility of the card?
+        public Player Owner { get; private set; }
 
         protected virtual void Add(Card card)
         {
@@ -59,7 +58,7 @@ namespace foursoulsauto.core
             return true;
         }
         
-        // returns true if list is null
+        // also returns true if list is null
         public bool MoveInto(List<Card> cards)
         {
             if (cards == null) return true;

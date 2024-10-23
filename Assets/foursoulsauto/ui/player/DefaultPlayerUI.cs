@@ -37,9 +37,7 @@ namespace foursoulsauto.ui.player
         {
             base.Start();
             var player = Manager.ControlledPlayer;
-            player.CentsChanged += UpdateVisuals;
-            player.PriorityChanged += UpdateVisuals;
-            player.AttacksLeftChanged += UpdateVisuals;
+            player.StateChanged += UpdateVisuals;
         }
 
         public void PlayerPass()

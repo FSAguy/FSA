@@ -23,7 +23,8 @@ namespace foursoulsauto.core.effectlib
 
         public string GetEffectText()
         {
-            return $"{_target.CharName} will gain {_amount} additional loot play" + (_amount.Invoke() > 1 ? "s" : "");
+            var amount = _amount.Invoke();
+            return $"{_target.CharName} will gain {amount} additional loot play" + (amount > 1 ? "s" : "");
         }
     }
 }

@@ -1,47 +1,61 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 using static foursoulsauto.core.deck.Deck;
 
 namespace foursoulsauto.core.deck
 {
     public class DeckArrangement : MonoBehaviour
     {
-        //TODO: add Deck -> DeckBehaviour dictionary
         [SerializeField] private DeckBehaviour loot;
         [SerializeField] private DeckBehaviour monster;
+        [SerializeField] private DeckBehaviour character;
+        [SerializeField] private DeckBehaviour startingItem;
 
-        public List<Card> AllCards { get; private set; } 
+        private Dictionary<Deck, DeckBehaviour> _decktionairy; // absolutely hysterical
+
+        public List<Card> AllCards { get; private set; }
+
+        private void Awake()
+        {
+            _decktionairy = new Dictionary<Deck, DeckBehaviour>
+            {
+                { Loot, loot }, 
+                { Monster, monster }, 
+                { Character, character }, 
+                { StartingItem, startingItem }
+            };
+        }
 
         public void Setup(BoardCardList list)
         {
-            // TODO: use dictionary to loop over starter decks
             AllCards = list.Cards.ConvertAll(Instantiate);
-            var lootCards = AllCards.FindAll(card => card.StartDeck == Loot);
-            loot.Setup(lootCards);
-            var monsterCards= AllCards.FindAll(card => card.StartDeck == Monster);
-            monster.Setup(monsterCards);
+            foreach (var (deck, behaviour) in _decktionairy)
+            {
+                var cards = AllCards.FindAll(card => card.StartDeck == deck);
+                behaviour.Setup(cards);
+            }
+        }
+
+        public Card GetTopOf(Deck deck)
+        {
+            return _decktionairy[deck].TopDraw;
+        }
+
+        public Card FindInDeck(Deck deck, Predicate<Card> predicate)
+        {
+            return _decktionairy[deck].DrawCards.Find(predicate);
         }
 
         public void Draw(Deck deck, CardContainer container, int amount = 1)
         {
-            if (deck == Loot)//TODO: see above TODO
-            {
-                loot.DrawInto(container, amount);
-            } else if (deck == Monster)
-            {
-                monster.DrawInto(container, amount);
-            }
+            _decktionairy[deck].DrawInto(container, amount);
         }
 
         public void Discard(Card card)
         {
-            if (card.StartDeck == Loot) // TODO: you know the drill
-            {
-                loot.DiscardInto(card);
-            } else if (card.StartDeck == Monster)
-            {
-                monster.DiscardInto(card);
-            }
+            _decktionairy[card.StartDeck].DiscardInto(card);
         }
     }
 }
