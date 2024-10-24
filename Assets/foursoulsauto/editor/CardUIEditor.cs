@@ -14,10 +14,10 @@ namespace foursoulsauto.editor
         
             var ui = (CardUI)target;
         
-            var card = ui.gameObject.GetComponentInParent<Card>();
+            var card = ui.gameObject.GetComponent<Card>();
             if (card == null) return;
         
-            var renderer = card.GetComponentInChildren<SpriteRenderer>();
+            var renderer = ui.GetComponentInChildren<SpriteRenderer>();
             if (renderer == null) return;
         
             renderer.sprite = card.TopSprite;

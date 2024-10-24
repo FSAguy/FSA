@@ -30,7 +30,6 @@ namespace foursoulsauto.core
             }
             Stack.Insert(0, effect);
             effect.OnStackAdd();
-            Debug.Log($"Added effect: {effect.GetEffectText()}");
             ItemPushed?.Invoke(effect); 
         }
 

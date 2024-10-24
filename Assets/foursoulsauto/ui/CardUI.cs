@@ -15,7 +15,7 @@ namespace foursoulsauto.ui
 
         protected virtual void Awake()
         {
-            TargetCard = GetComponentInParent<Card>();
+            TargetCard = GetComponent<Card>();
             TargetCard.ChangedFace += OnChangedFace;
             TargetCard.ChangedCharge += OnChangedCharge;
         }

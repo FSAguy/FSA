@@ -76,11 +76,11 @@ namespace foursoulsauto.ui
 
         public static void TapAnim(this Card card, bool isCharged)
         {
-            // TODO: after making card's pivot topleft this absolutely does not work
-            // fix idea: introduce some sort of extra center pivot?
-            var turn = card.transform.rotation.eulerAngles + 
+            // get the centered transform to rotate around center instead of around topleft
+            var child = card.transform.Find("Centered Transform");
+            var turn = child.rotation.eulerAngles + 
                        new Vector3(0, 0, 90 * (isCharged ? 1 : -1)); // rotate 90 either left or right
-            LeanTween.rotate(card.gameObject, turn, AnimTime).setEaseOutExpo();
+            LeanTween.rotate(child.gameObject, turn, AnimTime).setEaseOutExpo();
         }
     }
 }
