@@ -1204,7 +1204,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 53.4
+  m_fontSize: 56.35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1764,7 +1764,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 23.3
+  m_fontSize: 24.75
   m_fontSizeBase: 55.31
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2283,7 +2283,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 53.4
+  m_fontSize: 56.35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2607,7 +2607,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 53.4
+  m_fontSize: 56.35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -3379,12 +3379,16 @@ PrefabInstance:
       value: Player1
       objectReference: {fileID: 0}
     - target: {fileID: 8022188026780526128, guid: ae9b970384c492648a69d80586fd04af, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8022188026780526128, guid: ae9b970384c492648a69d80586fd04af, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8022188026780526128, guid: ae9b970384c492648a69d80586fd04af, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 14.18
+      value: -8.96
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

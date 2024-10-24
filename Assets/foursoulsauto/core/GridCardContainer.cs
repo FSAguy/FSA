@@ -33,10 +33,10 @@ namespace foursoulsauto.core.player
 
         private void UpdateCardArrangement()
         {
-            var bounds = zone.bounds;
-            var topLeft = Vector3.left * bounds.extents.x + Vector3.up * bounds.extents.y;
-            var colLength = bounds.size.x / cols;
-            var rowLength = bounds.size.y / rows;
+            var size = zone.size;
+            var topLeft = (Vector3.left * size.x + Vector3.up * size.y) / 2;
+            var colLength = size.x / cols;
+            var rowLength = size.y / rows;
             
             for (var i = 0; i < Cards.Count; i++)
             {
@@ -48,7 +48,7 @@ namespace foursoulsauto.core.player
                 var pos = topLeft + Vector3.right * (colLength * col) + Vector3.down * (rowLength * row);
 
                 // TODO: Rotations absolutely do not work when z != 0 or 180
-                card.MoveTo(pos, zone.transform.rotation, local:true);
+                card.MoveTo(pos, Quaternion.identity, local:true);
             }
         }
     }
