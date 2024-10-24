@@ -69,7 +69,7 @@ namespace foursoulsauto.core
         private void Start() // TODO: move this into a separate "begin game" method, recheck values
         {
             // TODO: remember On Start Of Game effects (eden, cant think of anything else)
-            _phase = new NormalGamePhase();
+            _phase = new ActionGamePhase();
             foreach (var player in players)
             {
                player.Cents = 0;

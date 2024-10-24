@@ -490,7 +490,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4391577339411347212, guid: 974e5aecf5c13ec47bf3c48e6d026a31, type: 3}
       propertyPath: m_Name
-      value: Cool2
+      value: Monster Card Body
       objectReference: {fileID: 0}
     - target: {fileID: 5255361331086188061, guid: 974e5aecf5c13ec47bf3c48e6d026a31, type: 3}
       propertyPath: m_Sprite
@@ -536,16 +536,47 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4206404853607786622, guid: 974e5aecf5c13ec47bf3c48e6d026a31, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1041475672867228708, guid: 974e5aecf5c13ec47bf3c48e6d026a31, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4478412734224393838}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4391577339411347212, guid: 974e5aecf5c13ec47bf3c48e6d026a31, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 67730792848198956}
   m_SourcePrefab: {fileID: 100100000, guid: 974e5aecf5c13ec47bf3c48e6d026a31, type: 3}
+--- !u!212 &2126790758745777065 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5255361331086188061, guid: 974e5aecf5c13ec47bf3c48e6d026a31, type: 3}
+  m_PrefabInstance: {fileID: 6155624249581600180}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &6564343075188060560 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1041475672867228708, guid: 974e5aecf5c13ec47bf3c48e6d026a31, type: 3}
   m_PrefabInstance: {fileID: 6155624249581600180}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7610854631175080632 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4391577339411347212, guid: 974e5aecf5c13ec47bf3c48e6d026a31, type: 3}
+  m_PrefabInstance: {fileID: 6155624249581600180}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &67730792848198956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7610854631175080632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8364e6f5ce6e4931ad44daed6f0b073c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bodyRenderer: {fileID: 2126790758745777065}
+  statPanel: {fileID: 7765865099574984233}
+  hpText: {fileID: 1032560118588427153}
+  evasionText: {fileID: 789081339843340358}
+  attackText: {fileID: 2087754260044914797}
