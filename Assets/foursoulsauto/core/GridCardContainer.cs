@@ -47,7 +47,6 @@ namespace foursoulsauto.core.player
                         
                 var pos = topLeft + Vector3.right * (colLength * col) + Vector3.down * (rowLength * row);
 
-                // TODO: Rotations absolutely do not work when z != 0 or 180
                 card.MoveTo(pos, Quaternion.identity, local:true);
             }
         }
