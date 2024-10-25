@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using foursoulsauto.core.deck;
+using foursoulsauto.core.player;
 using foursoulsauto.ui;
 using UnityEngine;
 
@@ -24,6 +25,7 @@ namespace foursoulsauto.core
         public Sprite BottomSprite => bottomSprite;
         public Deck StartDeck => deck;
         public string CardName => cardName;
+        public Player Owner => Container.Owner;
 
         public virtual List<CardAction> Actions => new();
         public virtual MagicNumber[] MagicNumbers => GetComponentsInChildren<MagicNumber>();

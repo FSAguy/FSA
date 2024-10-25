@@ -10,10 +10,11 @@ namespace foursoulsauto.ui.player
     // TODO: make less dumb maybe?
     public class CardActionUI : PlayerUIModule
     {
-        private enum State { Idle, Selecting, Generating}
+        private enum State { Idle, Generating}
 
         public event Action Stopped;
-        
+
+        [SerializeField] private GameObject visuals;
         [SerializeField] private GameObject actionPanel;
         [SerializeField] private TMP_Text cardTitle;
         [SerializeField] private Button buttonClone;
@@ -21,23 +22,23 @@ namespace foursoulsauto.ui.player
         private State _state = State.Idle;
         private List<Button> _buttons = new();
         private CardAction _currentAction;
-
+        
         protected override void Start()
         {
             base.Start();
             Stop();
         }
         
-        private void Stop()
+        public void Stop()
         {
             _state = State.Idle;
-            CloseActionPanel();
+            CloseVisuals();
             Stopped?.Invoke();
         }
 
-        private void CloseActionPanel()
+        private void CloseVisuals()
         {
-            actionPanel.SetActive(false);
+            visuals.SetActive(false);
             for (var i = 0; i < _buttons.Count; i++)
             {
                 Destroy(_buttons[i].gameObject);
@@ -51,31 +52,19 @@ namespace foursoulsauto.ui.player
             {
                 case State.Idle:
                     break;
-                case State.Selecting:
-                    SelectionUpdate();
-                    break;
                 case State.Generating:
                     GeneratingActionUpdate();
                     break;
             }
         }
 
-        private void SelectionUpdate()
-        {
-            if (!Input.GetMouseButtonDown(0)) return;
-            // disgusting hack that doesnt actually work well since you only want to cancel when player presses outside
-            // only way i can think to fix it is to had a huge cancel button behind all the other ui to cancel
-            // TODO: either do the above of figure out better way
-            Invoke(nameof(Stop), 0.1f); 
-        }
-        
         public void SelectAction(Card card, Vector3 pos)
         {
             // TODO: ignore if the player does not own the card
+            if (card.Owner != Manager.ControlledPlayer) return;
             
-            _state = State.Selecting;
+            visuals.SetActive(true);
             actionPanel.transform.position = pos;
-            actionPanel.SetActive(true);
                                    
             cardTitle.text = card.CardName;
             _buttons = new List<Button>();
@@ -93,7 +82,6 @@ namespace foursoulsauto.ui.player
         
         private void CreateAction(CardAction action)
         {
-            CancelInvoke(nameof(Stop)); // TODO: delete after removing disgusting hack above
             if (!action.Input.SomeInputExists)
             {
                 Stop();
@@ -107,7 +95,7 @@ namespace foursoulsauto.ui.player
                 return;
             }
             
-            CloseActionPanel();
+            CloseVisuals();
             _currentAction = action;
             _state = State.Generating;
             Manager.RequestInput(_currentAction.Input);

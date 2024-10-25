@@ -8,7 +8,7 @@ namespace foursoulsauto.ui.player
     // TODO: reduce annoying state management if possible
     public class PlayerUIManager : MonoBehaviour
     {
-        private enum State {Default, ActionSelect, EffectInput}
+        private enum State {Default, EffectInput}
         
         [SerializeField] private DefaultPlayerUI defaultUI;
         [SerializeField] private CardActionUI actionUI;
@@ -52,7 +52,6 @@ namespace foursoulsauto.ui.player
             {
                 case State.Default:
                     actionUI.SelectAction(card, pointerData.position);
-                    _state = State.ActionSelect;
                     break;
                 case State.EffectInput:
                     effectUI.SelectCard(card);
