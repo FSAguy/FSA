@@ -1,23 +1,28 @@
-﻿using foursoulsauto.core;
+﻿using System;
+using System.Collections.Generic;
+using foursoulsauto.core;
 using foursoulsauto.core.player;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace foursoulsauto.ui.player
 {
-    // TODO: reduce annoying state management if possible
     public class PlayerUIManager : MonoBehaviour
     {
-        private enum State {Default, EffectInput}
-        
         [SerializeField] private DefaultPlayerUI defaultUI;
-        [SerializeField] private CardActionUI actionUI;
         [SerializeField] private EffectInputUI effectUI;
         [SerializeField] private Player player;
 
+        private List<PlayerUIModule> _modules;
+
         public Player ControlledPlayer => player;
 
-        private State _state;
+        public event Action<Card, PointerEventData> CardClicked;
+
+        private void Awake()
+        {
+            _modules = new List<PlayerUIModule> { defaultUI, effectUI };
+        }
 
         private void Start()
         {
@@ -26,53 +31,37 @@ namespace foursoulsauto.ui.player
                 var cardUI = card.GetComponentInChildren<CardUI>();
                 cardUI.CardClicked += OnCardClicked;
             }
-            actionUI.Stopped += OnActionUIStopped;
-            effectUI.Finished += OnEffectUIFinished;
-
             player.RequestedInput += RequestInput;
-            _state = State.Default;
+            
+            _modules.ForEach(module => module.Done += SetDefault);
+            SetDefault();
         }
 
-        private void OnEffectUIFinished()
+        private void SetDefault()
         {
-            defaultUI.Show();
-            effectUI.Hide();
-            _state = State.Default;
+            _modules.ForEach(module => module.Open = module == defaultUI);
         }
 
-        private void OnActionUIStopped()
+        private void ShowOnly(PlayerUIModule toOpen)
         {
-            _state = State.Default;
+            _modules.ForEach(module => module.Open = false);
+            toOpen.Open = true;
         }
 
         private void OnCardClicked(Card card, PointerEventData pointerData)
         {
-            Debug.Log($"clicked {card.CardName}");
-            switch (_state)
-            {
-                case State.Default:
-                    actionUI.SelectAction(card, pointerData.position);
-                    break;
-                case State.EffectInput:
-                    effectUI.SelectCard(card);
-                    break;
-            }
+            CardClicked?.Invoke(card, pointerData);
         }
         
         public void GenerateEffect(CardAction action)
         {
             player.PlayEffect(action);
-            effectUI.Hide();
-            defaultUI.Show();
-            _state = State.Default;
         }
 
         public void RequestInput(EffectInput request)
         {
-            defaultUI.Hide();
-            effectUI.Show();
+            ShowOnly(effectUI);
             effectUI.GetPlayerInput(request);
-            _state = State.EffectInput;
         }
 
         public void PlayerPass()

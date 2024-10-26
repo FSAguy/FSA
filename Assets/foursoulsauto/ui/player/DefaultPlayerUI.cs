@@ -1,13 +1,15 @@
 using foursoulsauto.core;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace foursoulsauto.ui.player
 {
-    // TODO: maybe add a separate UI between turns? So that we don't have an "Attack" button when not active?
     public class DefaultPlayerUI : PlayerUIModule
     {
+        // TODO: make actionUI open only with priority
+        [SerializeField] private CardActionUI actionUI;
         [SerializeField] private GameObject defaultUiPanel;
         [SerializeField] private TMP_Text passText;
         [SerializeField] private Button attackBtn;
@@ -22,22 +24,30 @@ namespace foursoulsauto.ui.player
             statsPanel.RedrawStats();
         }
 
-        public void Hide()
+        protected override void OnOpen()
         {
-            defaultUiPanel.SetActive(false);
-        }
-
-        public void Show()
-        {
+            actionUI.Open = true;
             UpdateVisuals();
             defaultUiPanel.SetActive(true);
+        }
+
+        protected override void OnClose()
+        {
+            actionUI.Open = false;
+            defaultUiPanel.SetActive(false);
         }
 
         protected override void Start()
         {
             base.Start();
             var player = Manager.ControlledPlayer;
+            Manager.CardClicked += OnCardClicked;
             player.StateChanged += UpdateVisuals;
+        }
+
+        private void OnCardClicked(Card card, PointerEventData pointerData)
+        {
+            actionUI.SelectAction(card, pointerData.position);
         }
 
         public void PlayerPass()

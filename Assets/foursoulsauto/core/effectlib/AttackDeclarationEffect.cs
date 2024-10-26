@@ -29,7 +29,7 @@ namespace foursoulsauto.core.effectlib
             // TODO: sometimes player is forced to attack something else ("Mom's Eyeshadow", "Krampus")
             var request = new EffectInput(card => card is LivingCard { IsAttackable: true });
             _attacker.RequestInput(request);
-            yield return new WaitUntil(() => request.IsInputFilled);
+            yield return new WaitUntil(() => request.Filled);
             _attacker.AttacksRemaining--;
             var state = new AttackGamePhase(request.CardInput as LivingCard, _attacker);
             Board.Instance.Phase = state;

@@ -1,5 +1,4 @@
-﻿using System;
-using foursoulsauto.core;
+﻿using foursoulsauto.core;
 using TMPro;
 using UnityEngine;
 
@@ -10,10 +9,24 @@ namespace foursoulsauto.ui.player
     {
         [SerializeField] private GameObject inputScreen;
         [SerializeField] private TMP_Text header;
-
-        public event Action Finished;
         
         private EffectInput _currentRequest;
+
+        protected override void OnClose()
+        {
+            inputScreen.gameObject.SetActive(false);
+        }
+
+        protected override void OnOpen()
+        {
+            inputScreen.gameObject.SetActive(true);
+        }
+
+        protected override void Start()
+        {
+            base.Start();
+            Manager.CardClicked += (card, _) => SelectCard(card);
+        }
 
         public void GetPlayerInput(EffectInput request)
         {
@@ -22,18 +35,10 @@ namespace foursoulsauto.ui.player
             header.text = "Select Target";
         }
 
-        public void Show()
+        private void SelectCard(Card card)
         {
-            inputScreen.gameObject.SetActive(true);
-        }
-
-        public void Hide()
-        {
-            inputScreen.gameObject.SetActive(false);
-        }
-
-        public void SelectCard(Card card)
-        {
+            if (!Open) return;
+            
             if (!_currentRequest.IsCardEligible(card))
             {
                 header.text = "Invalid card!";
@@ -42,7 +47,7 @@ namespace foursoulsauto.ui.player
             
             _currentRequest.CardInput = card;
             
-            Finished?.Invoke();
+            DeclareDone();
         }
     }
 }

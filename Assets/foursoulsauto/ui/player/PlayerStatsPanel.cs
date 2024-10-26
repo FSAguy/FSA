@@ -15,5 +15,15 @@ namespace foursoulsauto.ui.player
             lootPlaysText.text = "Loot:" + Manager.ControlledPlayer.LootPlaysRemaining;
             centText.text = Manager.ControlledPlayer.Cents + "¢"; 
         }
+
+        protected override void OnClose()
+        {
+            gameObject.SetActive(false);
+        }
+
+        protected override void OnOpen()
+        {
+            gameObject.SetActive(true);
+        }
     }
 }

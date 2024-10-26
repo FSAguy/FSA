@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace foursoulsauto.core
 {
     // way for a CardAction to request input from a player
-    // TODO: other types of input
-    public enum InputType {None, SingleCardTarget}
+    // TODO: maybe SingleCardTarget should be just a single MultiCardTarget?
+    public enum InputType {None, SingleCardTarget, MultiCardTarget}
     public class EffectInput
     {
         private readonly Func<Card, bool> _cardPredicate;
         
-        public Card _cardInput;
+        private Card _cardInput;
+        private List<Card> _multiCardInput;
+        
         public InputType InpType { get; }
-        public bool IsInputFilled { get; private set; } = false;
+        public bool Filled { get; private set; } 
 
         public Card CardInput
         {
@@ -21,20 +24,31 @@ namespace foursoulsauto.core
             {
                 if (!IsCardEligible(value)) throw new Exception("Input not valid!");
                 _cardInput = value;
-                IsInputFilled = true;
+                Filled = true;
+            }
+        }
+
+        public List<Card> MultiCardInput
+        {
+            get => _multiCardInput;
+            set
+            {
+                if (!_multiCardInput.All(IsCardEligible)) throw new Exception("Input not valid!");
+                _multiCardInput = value;
+                Filled = true;
             }
         }
 
         public EffectInput()
         {
             InpType = InputType.None;
-            IsInputFilled = true;
+            Filled = true;
         }
 
-        public EffectInput(Func<Card, bool> cardPredicate)
+        public EffectInput(Func<Card, bool> cardPredicate, int amount = 1)
         {
-            InpType = InputType.SingleCardTarget;
             _cardPredicate = cardPredicate;
+            InpType = amount == 1 ? InputType.SingleCardTarget : InputType.MultiCardTarget;
         }
 
         public bool IsCardEligible(Card card)
@@ -54,6 +68,5 @@ namespace foursoulsauto.core
         // TODO: use this in the ui to make eligible cards glow?
         // TODO: make it only cards that are on the board by default maybe??
         public List<Card> EligibleCards => Board.Instance.AllCards.FindAll(card => _cardPredicate(card));
-
     }
 }

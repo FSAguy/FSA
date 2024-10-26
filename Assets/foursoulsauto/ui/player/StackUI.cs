@@ -11,6 +11,16 @@ namespace foursoulsauto.ui.player
         
         private readonly Dictionary<IVisualStackEffect, GameObject> _effectToGameObject = new();
 
+        protected override void OnClose()
+        {
+            stackPanel.gameObject.SetActive(false);
+        }
+
+        protected override void OnOpen()
+        {
+            stackPanel.gameObject.SetActive(true);
+        }
+
         protected override void Start()
         {
             base.Start();

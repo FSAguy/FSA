@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using foursoulsauto.core;
 using TMPro;
 using UnityEngine;
@@ -7,12 +6,10 @@ using UnityEngine.UI;
 
 namespace foursoulsauto.ui.player
 {
-    // TODO: make less dumb maybe?
+    
     public class CardActionUI : PlayerUIModule
     {
         private enum State { Idle, Generating}
-
-        public event Action Stopped;
 
         [SerializeField] private GameObject visuals;
         [SerializeField] private GameObject actionPanel;
@@ -22,19 +19,29 @@ namespace foursoulsauto.ui.player
         private State _state = State.Idle;
         private List<Button> _buttons = new();
         private CardAction _currentAction;
-        
+
+        protected override void OnClose()
+        {
+            CloseVisuals();
+        }
+
+        protected override void OnOpen()
+        {
+            // uhhhh
+        }
+
         protected override void Start()
         {
             base.Start();
-            Stop();
+            CloseVisuals();
         }
-        
-        public void Stop()
+
+        private void Cancel()
         {
             _state = State.Idle;
             CloseVisuals();
-            Stopped?.Invoke();
         }
+  
 
         private void CloseVisuals()
         {
@@ -48,6 +55,7 @@ namespace foursoulsauto.ui.player
         
         private void Update()
         {
+            if (!Open) return; // TODO: still a bit wonky...
             switch (_state)
             {
                 case State.Idle:
@@ -60,12 +68,11 @@ namespace foursoulsauto.ui.player
 
         public void SelectAction(Card card, Vector3 pos)
         {
-            // TODO: ignore if the player does not own the card
+            if (!Open) return;
             if (card.Owner != Manager.ControlledPlayer) return;
             
             visuals.SetActive(true);
             actionPanel.transform.position = pos;
-                                   
             cardTitle.text = card.CardName;
             _buttons = new List<Button>();
             foreach (var action in card.Actions)
@@ -84,14 +91,15 @@ namespace foursoulsauto.ui.player
         {
             if (!action.Input.SomeInputExists)
             {
-                Stop();
+                Cancel();
                 return;
             }
             
             if (action.Input.InpType == InputType.None)
             {
                 Manager.GenerateEffect(action);
-                Stop();
+                CloseVisuals();
+                DeclareDone();
                 return;
             }
             
@@ -101,11 +109,17 @@ namespace foursoulsauto.ui.player
             Manager.RequestInput(_currentAction.Input);
         }
         
+        
+        // TODO: give more power to DefaultPlayerUI?
+        // specifically instead of directly telling the manager to play action,
+        // maybe keep action as public, declare done, and make defaultui handle it?
         private void GeneratingActionUpdate()
         {
-            if (!_currentAction.Input.IsInputFilled) return;
+            if (!_currentAction.Input.Filled) return;
             Manager.GenerateEffect(_currentAction);
-            Stop();
+            DeclareDone();
+            _state = State.Idle;
+            CloseVisuals();
         }   
     }
 }
