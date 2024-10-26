@@ -8,6 +8,9 @@ namespace foursoulsauto.core.cardlib
 
         public string StartingItem => startingItem;
 
-        // TODO: method to grab the starting item? maybe should be implemented at Player instead?
+        protected override void OnDeath()
+        {
+            // TODO: player death
+        }
     }
 }

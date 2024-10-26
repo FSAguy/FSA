@@ -76,7 +76,6 @@ namespace foursoulsauto.core
                PlayerLoot(player, 3);
                DrawPlayerNewCharacter(player);
             }
-            PlayerLoot(players[0], 14);
             _activeIdx = -1; // because new turn increments it
             NewTurn();
         }

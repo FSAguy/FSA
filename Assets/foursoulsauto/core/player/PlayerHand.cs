@@ -45,14 +45,36 @@ namespace foursoulsauto.core.player
             base.Remove(cards);
             UpdateCardArrangement();
         }
+        
         private void UpdateCardArrangement()
+        {
+            if (Cards.Count * prefDistance < zone.size.x) SpaciousArrangement();
+            else TightArrangement();
+        }
+
+        private void TightArrangement()
+        {
+            var count = Cards.Count;
+            var size = zone.size;
+            var topLeftFront = Vector3.Scale(size, new Vector3(-1, 1, 1) / 2);
+            var space = size.x / count * Vector3.right + size.z / count * Vector3.back;
+
+            for (var i = 0; i < count; i++)
+            {
+                var pos = topLeftFront + space * i;
+                Cards[i].MoveTo(pos, Quaternion.identity, local:true);
+            }
+        }
+
+        private void SpaciousArrangement()
         {
             var count = Cards.Count;
             var indexSum = count * (count - 1)/ 2f;
             var avg = Vector3.right * (prefDistance * indexSum) / count;
+            var topCenter = zone.size.y / 2 * Vector3.up;
             for (var i = 0; i < count; i++)
             {
-                var pos = Vector3.right * (i * prefDistance) - avg;
+                var pos = topCenter + Vector3.right * (i * prefDistance) - avg;
                 Cards[i].MoveTo(pos, Quaternion.identity, local: true);
             }
         }
