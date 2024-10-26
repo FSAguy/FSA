@@ -1,25 +1,49 @@
-﻿using foursoulsauto.core;
+﻿using System;
+using System.Collections.Generic;
+using foursoulsauto.core;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace foursoulsauto.ui.player
 {
     // TODO: more types of selections such as arranging stack order or selecting "choose one" effects
     public class EffectInputUI : PlayerUIModule
     {
-        [SerializeField] private GameObject inputScreen;
+        [SerializeField] private GameObject topUI;
+        [SerializeField] private GameObject clickThroughInputScreen; // TODO: use Find on topUI instead?
+        [SerializeField] private GameObject multiCardSelectScreen;
+        [SerializeField] private GameObject multiCardContentPanel;
+        [SerializeField] private Button multiButtonClone;
         [SerializeField] private TMP_Text header;
-        
+        [SerializeField] private Button confirmButton;
+        [SerializeField] private Button cancelButton;
+
+        private List<GameObject> _subUIs;
+        private Card _singleCardSelection;
+        private List<Card> _multiCardsSelected;
+
         private EffectInput _currentRequest;
+        
+
+        private void Awake()
+        {
+            _subUIs = new List<GameObject> { clickThroughInputScreen, multiCardSelectScreen };
+        }
 
         protected override void OnClose()
         {
-            inputScreen.gameObject.SetActive(false);
+            topUI.SetActive(false);
+            foreach (Transform child in multiCardContentPanel.transform) Destroy(child.gameObject);
+            confirmButton.interactable = false; 
+            // TODO: add cancel
+            _subUIs.ForEach(sui => sui.SetActive(false)); 
         }
+        
 
         protected override void OnOpen()
         {
-            inputScreen.gameObject.SetActive(true);
+            topUI.SetActive(true);
         }
 
         protected override void Start()
@@ -30,9 +54,46 @@ namespace foursoulsauto.ui.player
 
         public void GetPlayerInput(EffectInput request)
         {
+            if (!Open) return;
+            header.text = "Select Target"; // TODO: customized message for every input - should probably be included in request
+
+            confirmButton.interactable = false;
             _currentRequest = request;
-            inputScreen.gameObject.SetActive(true);
-            header.text = "Select Target";
+            switch (_currentRequest.InpType)
+            {
+                case InputType.None:
+                    DeclareDone();
+                    break;
+                case InputType.SingleCardTarget:
+                    BeginSingleTarget();
+                    break;
+                case InputType.MultiCardTarget:
+                    BeginCardList();
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+            
+        }
+
+        private void BeginSingleTarget()
+        {
+            _singleCardSelection = null;
+            clickThroughInputScreen.SetActive(true);
+        }
+
+        private void BeginCardList()
+        {
+            multiCardSelectScreen.SetActive(true);
+            foreach (var card in _currentRequest.EligibleCards)
+            {
+                var clone = Instantiate(multiButtonClone, multiCardContentPanel.transform);
+                clone.GetComponent<Image>().sprite = card.TopSprite;
+                clone.onClick.AddListener(delegate { SelectCard(card); }); 
+            }
+
+            _multiCardsSelected = new List<Card>();
         }
 
         private void SelectCard(Card card)
@@ -44,8 +105,54 @@ namespace foursoulsauto.ui.player
                 header.text = "Invalid card!";
                 return;
             }
+
+            switch (_currentRequest.InpType)
+            {
+                case InputType.SingleCardTarget: // TODO: add a confirm and cancel button
+                    _singleCardSelection = card;
+                    break;
+                case InputType.MultiCardTarget: // TODO: selection and deselection effects
+                    if (_multiCardsSelected.Contains(card))
+                        _multiCardsSelected.Remove(card);
+                    else _multiCardsSelected.Add(card);
+                    break;
+            }
             
-            _currentRequest.CardInput = card;
+            confirmButton.interactable = CheckIfDone();
+            
+        }
+
+        private bool CheckIfDone()
+        {
+            switch (_currentRequest.InpType)
+            {
+                case InputType.SingleCardTarget:
+                    return _singleCardSelection is not null;
+                case InputType.MultiCardTarget:
+                    return _multiCardsSelected.Count == _currentRequest.MultiCardExcpectedAmount;
+            }
+            
+            throw new ArgumentOutOfRangeException();
+        }
+
+        public void Cancel()
+        {
+            DeclareDone();
+        }
+
+        public void Confirm()
+        {
+            switch (_currentRequest.InpType)
+            {
+                case InputType.SingleCardTarget:
+                    _currentRequest.CardInput = _singleCardSelection;
+                    break;
+                case InputType.MultiCardTarget:
+                    _currentRequest.MultiCardInput = _multiCardsSelected;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
             
             DeclareDone();
         }

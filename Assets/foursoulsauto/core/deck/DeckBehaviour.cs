@@ -33,5 +33,10 @@ namespace foursoulsauto.core.deck
         {
             discardPile.MoveInto(card);
         }
+
+        public void DiscardInto(List<Card> cards)
+        {
+            discardPile.MoveInto(cards);
+        }
     }
 }

@@ -57,5 +57,10 @@ namespace foursoulsauto.core.deck
         {
             _decktionairy[card.StartDeck].DiscardInto(card);
         }
+
+        public void Discard(List<Card> cards, Deck deck)
+        {
+            _decktionairy[deck].DiscardInto(cards);
+        }
     }
 }

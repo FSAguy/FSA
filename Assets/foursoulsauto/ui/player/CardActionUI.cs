@@ -113,6 +113,7 @@ namespace foursoulsauto.ui.player
         // TODO: give more power to DefaultPlayerUI?
         // specifically instead of directly telling the manager to play action,
         // maybe keep action as public, declare done, and make defaultui handle it?
+        // TODO: some effect are cancelable, connect EffectInputUI to this so EffectInputUI could tell if it cancelled or not
         private void GeneratingActionUpdate()
         {
             if (!_currentAction.Input.Filled) return;

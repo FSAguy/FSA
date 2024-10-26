@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using foursoulsauto.core.effectlib;
+using UnityEngine;
 
 namespace foursoulsauto.core
 {
@@ -17,7 +18,15 @@ namespace foursoulsauto.core
 
         public override void EmptyStackPass()
         {
-            // TODO: enter end turn state
+            // TODO: enter end turn state and change this mess
+            
+            //discard down to 10 loot
+            var target = Board.Instance.ActivePlayer;
+            var discardEffect = new DiscardLootEffect(
+                target, 
+                () => Mathf.Max(0, target.Hand.Cards.Count - 10));
+            Board.Instance.AddEffect(new CardEffect(Board.Instance.ActivePlayer.Character, discardEffect));
+            
             Debug.Log("le turn end");
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace foursoulsauto.core
 {
@@ -12,8 +13,9 @@ namespace foursoulsauto.core
         private readonly Func<Card, bool> _cardPredicate;
         
         private Card _cardInput;
-        private List<Card> _multiCardInput;
         
+        private List<Card> _multiCardInput;
+
         public InputType InpType { get; }
         public bool Filled { get; private set; } 
 
@@ -33,11 +35,13 @@ namespace foursoulsauto.core
             get => _multiCardInput;
             set
             {
-                if (!_multiCardInput.All(IsCardEligible)) throw new Exception("Input not valid!");
+                if (!value.All(IsCardEligible)) throw new Exception("Input not valid!");
                 _multiCardInput = value;
                 Filled = true;
             }
         }
+
+        public int MultiCardExcpectedAmount { get; }
 
         public EffectInput()
         {
@@ -48,6 +52,7 @@ namespace foursoulsauto.core
         public EffectInput(Func<Card, bool> cardPredicate, int amount = 1)
         {
             _cardPredicate = cardPredicate;
+            MultiCardExcpectedAmount = amount;
             InpType = amount == 1 ? InputType.SingleCardTarget : InputType.MultiCardTarget;
         }
 

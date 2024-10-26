@@ -76,6 +76,7 @@ namespace foursoulsauto.core
                PlayerLoot(player, 3);
                DrawPlayerNewCharacter(player);
             }
+            PlayerLoot(players[0], 14);
             _activeIdx = -1; // because new turn increments it
             NewTurn();
         }
@@ -101,6 +102,11 @@ namespace foursoulsauto.core
         public void Discard(Card card)
         {
             deckArrangement.Discard(card);
+        }
+
+        public void Discard(List<Card> cards, Deck deck)
+        {
+            deckArrangement.Discard(cards, deck);
         }
 
         // not sure if anything other than playing loot will use this
