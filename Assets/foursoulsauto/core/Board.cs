@@ -97,7 +97,7 @@ namespace foursoulsauto.core
             PriorityPlayer.HasPriority = true;
         }
 
-        private void PlayerLoot(Player player, int amount)
+        public void PlayerLoot(Player player, int amount)
         {
             deckArrangement.Draw(Deck.Loot, player.Hand, amount);
         }

@@ -9,8 +9,8 @@ namespace foursoulsauto.core.effectlib
 
         private static IStackEffect[] GetAttackEffects(Player attacker, LivingCard defender)
         {
-            var hitEffect = new DealDamageEffect(defender, () => attacker.Character.Attack);
-            var missEffect = new DealDamageEffect(attacker.Character, () => defender.Attack);
+            var hitEffect = new TakeDamageEffect(defender, () => attacker.Character.Attack);
+            var missEffect = new TakeDamageEffect(attacker.Character, () => defender.Attack);
 
             return new IStackEffect[] { hitEffect, missEffect };
         }

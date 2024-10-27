@@ -1,73 +1,35 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using foursoulsauto.core.player;
 
 namespace foursoulsauto.core.effectlib
 {
     // TODO: either make effect include losing cents as negative gain, or make a new effect to handle it
-    public class PlayersGainCentsEffect : IStackEffect
+    public class PlayersGainCentsEffect : AbstractPlayersGainEffect
     {
-        private readonly Dictionary<Player, Func<int>> _gains;
-        public PlayersGainCentsEffect(Dictionary<Player, Func<int>> gains) 
-        {
-            _gains = gains;
-        }
+        protected override string UnitTypeString => "¢";
 
-        public PlayersGainCentsEffect(List<Player> players, Func<int> value) 
+        public override IEnumerator Resolve()
         {
-            _gains = new Dictionary<Player, Func<int>>();
-            players.ForEach(player => _gains.Add(player, value));
-        }
-
-        public PlayersGainCentsEffect(Player player, Func<int> value) 
-        {
-            _gains = new Dictionary<Player, Func<int>> { { player, value } };
-        }
-        
-        public IEnumerator Resolve()
-        {
-            foreach (var pair in _gains)
+            foreach (var (key, value) in TargetToAmountDict)
             {
-                pair.Key.Cents += pair.Value.Invoke();
+                key.Cents += value.Invoke();
             }
 
-            yield return null;
+            yield break;
         }
 
-        public string GetEffectText()
+        public PlayersGainCentsEffect(Dictionary<Player, Func<int>> targetToAmountDict) : base(targetToAmountDict)
         {
-            if (_gains.Count == 1)
-                return $"{_gains.Keys.First().CharName} will gain {_gains.Values.First().Invoke()}¢";
-            
-            var effectText = "";
-            var players = _gains.Keys;
+        }
 
-            for (var i = 0; i < players.Count - 1; i++)
-            {
-                effectText += players.ElementAt(i).CharName + ", ";
-            }
+        public PlayersGainCentsEffect(Player player, Func<int> amount) : base(player, amount)
+        {
+        }
 
-            effectText += $"and {players.Last().CharName} ";
-
-            var first = _gains.Values.First().Invoke();
-            if (_gains.Values.All(func => func.Invoke() == first)) // if there is only one value
-            {
-                effectText += $"gain {first}¢";
-            }
-            else
-            {
-                effectText += "gain ";
-                for (var i = 0; i < players.Count - 1; i++)
-                {
-                    effectText += _gains.Values.ElementAt(i).Invoke() + "¢, ";
-                }
-
-                effectText += $"and {_gains.Values.Last().Invoke()}¢, respectively";
-            }
-
-            return effectText;
+        public PlayersGainCentsEffect(List<Player> players, Func<int> amount) : base(players, amount)
+        {
         }
     }
 }
