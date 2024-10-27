@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using foursoulsauto.core.board;
 using foursoulsauto.core.player;
 using UnityEngine;
 

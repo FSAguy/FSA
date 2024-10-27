@@ -2,7 +2,7 @@
 using foursoulsauto.ui;
 using UnityEngine;
 
-namespace foursoulsauto.core.player
+namespace foursoulsauto.core
 {
     // TODO: figure out what to do when there are too many cards
     public class GridCardContainer : CardContainer

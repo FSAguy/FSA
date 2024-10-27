@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using foursoulsauto.core.cardlib;
 using foursoulsauto.core.effectlib;
 using UnityEngine;
@@ -11,14 +13,16 @@ namespace foursoulsauto.core.player
         [SerializeField] private GridCardContainer activeCardZone;
 
         private int _cents;
-        private int _lootPlaysLeft = 1; // todo: change this lol
-        private int _attacksLeft = 1; // todo: change lol
+        private int _lootPlaysLeft;
+        private int _attacksLeft; 
         private bool _hasPriority;
         private bool _isActive;
         private CharacterCard _character;
 
         public PlayerHand Hand => hand;
         public GridCardContainer ActiveCardZone => activeCardZone;
+
+        public List<Card> ActiveCards => activeCardZone.Cards;
 
         public string CharName => Character.CardName;
 

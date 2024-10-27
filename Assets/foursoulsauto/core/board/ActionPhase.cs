@@ -1,11 +1,11 @@
-﻿namespace foursoulsauto.core
+﻿namespace foursoulsauto.core.board
 {
     // the usual game state where you can play cards, start fights, buy from shops, etc
     public class ActionPhase : GamePhase
     {
         public override void Enter()
         {
-            // TODO: loot 1, gain 1 loot play
+            // yuh?
         }
 
         public override void Leave()

@@ -49,6 +49,7 @@ namespace foursoulsauto.core
             get => _charged;
             set
             {
+                if (_charged == value) return;
                 _charged = value;
                 ChangedCharge?.Invoke(_charged);
             }

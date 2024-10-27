@@ -1,4 +1,4 @@
-﻿namespace foursoulsauto.core
+﻿namespace foursoulsauto.core.board
 {
     // currently planned: start phase, action phase, end phase, attack phase? (probably should just be an effect that adds itself back to the stack)
     public abstract class GamePhase

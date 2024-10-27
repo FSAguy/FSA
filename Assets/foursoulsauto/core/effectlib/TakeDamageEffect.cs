@@ -6,7 +6,7 @@ namespace foursoulsauto.core.effectlib
 {
     public class TakeDamageEffect : GenericTargetsDoVerbEffect<LivingCard>
     {
-        protected override string UnitTypeString => "damage";
+        protected override string UnitTypeString => " damage";
         protected override string VerbString => "take";
 
         protected override string GetTargetName(LivingCard target) => target.CardName;

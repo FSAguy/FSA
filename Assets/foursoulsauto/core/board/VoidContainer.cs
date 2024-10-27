@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace foursoulsauto.core
+namespace foursoulsauto.core.board
 {
     // for when a card seems to sort of not exist, a container between containers
     // very spooky

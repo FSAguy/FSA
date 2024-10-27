@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace foursoulsauto.core
+namespace foursoulsauto.core.board
 {
     // Serializes a list of cards to be loaded on game start
     [CreateAssetMenu(fileName = "CardDatabase", menuName = "ScriptObj/CardDatabase", order = 1)]

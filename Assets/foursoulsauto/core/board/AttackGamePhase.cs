@@ -1,6 +1,7 @@
-﻿using foursoulsauto.core.player;
+﻿using foursoulsauto.core.effectlib;
+using foursoulsauto.core.player;
 
-namespace foursoulsauto.core.effectlib
+namespace foursoulsauto.core.board
 {
     // TODO: make attackroll be created not when passing on an empty stack, but when there the stack BECOMES empty
     // (on stack emptied)

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using foursoulsauto.core.board;
 using foursoulsauto.core.cardlib;
 using foursoulsauto.core.deck;
 using foursoulsauto.core.player;
@@ -92,7 +93,7 @@ namespace foursoulsauto.core
             _activeIdx = (_activeIdx + 1) % PlayerCount;
             _popIdx = _priorityIdx = _activeIdx;
             Debug.Log($"Thus begins the turn of player index {_activeIdx}");
-            Phase = new ActionPhase(); // TODO: should be start phase
+            Phase = new StartPhase(); 
             ActivePlayer.IsActive = true;
             PriorityPlayer.HasPriority = true;
         }

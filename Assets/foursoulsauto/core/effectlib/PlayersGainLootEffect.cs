@@ -19,7 +19,7 @@ namespace foursoulsauto.core.effectlib
         {
         }
 
-        protected override string UnitTypeString => "loot";
+        protected override string UnitTypeString => " loot";
         
         public override IEnumerator Resolve()
         {

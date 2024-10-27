@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using foursoulsauto.core.board;
 using static foursoulsauto.core.deck.Deck;
 
 namespace foursoulsauto.core.deck

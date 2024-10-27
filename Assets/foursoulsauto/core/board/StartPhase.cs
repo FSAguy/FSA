@@ -1,4 +1,6 @@
-﻿namespace foursoulsauto.core
+﻿using foursoulsauto.core.effectlib;
+
+namespace foursoulsauto.core.board
 {
     public class StartPhase : GamePhase
     {
@@ -12,19 +14,28 @@
         {
             // recharge
             // TODO: add "dont recharge" quality for some items (like car battery)
-            Board.Instance.AllCards.ForEach(card => card.IsCharged = true);
+            Board.Instance.ActivePlayer.ActiveCards.ForEach(card => card.IsCharged = true);
             // TODO: start of turn abilities
+            // TODO: not a card effect
+            // TODO: should not just equal 1, may include other effects (
+            Board.Instance.AddEffect(new CardEffect(Board.Instance.ActivePlayer.Character,
+                new PlayersGainLootEffect(Board.Instance.ActivePlayer, ()=>1)));
+            
         }
 
         public override void Leave()
         {
+            // :)
         }
 
         public override void EmptyStackPass()
         {
-            throw new System.NotImplementedException();
+            // TODO: might not always be the case (lootplay and/or attack)
+            Board.Instance.ActivePlayer.LootPlaysRemaining++;
+            Board.Instance.ActivePlayer.AttacksRemaining++;
+            Board.Instance.Phase = new ActionPhase();
         }
 
-        public override string EmptyStackPassText { get; }
+        public override string EmptyStackPassText => "Begin Active Phase";
     }
 }

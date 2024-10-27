@@ -1,7 +1,7 @@
 ﻿using foursoulsauto.core.effectlib;
 using UnityEngine;
 
-namespace foursoulsauto.core
+namespace foursoulsauto.core.board
 {
     public class EndPhase : GamePhase
     {
