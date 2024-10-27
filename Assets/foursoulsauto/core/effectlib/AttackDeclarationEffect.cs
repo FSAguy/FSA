@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using foursoulsauto.core.board;
 using foursoulsauto.core.player;
+using foursoulsauto.ui;
 using UnityEngine;
 
 namespace foursoulsauto.core.effectlib
@@ -11,8 +12,8 @@ namespace foursoulsauto.core.effectlib
     // remember the card "Don't Starve" 
     public class AttackDeclarationEffect : IVisualStackEffect
     {
-        private static readonly GameObject StackMemberClone = 
-            Resources.Load<GameObject>("Prefabs/UI/AttackStackMember");
+        private static readonly StackMemberUI StackMemberClone = 
+            Resources.Load<StackMemberUI>("Prefabs/UI/AttackStackMember");
         
         private readonly Player _attacker;
         
@@ -43,7 +44,7 @@ namespace foursoulsauto.core.effectlib
             return $"{_attacker.CharName} will attack";
         }
 
-        public GameObject CreateStackVisual()
+        public StackMemberUI CreateStackVisual()
         {
             return Object.Instantiate(StackMemberClone);
         }

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8589644543460002417}
   - component: {fileID: 2062672105514383331}
   - component: {fileID: 8010134450432629796}
+  - component: {fileID: 4537916298443472853}
   m_Layer: 0
   m_Name: Stack Member
   m_TagString: Untagged
@@ -105,6 +106,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AspectMode: 1
   m_AspectRatio: 1
+--- !u!114 &4537916298443472853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5416037609154592272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27dcb3146c9d4b71afc7b4c36057fbec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7314336605990366071
 GameObject:
   m_ObjectHideFlags: 0

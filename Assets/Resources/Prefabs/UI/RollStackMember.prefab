@@ -167,7 +167,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: RollStackMember
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4537916298443472853, guid: cd8e114ea2d651448afc957b9e5e5d5c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4426074536640961959, guid: cd8e114ea2d651448afc957b9e5e5d5c, type: 3}

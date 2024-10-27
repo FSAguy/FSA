@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace foursoulsauto.ui
 {
-    public class DieRollUI : MonoBehaviour
+    public class DieRollUI : StackMemberUI
     {
         [SerializeField] private List<Sprite> sprites;
         [SerializeField] private Image dieRenderer;

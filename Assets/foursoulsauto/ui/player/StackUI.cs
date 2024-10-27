@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using foursoulsauto.core;
+using TMPro;
 using UnityEngine;
 
 namespace foursoulsauto.ui.player
@@ -8,12 +10,22 @@ namespace foursoulsauto.ui.player
     public class StackUI : PlayerUIModule
     {
         [SerializeField] private Transform stackPanel;
+        [SerializeField] private GameObject descriptionBox; 
+        [SerializeField] private float stackDescriptionTime;
+
+        private TMP_Text _descriptionText;
         
-        private readonly Dictionary<IVisualStackEffect, GameObject> _effectToGameObject = new();
+        private readonly Dictionary<IVisualStackEffect, StackMemberUI> _effectToMember = new();
+
+        private void Awake()
+        {
+            _descriptionText = descriptionBox.GetComponentInChildren<TMP_Text>();
+        }
 
         protected override void OnClose()
         {
             stackPanel.gameObject.SetActive(false);
+            descriptionBox.SetActive(false);
         }
 
         protected override void OnOpen()
@@ -32,16 +44,31 @@ namespace foursoulsauto.ui.player
                     
         private void OnItemFizzled(IVisualStackEffect obj)
         {
-            var stackMember = _effectToGameObject[obj];
-            _effectToGameObject.Remove(obj);
-            Destroy(stackMember);
+            var stackMember = _effectToMember[obj];
+            _effectToMember.Remove(obj);
+            Destroy(stackMember.gameObject);
         }
         
-        private void OnItemPushed(IVisualStackEffect obj)
+        private void OnItemPushed(IVisualStackEffect effect)
         {
-            var stackMember = obj.CreateStackVisual();
+            var stackMember = effect.CreateStackVisual();
+            stackMember.Effect = effect;
+            stackMember.PointerEntered += (member, data) => DisplayEffectDescription(member, data.position);
+            stackMember.PointerExited += (_, _) => CloseEffectDescription();
             stackMember.transform.SetParent(stackPanel);
-            _effectToGameObject.Add(obj, stackMember);
+            _effectToMember.Add(effect, stackMember);
+        }
+
+        private void CloseEffectDescription()
+        {
+            descriptionBox.SetActive(false);
+        }
+
+        private void DisplayEffectDescription(StackMemberUI stackMember, Vector3 pos)
+        {
+            _descriptionText.text = stackMember.Effect.GetEffectText();
+            descriptionBox.transform.position = pos;
+            descriptionBox.SetActive(true);
         }
     }
 }

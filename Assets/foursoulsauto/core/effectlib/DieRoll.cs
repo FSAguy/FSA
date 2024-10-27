@@ -78,12 +78,12 @@ namespace foursoulsauto.core.effectlib
             return text;
         }
 
-        public GameObject CreateStackVisual() 
+        public StackMemberUI CreateStackVisual() 
         {
             var stackMember = Object.Instantiate(StackMemberClone);
             stackMember.Subscribe(this);
             
-            return stackMember.gameObject;
+            return stackMember;
         }
     }
 }

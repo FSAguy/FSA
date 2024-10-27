@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using foursoulsauto.ui;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,8 +7,8 @@ namespace foursoulsauto.core
 {
     public class CardEffect : IVisualStackEffect
     {
-        private static readonly GameObject StackMemberClone = 
-            Resources.Load<GameObject>("Prefabs/UI/CardEffectStackMember");
+        private static readonly StackMemberUI StackMemberClone = 
+            Resources.Load<StackMemberUI>("Prefabs/UI/CardEffectStackMember");
         public readonly Card OriginCard;
         private readonly IStackEffect _effect;
 
@@ -28,7 +29,7 @@ namespace foursoulsauto.core
 
         public virtual void OnLeaveStack() => _effect.OnLeaveStack();
 
-        public GameObject CreateStackVisual()
+        public StackMemberUI CreateStackVisual()
         {
             var stackMember = Object.Instantiate(StackMemberClone);
             var cardImage = stackMember.transform.Find("CardImage").GetComponent<Image>();
