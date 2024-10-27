@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using foursoulsauto.core;
 using TMPro;
@@ -14,6 +15,7 @@ namespace foursoulsauto.ui.player
         [SerializeField] private float stackDescriptionTime;
 
         private TMP_Text _descriptionText;
+        private Coroutine _descriptionCoroutine;
         
         private readonly Dictionary<IVisualStackEffect, StackMemberUI> _effectToMember = new();
 
@@ -53,22 +55,29 @@ namespace foursoulsauto.ui.player
         {
             var stackMember = effect.CreateStackVisual();
             stackMember.Effect = effect;
-            stackMember.PointerEntered += (member, data) => DisplayEffectDescription(member, data.position);
-            stackMember.PointerExited += (_, _) => CloseEffectDescription();
+            stackMember.PointerEntered += member =>
+            {
+                if (_descriptionCoroutine is not null) StopCoroutine(_descriptionCoroutine);
+                _descriptionCoroutine = StartCoroutine(DisplayEffectDescription(member));
+            };
+            stackMember.PointerExited += _ => CloseEffectDescription();
             stackMember.transform.SetParent(stackPanel);
             _effectToMember.Add(effect, stackMember);
         }
 
         private void CloseEffectDescription()
         {
+            if (_descriptionCoroutine is not null) StopCoroutine(_descriptionCoroutine);
             descriptionBox.SetActive(false);
         }
 
-        private void DisplayEffectDescription(StackMemberUI stackMember, Vector3 pos)
+        private IEnumerator DisplayEffectDescription(StackMemberUI stackMember)
         {
+            yield return new WaitForSeconds(stackDescriptionTime);
             _descriptionText.text = stackMember.Effect.GetEffectText();
-            descriptionBox.transform.position = pos;
+            descriptionBox.transform.position = Input.mousePosition;
             descriptionBox.SetActive(true);
+            _descriptionCoroutine = null;
         }
     }
 }
