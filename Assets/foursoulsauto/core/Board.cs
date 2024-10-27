@@ -77,6 +77,7 @@ namespace foursoulsauto.core
                PlayerLoot(player, 3);
                DrawPlayerNewCharacter(player);
             }
+            
             _activeIdx = -1; // because new turn increments it
             // TODO: only allow UI to update AFTER the game started 
             BeginNextPlayerTurn();

@@ -49,7 +49,7 @@ namespace foursoulsauto.ui.player
         protected override void Start()
         {
             base.Start();
-            Manager.CardClicked += (card, _) => SelectCard(card);
+            Manager.CardClicked += (card, _) => SelectSingleCard(card);
         }
 
         public void GetPlayerInput(EffectInput request)
@@ -90,13 +90,34 @@ namespace foursoulsauto.ui.player
             {
                 var clone = Instantiate(multiButtonClone, multiCardContentPanel.transform);
                 clone.GetComponent<Image>().sprite = card.TopSprite;
-                clone.onClick.AddListener(delegate { SelectCard(card); }); 
+                clone.onClick.AddListener(delegate { AddMultiCardSelection(card, clone.gameObject); }); 
             }
 
             _multiCardsSelected = new List<Card>();
         }
 
-        private void SelectCard(Card card)
+        private void AddMultiCardSelection(Card card, GameObject visual)
+        {
+            if (!Open) return;
+
+            // TODO: make the visual's code not suck (also animate)
+            var selectImage = visual.transform.GetChild(0);
+
+            if (_multiCardsSelected.Contains(card))
+            {
+                _multiCardsSelected.Remove(card);
+                selectImage.gameObject.SetActive(false);
+            }
+            else
+            {
+                _multiCardsSelected.Add(card);
+                selectImage.gameObject.SetActive(true);
+            }
+
+            confirmButton.interactable = _multiCardsSelected.Count == _currentRequest.MultiCardExcpectedAmount;
+        }
+
+        private void SelectSingleCard(Card card)
         {
             if (!Open) return;
             
@@ -106,35 +127,12 @@ namespace foursoulsauto.ui.player
                 return;
             }
 
-            switch (_currentRequest.InpType)
-            {
-                case InputType.SingleCardTarget: // TODO: add a confirm and cancel button
-                    _singleCardSelection = card;
-                    break;
-                case InputType.MultiCardTarget: // TODO: selection and deselection effects
-                    if (_multiCardsSelected.Contains(card))
-                        _multiCardsSelected.Remove(card);
-                    else _multiCardsSelected.Add(card);
-                    break;
-            }
-            
-            confirmButton.interactable = CheckIfDone();
-            
-        }
+            _singleCardSelection = card;
 
-        private bool CheckIfDone()
-        {
-            switch (_currentRequest.InpType)
-            {
-                case InputType.SingleCardTarget:
-                    return _singleCardSelection is not null;
-                case InputType.MultiCardTarget:
-                    return _multiCardsSelected.Count == _currentRequest.MultiCardExcpectedAmount;
-            }
-            
-            throw new ArgumentOutOfRangeException();
-        }
+            confirmButton.interactable = true;
 
+        }
+        
         public void Cancel()
         {
             DeclareDone();
