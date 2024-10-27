@@ -69,7 +69,7 @@ namespace foursoulsauto.core
         private void Start() // TODO: move this into a separate "begin game" method, recheck values
         {
             // TODO: remember On Start Of Game effects (eden, cant think of anything else)
-            _phase = new ActionGamePhase();
+            _phase = new ActionPhase(); // TODO: remove this after making sure UI only updates after the game starts
             foreach (var player in players)
             {
                player.Cents = 0;
@@ -77,7 +77,8 @@ namespace foursoulsauto.core
                DrawPlayerNewCharacter(player);
             }
             _activeIdx = -1; // because new turn increments it
-            NewTurn();
+            // TODO: only allow UI to update AFTER the game started 
+            BeginNextPlayerTurn();
         }
 
         private void DrawPlayerNewCharacter(Player player) // TODO: the way characters are handled right now is kinda dogshit
@@ -86,10 +87,13 @@ namespace foursoulsauto.core
             player.GainItem(deckArrangement.FindInDeck(Deck.StartingItem, card => card.CardName == player.Character.StartingItem));
         }
 
-        private void NewTurn()
+        public void BeginNextPlayerTurn()
         {
             _activeIdx = (_activeIdx + 1) % PlayerCount;
             _popIdx = _priorityIdx = _activeIdx;
+            Debug.Log($"Thus begins the turn of player index {_activeIdx}");
+            Phase = new ActionPhase(); // TODO: should be start phase
+            ActivePlayer.IsActive = true;
             PriorityPlayer.HasPriority = true;
         }
 
@@ -118,15 +122,17 @@ namespace foursoulsauto.core
         {
             // todo: maybe prevent passing by incorrect player?
             Debug.Log($"{PriorityPlayer.CharName} index {_priorityIdx} passed");
+            PriorityPlayer.HasPriority = false;
+            
             if (Stack.IsEmpty) Phase.EmptyStackPass();
             else
             {
-                PriorityPlayer.HasPriority = false;
+                // change priority player
                 _priorityIdx = (_priorityIdx + 1) % PlayerCount;
                 if (_priorityIdx == _popIdx) Stack.Pop(); 
             }
 
-            Debug.Log($"{_priorityIdx} turn");
+            Debug.Log($"{_priorityIdx} gains priority");
             PriorityPlayer.HasPriority = true;
         }
 

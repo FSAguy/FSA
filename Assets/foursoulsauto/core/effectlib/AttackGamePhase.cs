@@ -32,7 +32,7 @@ namespace foursoulsauto.core.effectlib
         private void OnFightOver()
         {
             Board.Instance.Stack.CancelEffect(_currentAttack);
-            Board.Instance.Phase = new ActionGamePhase(); // TODO: change once state is managed like a stack
+            Board.Instance.Phase = new ActionPhase(); // TODO: change once state is managed like a stack
         }
         
         public override void Enter()

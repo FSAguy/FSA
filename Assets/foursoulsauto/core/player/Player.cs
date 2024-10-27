@@ -14,6 +14,7 @@ namespace foursoulsauto.core.player
         private int _lootPlaysLeft = 1; // todo: change this lol
         private int _attacksLeft = 1; // todo: change lol
         private bool _hasPriority;
+        private bool _isActive;
         private CharacterCard _character;
 
         public PlayerHand Hand => hand;
@@ -30,6 +31,7 @@ namespace foursoulsauto.core.player
         public event Action AttacksLeftChanged;
         public event Action CentsChanged;
         public event Action PriorityChanged;
+        public event Action ActiveChanged;
 
         public bool HasLootPlays => _lootPlaysLeft > 0;
         public bool HasAttacksLeft => _attacksLeft > 0;
@@ -53,8 +55,20 @@ namespace foursoulsauto.core.player
             get => _hasPriority;
             set
             {
+                if (_hasPriority == value) return;
                 _hasPriority = value;
                 PriorityChanged?.Invoke();
+                StateChanged?.Invoke();
+            }
+        }
+        
+        public bool IsActive
+        {
+            get => _isActive;
+            set
+            {
+                _isActive = value;
+                ActiveChanged?.Invoke();
                 StateChanged?.Invoke();
             }
         }
