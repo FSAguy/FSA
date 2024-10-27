@@ -36,7 +36,7 @@ namespace foursoulsauto.ui.player
             CloseVisuals();
         }
 
-        private void Cancel()
+        public void Cancel()
         {
             _state = State.Idle;
             CloseVisuals();
