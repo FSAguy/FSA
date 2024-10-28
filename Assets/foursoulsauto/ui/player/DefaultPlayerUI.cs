@@ -43,6 +43,8 @@ namespace foursoulsauto.ui.player
             var player = Manager.ControlledPlayer;
             Manager.CardClicked += OnCardClicked;
             player.StateChanged += UpdateVisuals;
+            // TODO: only doing this so passtext may function, should probably give that responsibility partly to stackui
+            Board.Instance.Stack.ItemPushed += _ => UpdateVisuals();
         }
 
         private void OnCardClicked(Card card, PointerEventData pointerData)

@@ -5,7 +5,8 @@ using UnityEngine;
 
 namespace foursoulsauto.editor
 {
-    [CustomEditor(typeof(CardUI))]
+    // TODO: manipulate stats after changing them
+    [CustomEditor(typeof(CardUI), true)]
     public class CardUIEditor : Editor
     {
         public override void OnInspectorGUI()

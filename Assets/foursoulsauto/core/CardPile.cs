@@ -55,6 +55,7 @@ namespace foursoulsauto.core
         {
             for (var i = 0; i < Cards.Count - 1; i++)
                 Cards[i].HideCard();
+            if (Top is not null) Top.ShowCard();
         }
     }
 }
