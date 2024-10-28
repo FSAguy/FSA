@@ -1,8 +1,6 @@
-﻿using System;
-using foursoulsauto.core;
+﻿using foursoulsauto.core;
 using foursoulsauto.core.deck;
 using UnityEditor;
-using UnityEngine;
 
 namespace foursoulsauto.editor
 {
