@@ -93,7 +93,7 @@ MonoBehaviour:
   bottomSprite: {fileID: 21300000, guid: d1d603509b6a1704e8bcf662717436af, type: 3}
   deck: 1
   cardName: Fatty
-  startingHp: 4
+  startingHp: 3
   startingEvasion: 2
   startingAttack: 1
   attackable: 1

@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace foursoulsauto.core.deck
 {
     public class DeckBehaviour : MonoBehaviour
     {
-        [SerializeField] private CardPile drawPile;
-        [SerializeField] private CardPile discardPile;
+        // TODO: shuffle function
+        // TODO: reshuffle discard after draw emptied
+        [SerializeField] protected CardPile drawPile;
+        [SerializeField] protected CardPile discardPile;
 
         public Card TopDraw => drawPile.Top;
         public Card TopDiscard => discardPile.Top;
