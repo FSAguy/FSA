@@ -4,7 +4,7 @@ using UnityEngine;
 namespace foursoulsauto.core.board
 {
     // Serializes a list of cards to be loaded on game start
-    [CreateAssetMenu(fileName = "CardDatabase", menuName = "ScriptObj/CardDatabase", order = 1)]
+    [CreateAssetMenu(fileName = "CardDatabase", menuName = "FourSoulsAuto/CardDatabase")]
     public class BoardCardList : ScriptableObject
     {
         [SerializeField] private List<Card> cards;

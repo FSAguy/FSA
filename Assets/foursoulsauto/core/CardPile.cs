@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using foursoulsauto.ui;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace foursoulsauto.core
 {
@@ -40,6 +41,16 @@ namespace foursoulsauto.core
             for (var i = 0; i < Cards.Count - 1; i++)
                 Cards[i].HideCard();
             if (Top is not null) Top.ShowCard();
+        }
+
+        public void Shuffle()
+        {
+            // TODO: shuffle animation
+            for (var i = Cards.Count - 1; i > 0; i++)
+            {
+                var rand = Random.Range(0, i + 1);
+                (Cards[rand], Cards[i]) = (Cards[i], Cards[rand]);
+            }
         }
     }
 }

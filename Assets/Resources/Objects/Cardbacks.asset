@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c91b6aa6abbb44d48064cbb2b02565ee, type: 3}
+  m_Name: Cardbacks
+  m_EditorClassIdentifier: 
+  Loot: {fileID: 21300000, guid: 3ae5440915d76d841abee05142cf558e, type: 3}
+  Monster: {fileID: 21300000, guid: d1d603509b6a1704e8bcf662717436af, type: 3}
+  Treasure: {fileID: 21300000, guid: b9ba2607b52f6384ba005f3dc7544ce3, type: 3}
+  Character: {fileID: 21300000, guid: 90fc3447ae5b86b49bb75885e2f0ff9a, type: 3}
+  StarterItem: {fileID: 21300000, guid: ffc0dd794a42f7640b39dd51af22874b, type: 3}
+  BonusSoul: {fileID: 21300000, guid: 36541141989a0bd4ebb200a74d28f983, type: 3}
+  Room: {fileID: 21300000, guid: c3b26bfd491b9c84c93736e89a6c9f90, type: 3}

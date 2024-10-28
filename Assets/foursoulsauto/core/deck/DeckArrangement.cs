@@ -9,6 +9,7 @@ namespace foursoulsauto.core.deck
 {
     public class DeckArrangement : MonoBehaviour
     {
+        [SerializeField] private DeckToCardback cardbackDatabase;
         [SerializeField] private DeckBehaviour loot;
         [SerializeField] private DeckBehaviour monster;
         [SerializeField] private DeckBehaviour character;
@@ -62,6 +63,11 @@ namespace foursoulsauto.core.deck
         public void Discard(List<Card> cards, Deck deck)
         {
             _decktionairy[deck].DiscardInto(cards);
+        }
+
+        public Sprite GetCardback(Deck deck)
+        {
+            return cardbackDatabase.Get(deck);
         }
     }
 }

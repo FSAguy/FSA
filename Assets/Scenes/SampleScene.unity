@@ -4065,6 +4065,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a4639fdb9fa4ed5adb4cbe6b2d9c1b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardbackDatabase: {fileID: 11400000, guid: e40968b63a45b6744b234c013953ac24, type: 2}
   loot: {fileID: 1588623289}
   monster: {fileID: 1933678162054637317}
   character: {fileID: 1578791832}

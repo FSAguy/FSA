@@ -34,6 +34,8 @@ namespace foursoulsauto.core
 
         public int PlayerCount => players.Count;
 
+        public Sprite GetCardback(Deck deck) => deckArrangement.GetCardback(deck);
+        
         // TODO: game phase should probably have a stack of its own
         // for example, you always have the "normal" phase at the bottom
         // when you pop the normal phase, you add the "end turn" phase, which when popped adds the "start turn" phase
