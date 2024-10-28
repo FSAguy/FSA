@@ -11,23 +11,19 @@ namespace foursoulsauto.core
         [SerializeField] private int rows;
         [SerializeField] private int cols;
 
-        protected override void Add(Card card)
+        protected override void AfterCardsAdded(List<Card> addedCards)
         {
-            base.Add(card);
-            // should probably use 
-            card.ShowCard();
-            card.FaceUp = true;
-            UpdateCardArrangement();
-        }    
-        protected override void Add(List<Card> cards)
-        {
-            base.Add(cards);
-            foreach (var card in cards)
+            foreach (var card in addedCards)
             {
                 // TODO: should probably use "enter play" or something
                 card.ShowCard();
                 card.FaceUp = true;
             }
+            UpdateCardArrangement();
+        }
+
+        protected override void AfterCardsRemoved(List<Card> removedCards)
+        {
             UpdateCardArrangement();
         }
 

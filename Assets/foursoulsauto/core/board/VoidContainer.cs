@@ -7,16 +7,11 @@ namespace foursoulsauto.core.board
     // mainly just exists for loot cards being played, should probably change later
     public class VoidContainer : CardContainer
     {
-        protected override void Add(Card card)
+        protected override void AfterCardsAdded(List<Card> addedCards)
         {
-            base.Add(card);
-            card.HideCard();
+            addedCards.ForEach(card => card.HideCard());
         }
 
-        protected override void Add(List<Card> cards)
-        {
-            base.Add(cards);
-            cards.ForEach(card => card.HideCard());
-        }
+        protected override void AfterCardsRemoved(List<Card> removedCards) { }
     }
 }

@@ -18,56 +18,85 @@ namespace foursoulsauto.core
 
         // TODO: maybe make CardContainer responsible for the visibility of the card?
         public Player Owner { get; private set; }
+        
+        protected abstract void AfterCardsAdded(List<Card> addedCards);
+        protected abstract void AfterCardsRemoved(List<Card> removedCards);
 
-        protected virtual void Add(Card card)
-        {
-            Cards.Add(card);
-            card.Container = this;
-            card.transform.SetParent(transform);
-        }
+        protected virtual void AfterCardsInserted(List<Card> insertedCards, int index)
+            => AfterCardsAdded(insertedCards);
 
-        protected virtual void Add(List<Card> cards)
+        private void Add(List<Card> cards)
         {
-            foreach (var card in cards) Add(card);
-        }
-        protected virtual void Remove(Card card) => Cards.Remove(card);
-
-        protected virtual void Remove(List<Card> cards)
-        {
-            foreach (var card in cards) Cards.Remove(card); 
-        }
-        protected virtual bool CanAdd(Card card) => true;
-        protected virtual bool CanAdd(List<Card> cards) => true;
-        protected virtual bool CanRemove(Card card) => Cards.Contains(card);
-
-        public bool MoveInto(Card card)
-        {
-            var other = card.Container;
-            if (!CanAdd(card) || (other != null && !other.CanRemove(card)))
+            foreach (var card in cards)
             {
-                Debug.LogError(
-                    $"Attempted RemoveAndAdd illegally: {card} from {other} to {this}."
-                ); 
-                return false;
-            } 
+                Cards.Add(card);
+                card.Container = this;
+                card.transform.SetParent(transform);
+            }
             
-            if (other != null) other.Remove(card);
+            AfterCardsAdded(cards);
+        }
+
+        private void Insert(List<Card> cards, int index)
+        {
+            Cards.InsertRange(index, cards);
+            foreach (var card in cards)
+            {
+                card.Container = this;
+                card.transform.SetParent(transform);
+            }
             
-            Add(card);
-            card.Container = this;
-            return true;
+            AfterCardsInserted(cards, index);
         }
         
-        // also returns true if list is null
-        public bool MoveInto(List<Card> cards)
+        private void Remove(List<Card> cards)
         {
-            if (cards == null) return true;
-            if (!cards.All(card => card.Container == null || card.Container.CanRemove(card))) return false;
-            if (!CanAdd(cards)) return false;
-            foreach (var card in cards.Where(card => card.Container != null))
-                card.Container.Remove(card);
+            foreach (var card in cards) Cards.Remove(card); 
+            AfterCardsRemoved(cards);
+        }
+        
+        public void MoveInto(Card card)
+        {
+            MoveInto(new List<Card> { card });
+        }
+        
+        public void MoveInto(List<Card> cards)
+        {
+            if (cards == null) return;
+            
+            RemoveAllFromOwners(cards);
+            
             Add(cards);
-            return true;
+        }
+
+        public void InsertInto(Card card, int index)
+        {
+            InsertInto(new List<Card> {card}, index);
+        }
+
+        public void InsertInto(List<Card> cards, int index)
+        {
+            if (cards == null) return;
+            
+            RemoveAllFromOwners(cards);
+            
+            Insert(cards, index);
+        }
+
+        private static void RemoveAllFromOwners(IEnumerable<Card> cardsToRemove)
+        {
+            // first divide cards up by their owners, then remove them simultaneously for performance
+            var ownerToCards = new Dictionary<CardContainer, List<Card>>();
+            foreach (var card in cardsToRemove.Where(card => card.Container != null))
+            {
+                var container = card.Container;
+                if (!ownerToCards.ContainsKey(container))
+                    ownerToCards.Add(container, new List<Card>());
+                ownerToCards[container].Add(card);
+            }
+            
+            foreach (var (container, cardList) in ownerToCards)
+                container.Remove(cardList);
         }
     }
 }

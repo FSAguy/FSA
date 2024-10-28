@@ -11,21 +11,9 @@ namespace foursoulsauto.core.player
         [SerializeField] private BoxCollider zone;
         [SerializeField] private float prefDistance;
 
-        protected override void Add(Card card)
+        protected override void AfterCardsAdded(List<Card> addedCards)
         {
-            base.Add(card);
-            // TODO: should probably use "enter play" or something
-            card.ShowCard();
-            //TODO: make cards visible only to client player
-            //first uuhhhh make multiplayer work
-            card.FaceUp = true; 
-            UpdateCardArrangement();
-        }
-
-        protected override void Add(List<Card> cards)
-        {
-            base.Add(cards);
-            foreach (var card in cards)
+            foreach (var card in addedCards)
             {
                 // TODO: should probably use "enter play" or something
                 card.ShowCard();
@@ -34,18 +22,11 @@ namespace foursoulsauto.core.player
             UpdateCardArrangement();
         }
 
-        protected override void Remove(Card card)
+        protected override void AfterCardsRemoved(List<Card> removedCards)
         {
-            base.Remove(card);
             UpdateCardArrangement();
         }
 
-        protected override void Remove(List<Card> cards)
-        {
-            base.Remove(cards);
-            UpdateCardArrangement();
-        }
-        
         private void UpdateCardArrangement()
         {
             if (Cards.Count * prefDistance < zone.size.x) SpaciousArrangement();

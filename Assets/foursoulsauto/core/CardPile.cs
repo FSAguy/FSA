@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using foursoulsauto.ui;
 using UnityEngine;
@@ -10,45 +11,28 @@ namespace foursoulsauto.core
         // perhaps make separate classes???
         [SerializeField] private bool faceUp;
 
+        public event Action Emptied;
+
         public Card Top => Cards.LastOrDefault();
 
-        protected override void Add(Card card)
+        protected override void AfterCardsAdded(List<Card> addedCards)
         {
-            base.Add(card);
-            card.ShowCard();
-            card.FaceUp = faceUp;
-            card.MoveTo(transform, style: CardAnimate.Style.Fall);
-            CancelInvoke();
-            Invoke(nameof(UpdateTopRender), CardAnimate.AnimTime);
-        }
-
-        protected override void Add(List<Card> cards)
-        {
-            base.Add(cards);
-            for (var i = 0; i < cards.Count; i++)
+            for (var i = 0; i < addedCards.Count; i++)
             {
-                 var time = CardAnimate.AnimTime * Mathf.Pow((i + 1f) / Cards.Count, 2);
-                 cards[i].ShowCard();
-                 cards[i].MoveTo(transform, time, CardAnimate.Style.Fall);
-                 cards[i].FaceUp = faceUp;
+                var time = CardAnimate.AnimTime * Mathf.Pow((i + 1f) / addedCards.Count, 2);
+                addedCards[i].ShowCard();
+                addedCards[i].MoveTo(transform, time, CardAnimate.Style.Fall);
+                addedCards[i].FaceUp = faceUp;
             }
             CancelInvoke();
             Invoke(nameof(UpdateTopRender), CardAnimate.AnimTime);
         }
 
-
-        protected override void Remove(Card card)
+        protected override void AfterCardsRemoved(List<Card> removedCards)
         {
-            base.Remove(card);
             if (!IsInvoking(nameof(UpdateTopRender)))
                 UpdateTopRender();
-        }
-
-        protected override void Remove(List<Card> cards)
-        {
-            base.Remove(cards);
-            if (!IsInvoking(nameof(UpdateTopRender)))
-                UpdateTopRender();
+            if (Cards.Count == 0) Emptied?.Invoke();
         }
 
         private void UpdateTopRender()
