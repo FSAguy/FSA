@@ -46,6 +46,7 @@ namespace foursoulsauto.ui.player
                     
         private void OnItemFizzled(IVisualStackEffect obj)
         {
+            CloseEffectDescription();
             var stackMember = _effectToMember[obj];
             _effectToMember.Remove(obj);
             Destroy(stackMember.gameObject);
