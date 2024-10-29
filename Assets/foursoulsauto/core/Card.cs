@@ -20,6 +20,9 @@ namespace foursoulsauto.core
         [SerializeField] private Sprite bottomSprite;
         [SerializeField] private Deck deck;
         [SerializeField] private string cardName;
+        [SerializeField] private List<CardTag> tags;
+
+        public List<CardTag> Tags => tags;
 
         public Sprite TopSprite => topSprite;
         public Sprite BottomSprite => bottomSprite;

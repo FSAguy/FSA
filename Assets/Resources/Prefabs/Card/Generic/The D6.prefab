@@ -89,3 +89,4 @@ MonoBehaviour:
   bottomSprite: {fileID: 21300000, guid: ffc0dd794a42f7640b39dd51af22874b, type: 3}
   deck: 4
   cardName: The D6
+  tags: 0100000003000000

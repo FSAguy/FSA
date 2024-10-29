@@ -89,6 +89,7 @@ MonoBehaviour:
   bottomSprite: {fileID: 21300000, guid: d1d603509b6a1704e8bcf662717436af, type: 3}
   deck: 1
   cardName: Clotty
+  tags: 0c0000000d000000
   startingHp: 2
   startingEvasion: 3
   startingAttack: 1

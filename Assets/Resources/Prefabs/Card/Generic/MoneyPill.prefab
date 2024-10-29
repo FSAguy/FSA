@@ -461,6 +461,7 @@ MonoBehaviour:
   bottomSprite: {fileID: 21300000, guid: 3ae5440915d76d841abee05142cf558e, type: 3}
   deck: 0
   cardName: Pills!
+  tags: 170000001a000000
   amount1: {fileID: 5991945792731189994}
   amount2: {fileID: 3071461143918501268}
   amount3: {fileID: 543823880307471616}

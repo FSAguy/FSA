@@ -92,6 +92,7 @@ MonoBehaviour:
   bottomSprite: {fileID: 21300000, guid: 3ae5440915d76d841abee05142cf558e, type: 3}
   deck: 0
   cardName: A Penny!
+  tags: 170000002500000026000000
   centAmount: {fileID: 1814959004012937758}
 --- !u!224 &3696149090431979738 stripped
 RectTransform:

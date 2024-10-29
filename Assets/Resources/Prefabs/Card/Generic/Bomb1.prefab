@@ -97,6 +97,7 @@ MonoBehaviour:
   bottomSprite: {fileID: 21300000, guid: 3ae5440915d76d841abee05142cf558e, type: 3}
   deck: 0
   cardName: Bomb!
+  tags: 170000001d000000
   damageNum: {fileID: 8505661602772143701}
 --- !u!1001 &1789978545494479698
 PrefabInstance:
