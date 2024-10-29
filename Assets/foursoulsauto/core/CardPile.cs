@@ -12,7 +12,7 @@ namespace foursoulsauto.core
         // perhaps make separate classes???
         [SerializeField] private bool faceUp;
 
-        public event Action Emptied;
+        public event Action<CardPile> Emptied;
 
         public Card Top => Cards.LastOrDefault();
 
@@ -33,7 +33,7 @@ namespace foursoulsauto.core
         {
             if (!IsInvoking(nameof(UpdateTopRender)))
                 UpdateTopRender();
-            if (Cards.Count == 0) Emptied?.Invoke();
+            if (Cards.Count == 0) Emptied?.Invoke(this);
         }
 
         private void UpdateTopRender()
@@ -46,7 +46,7 @@ namespace foursoulsauto.core
         public void Shuffle()
         {
             // TODO: shuffle animation
-            for (var i = Cards.Count - 1; i > 0; i++)
+            for (var i = Cards.Count - 1; i > 0; i--)
             {
                 var rand = Random.Range(0, i + 1);
                 (Cards[rand], Cards[i]) = (Cards[i], Cards[rand]);

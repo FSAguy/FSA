@@ -7,8 +7,11 @@ namespace foursoulsauto.core.deck
     {
         // TODO: shuffle function
         // TODO: reshuffle discard after draw emptied
+        [SerializeField] protected Deck deckType;
         [SerializeField] protected CardPile drawPile;
         [SerializeField] protected CardPile discardPile;
+
+        public Deck DeckType => deckType;
 
         public Card TopDraw => drawPile.Top;
         public Card TopDiscard => discardPile.Top;
@@ -16,10 +19,11 @@ namespace foursoulsauto.core.deck
         public List<Card> DrawCards => drawPile.Cards;
         public List<Card> DiscardCards => discardPile.Cards;
         
-        public void Setup(List<Card> draw, List<Card> discard = null)
+        public virtual void Setup(List<Card> draw, List<Card> discard = null)
         {
             drawPile.MoveInto(draw);
             discardPile.MoveInto(discard);
+            drawPile.Shuffle();
         }
 
         public void DrawInto(CardContainer container, int amount)
