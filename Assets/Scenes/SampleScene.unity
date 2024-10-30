@@ -1542,7 +1542,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stackPanel: {fileID: 451023808}
   descriptionBox: {fileID: 2046096045}
-  stackDescriptionTime: 0.5
+  stackDescriptionTime: 0.1
 --- !u!1 &466853577
 GameObject:
   m_ObjectHideFlags: 0
