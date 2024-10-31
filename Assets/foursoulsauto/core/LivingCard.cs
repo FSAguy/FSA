@@ -24,16 +24,16 @@ namespace foursoulsauto.core
         private int _evasion;
         private int _attack;
 
+        private int _maxHp;
+
         public bool IsDead => Hp <= 0 || !IsShown; // TODO: change IsShown to IsInPlay
         public bool IsAlive => !IsDead;
         public bool IsAttackable => attackable && IsAlive;
 
-        // Never change CurrentHp when "taking damage", use TakeDamage for that
-        // Change CurrentHp when healing or modifying hp without damage
         // TODO: If a player or monster has 0HP at any point, and their death is not already on the stack,
         //       their death is put on the stack the next time any player would receive priority. 
         //       (death should not be added immediately! only after passing!)
-        public int Hp
+        private int Hp
         {
             get => _hp;
             set
@@ -63,6 +63,17 @@ namespace foursoulsauto.core
             }
         }
 
+        public int MaxHp
+        {
+            get => _maxHp;
+            set
+            {
+                var diff = value - _maxHp;
+                _maxHp = value; // TODO: maxhp changed event
+                Hp = Mathf.Min(_maxHp, Hp + Mathf.Max(diff, 0));
+            }
+        }
+
         protected override void Awake()
         {
             base.Awake();
@@ -83,13 +94,13 @@ namespace foursoulsauto.core
 
         public void HealToFull()
         {
-            // TODO: modified max hp (like +1hp treasures)
-            Hp = startingHp;
+            Hp = MaxHp;
         }
 
         public void ResetStats()
         {
             Hp = startingHp;
+            MaxHp = startingHp;
             Attack = startingAttack;
             Evasion = startingEvasion;
         }

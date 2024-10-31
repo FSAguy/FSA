@@ -22,6 +22,8 @@ namespace foursoulsauto.core
                 throw new Exception("Place the Board dingus!");
             }
         }
+
+        public event Action TurnEndCleanup;
         
         [SerializeField] private List<Player> players;
         [SerializeField] private BoardCardList boardCardList;
@@ -93,6 +95,9 @@ namespace foursoulsauto.core
 
         public void BeginNextPlayerTurn()
         {
+            TurnEndCleanup?.Invoke();
+            TurnEndCleanup = null;
+            
             _activeIdx = (_activeIdx + 1) % PlayerCount;
             _popIdx = _priorityIdx = _activeIdx;
             Debug.Log($"Thus begins the turn of player index {_activeIdx}");

@@ -19,11 +19,11 @@ namespace foursoulsauto.core.deck
         public List<Card> DrawCards => drawPile.Cards;
         public List<Card> DiscardCards => discardPile.Cards;
         
-        public virtual void Setup(List<Card> draw, List<Card> discard = null)
+        public virtual void Setup(List<Card> draw, List<Card> discard = null, bool shuffle = false)
         {
             drawPile.MoveInto(draw);
             discardPile.MoveInto(discard);
-            drawPile.Shuffle();
+            if (shuffle) drawPile.Shuffle();
         }
 
         public void DrawInto(CardContainer container, int amount)

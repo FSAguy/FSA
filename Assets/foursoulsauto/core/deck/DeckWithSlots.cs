@@ -10,9 +10,9 @@ namespace foursoulsauto.core.deck
 
         public List<CardPile> Slots => slots;
 
-        public override void Setup(List<Card> draw, List<Card> discard = null)
+        public override void Setup(List<Card> draw, List<Card> discard = null, bool shuffle = false)
         {
-            base.Setup(draw, discard);
+            base.Setup(draw, discard, shuffle);
             Slots.ForEach(slot => DrawInto(slot, 1));
         }
 

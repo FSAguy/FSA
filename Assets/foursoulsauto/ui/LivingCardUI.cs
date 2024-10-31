@@ -46,6 +46,7 @@ namespace foursoulsauto.ui
 
         private void OnHpChanged(int hp)
         {
+            Debug.Log($"HP CHANGED: {TargetCard.CardName}");
             hpText.text = hp.ToString();
         }
     }

@@ -14,6 +14,7 @@ namespace foursoulsauto.core.deck
         [SerializeField] private DeckBehaviour monster;
         [SerializeField] private DeckBehaviour character;
         [SerializeField] private DeckBehaviour startingItem;
+        [SerializeField] private bool shuffleOnStart;
 
         private Dictionary<Deck, DeckBehaviour> _decktionairy; // absolutely hysterical
 
@@ -36,7 +37,7 @@ namespace foursoulsauto.core.deck
             foreach (var (deck, behaviour) in _decktionairy)
             {
                 var cards = AllCards.FindAll(card => card.StartDeck == deck);
-                behaviour.Setup(cards);
+                behaviour.Setup(cards, shuffle:shuffleOnStart);
             }
         }
 
