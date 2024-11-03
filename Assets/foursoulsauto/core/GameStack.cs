@@ -13,25 +13,40 @@ namespace foursoulsauto.core
         public event Action<IVisualStackEffect> ItemFizzled;
 
         private List<IVisualStackEffect> Stack { get; }
+        public List<IVisualStackEffect> NewlyAdded { get; private set; }
+
+        // TODO: implement "may reorder" according to four souls rules - requires effect tags
+        public bool MayReorder => NewlyAdded.Count > 0; 
 
         public bool IsEmpty => Stack.Count == 0;
+
+        public void FlushNewlyAdded()
+        {
+            foreach (var effect in NewlyAdded)
+            {
+                if (effect == null)
+                {
+                    Debug.LogError("TRIED TO ADD NULL EFFECT TO STACK");
+                    return;
+                }
+                Stack.Insert(0, effect);
+                effect.OnStackAdd();
+                Debug.Log($"Added Effect: {effect.GetEffectText()}");
+                ItemPushed?.Invoke(effect); 
+            }
+
+            NewlyAdded = new List<IVisualStackEffect>();
+        }
 
         public GameStack()
         {
             Stack = new List<IVisualStackEffect>();
+            NewlyAdded = new List<IVisualStackEffect>();
         }
 
         public void Push(IVisualStackEffect effect)
         {
-            if (effect == null)
-            {
-                Debug.LogError("TRIED TO ADD NULL EFFECT TO STACK");
-                return;
-            }
-            Stack.Insert(0, effect);
-            effect.OnStackAdd();
-            Debug.Log($"Added Effect: {effect.GetEffectText()}");
-            ItemPushed?.Invoke(effect); 
+            NewlyAdded.Add(effect);
         }
 
         public void CancelEffect(IVisualStackEffect effect)

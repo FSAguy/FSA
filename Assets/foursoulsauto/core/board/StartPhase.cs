@@ -18,7 +18,7 @@ namespace foursoulsauto.core.board
             // TODO: start of turn abilities
             // TODO: not a card effect
             // TODO: should not just equal 1, may include other effects (
-            Board.Instance.AddEffect(new CardEffect(Board.Instance.ActivePlayer.Character,
+            Board.Instance.AddEffectAndFlush(new CardEffect(Board.Instance.ActivePlayer.Character,
                 new PlayersGainLootEffect(Board.Instance.ActivePlayer, ()=>1)));
             
         }

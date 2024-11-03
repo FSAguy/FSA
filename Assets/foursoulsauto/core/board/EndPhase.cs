@@ -22,7 +22,7 @@ namespace foursoulsauto.core.board
                 target, 
                 () => Mathf.Max(0, target.Hand.Cards.Count - 10));
             // TODO: shouldn't be a card effect, should be its own thing
-            Board.Instance.AddEffect(new CardEffect(Board.Instance.ActivePlayer.Character, discardEffect));
+            Board.Instance.AddEffectAndFlush(new CardEffect(Board.Instance.ActivePlayer.Character, discardEffect));
         }
 
         public override void Leave()

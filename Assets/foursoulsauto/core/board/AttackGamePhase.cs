@@ -27,7 +27,7 @@ namespace foursoulsauto.core.board
         private void AddAttackToStack()
         {
             _currentAttack = new AttackRoll(Attacker, Defender);
-            Board.Instance.AddEffect(_currentAttack);
+            Board.Instance.AddEffectAndFlush(_currentAttack);
         }
 
         private void OnFightOver()

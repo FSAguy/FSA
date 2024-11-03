@@ -125,7 +125,7 @@ namespace foursoulsauto.core.player
 
         public void PlayEffect(CardAction action)
         {
-            Board.Instance.AddEffect(action.GenerateEffect());
+            Board.Instance.AddEffectAndFlush(action.GenerateEffect());
         }
 
         public void RequestInput(EffectInput request)
@@ -140,7 +140,7 @@ namespace foursoulsauto.core.player
         
         public void DeclareAttack()
         {
-            Board.Instance.AddEffect(new AttackDeclarationEffect(this));
+            Board.Instance.AddEffectAndFlush(new AttackDeclarationEffect(this));
         }
     }
 }

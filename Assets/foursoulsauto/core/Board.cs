@@ -138,11 +138,29 @@ namespace foursoulsauto.core
             {
                 // change priority player
                 _priorityIdx = (_priorityIdx + 1) % PlayerCount;
-                if (_priorityIdx == _popIdx) Stack.Pop(); 
+                if (_priorityIdx == _popIdx) PopStack();
             }
 
             Debug.Log($"{_priorityIdx} gains priority");
             PriorityPlayer.HasPriority = true;
+        }
+
+        private void FlushStack()
+        {
+            // TODO: fix stack ordering and allow players to manipulate ordering
+            Stack.FlushNewlyAdded();
+        }
+
+        private void PopStack()
+        {
+            Stack.Pop();
+            FlushStack();
+        }
+
+        public void AddEffectAndFlush(IVisualStackEffect effect)
+        {
+            AddEffect(effect);
+            FlushStack();
         }
 
         public void AddEffect(IVisualStackEffect effect)
