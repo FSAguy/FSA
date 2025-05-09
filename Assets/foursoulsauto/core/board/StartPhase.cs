@@ -15,6 +15,8 @@ namespace foursoulsauto.core.board
             // recharge
             // TODO: add "dont recharge" quality for some items (like car battery)
             Board.Instance.ActivePlayer.ActiveCards.ForEach(card => card.IsCharged = true);
+            Board.Instance.ActivePlayer.LootPlaysRemaining++;
+            Board.Instance.ActivePlayer.AttacksRemaining++;
             // TODO: start of turn abilities
             // TODO: not a card effect
             // TODO: should not just equal 1, may include other effects (
@@ -30,9 +32,6 @@ namespace foursoulsauto.core.board
 
         public override void EmptyStackPass()
         {
-            // TODO: might not always be the case (lootplay and/or attack)
-            Board.Instance.ActivePlayer.LootPlaysRemaining++;
-            Board.Instance.ActivePlayer.AttacksRemaining++;
             Board.Instance.Phase = new ActionPhase();
         }
 

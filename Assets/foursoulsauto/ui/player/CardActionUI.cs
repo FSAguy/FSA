@@ -45,12 +45,13 @@ namespace foursoulsauto.ui.player
 
         private void CloseVisuals()
         {
-            visuals.SetActive(false);
-            for (var i = 0; i < _buttons.Count; i++)
+            foreach (var button in _buttons)
             {
-                Destroy(_buttons[i].gameObject);
-                _buttons.Remove(_buttons[i]);
-            } 
+                Destroy(button.gameObject);
+            }
+
+            _buttons.RemoveAll(_ => true);
+            visuals.SetActive(false);
         }
         
         private void Update()

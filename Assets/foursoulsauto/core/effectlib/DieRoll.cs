@@ -31,10 +31,11 @@ namespace foursoulsauto.core.effectlib
             set
             {
                 var prev = _rawResult;
-                _rawResult = value;
+                _rawResult = Mathf.Clamp(value, 1, 6);
                 if (prev != _rawResult) ResultChanged?.Invoke(_rawResult);
             }
         } 
+            
         public int Result => Mathf.Clamp(GetResultAfterMods(RawResult), 1, 6);
         
         protected abstract int GetResultAfterMods(int roll);

@@ -14,9 +14,9 @@ namespace foursoulsauto.core.effectlib
 
         public override IEnumerator Resolve()
         {
-            foreach (var (key, value) in TargetToAmountDict)
+            foreach (var (livingCard, damageFunc) in TargetToAmountDict)
             {
-                key.TakeDamage(value.Invoke());
+                livingCard.TakeDamage(damageFunc.Invoke());
             }
 
             yield break;

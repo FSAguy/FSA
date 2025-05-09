@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using foursoulsauto.core.effectlib;
 using UnityEngine;
 
 namespace foursoulsauto.core
@@ -77,6 +78,10 @@ namespace foursoulsauto.core
                 ItemFizzled?.Invoke(topItem);
             }
         }
+
+        public DieRoll TopRollEffect => GetFirstWhere(effect => effect is DieRoll) as DieRoll;
+        
+        public bool HasRoll => TopRollEffect is not null;
 
         private IEnumerator ResolveItem(IVisualStackEffect effect)
         {

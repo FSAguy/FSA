@@ -4085,6 +4085,7 @@ MonoBehaviour:
   monster: {fileID: 3473973737580330510}
   character: {fileID: 1578791832}
   startingItem: {fileID: 356765620}
+  shuffleOnStart: 0
 --- !u!4 &1614027807
 Transform:
   m_ObjectHideFlags: 0
