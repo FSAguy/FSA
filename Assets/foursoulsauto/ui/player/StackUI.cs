@@ -76,7 +76,9 @@ namespace foursoulsauto.ui.player
         {
             yield return new WaitForSeconds(stackDescriptionTime);
             _descriptionText.text = stackMember.Effect.GetEffectText();
-            descriptionBox.transform.position = Input.mousePosition;
+            var newPos = descriptionBox.transform.position;
+            newPos.y = stackMember.transform.position.y;
+            descriptionBox.transform.position = newPos;
             descriptionBox.SetActive(true);
             _descriptionCoroutine = null;
         }
