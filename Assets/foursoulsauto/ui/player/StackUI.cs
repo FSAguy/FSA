@@ -10,9 +10,11 @@ namespace foursoulsauto.ui.player
     //TODO: Animate
     public class StackUI : PlayerUIModule
     {
+        private static readonly int ItemPushedTrigger = Animator.StringToHash("Item Pushed");
         [SerializeField] private Transform stackPanel;
         [SerializeField] private GameObject descriptionBox; 
         [SerializeField] private float stackDescriptionTime;
+        [SerializeField] private Animator animator;
 
         private TMP_Text _descriptionText;
         private Coroutine _descriptionCoroutine;
@@ -64,6 +66,7 @@ namespace foursoulsauto.ui.player
             stackMember.PointerExited += _ => CloseEffectDescription();
             stackMember.transform.SetParent(stackPanel);
             _effectToMember.Add(effect, stackMember);
+            animator.SetTrigger(ItemPushedTrigger);
         }
 
         private void CloseEffectDescription()
