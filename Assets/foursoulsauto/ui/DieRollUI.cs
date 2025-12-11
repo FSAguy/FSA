@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using foursoulsauto.core.effectlib;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace foursoulsauto.ui
 {
     public class DieRollUI : StackMemberUI
     {
         [SerializeField] private List<Sprite> sprites;
-        [SerializeField] private Image dieRenderer;
 
         private DieRoll _roll;
 
@@ -23,7 +20,7 @@ namespace foursoulsauto.ui
 
         private void UpdateSprite(int value)
         {
-            dieRenderer.sprite = sprites[value - 1];
+            texture = sprites[value - 1].texture;
         }
 
         private void Awake()

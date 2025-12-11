@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using foursoulsauto.core;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -6,29 +6,10 @@ using UnityEngine.UI;
 
 namespace foursoulsauto.ui
 {
-    [RequireComponent(typeof(CanvasRenderer))]
-    public class StackMemberUI : Graphic, IPointerEnterHandler, IPointerExitHandler
+    public class CardStackUI : StackMemberUI
     {
-        public event Action<StackMemberUI> PointerEntered;
-        public event Action<StackMemberUI> PointerExited;
-
         public Mesh mesh;
-        public Texture texture;
-        
-        public IVisualStackEffect Effect { get; set; }
 
-        public void OnPointerEnter(PointerEventData eventData)
-        {
-            PointerEntered?.Invoke(this);
-        }
-        
-        public override Texture mainTexture => texture != null ? texture : s_WhiteTexture; 
-        
-
-        public void OnPointerExit(PointerEventData eventData)
-        {
-            PointerExited?.Invoke(this);
-        }
 
         protected override void OnPopulateMesh(VertexHelper vh)
         {
@@ -79,6 +60,5 @@ namespace foursoulsauto.ui
                 vh.AddTriangle(tris[i], tris[i + 1], tris[i + 2]);
             }
         }
-
     }
 }
