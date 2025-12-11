@@ -79,5 +79,15 @@ namespace foursoulsauto.ui
                 vh.AddTriangle(tris[i], tris[i + 1], tris[i + 2]);
             }
         }
+
+        protected override void UpdateMaterial()
+        {
+            base.UpdateMaterial();
+
+            if (material != null)
+            {
+                material.SetTexture("_MainTex", texture);
+            }
+        }
     }
 }

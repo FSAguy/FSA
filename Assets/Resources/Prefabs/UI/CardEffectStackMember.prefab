@@ -101,7 +101,35 @@ PrefabInstance:
       value: CardEffectStackMember
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 7314336605990366071, guid: cd8e114ea2d651448afc957b9e5e5d5c, type: 3}
+    - {fileID: 251660760284077590, guid: cd8e114ea2d651448afc957b9e5e5d5c, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5416037609154592272, guid: cd8e114ea2d651448afc957b9e5e5d5c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6986989573502583791}
   m_SourcePrefab: {fileID: 100100000, guid: cd8e114ea2d651448afc957b9e5e5d5c, type: 3}
+--- !u!1 &1554544458915953353 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5416037609154592272, guid: cd8e114ea2d651448afc957b9e5e5d5c, type: 3}
+  m_PrefabInstance: {fileID: 6826182084301423833}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6986989573502583791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554544458915953353}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27dcb3146c9d4b71afc7b4c36057fbec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::foursoulsauto.ui.StackMemberUI
+  m_Material: {fileID: 2100000, guid: 2e78d32535d58f64290e6a0763696f47, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  mesh: {fileID: -2432090755550338912, guid: 33a3ea19ce6687443acfdde807187a96, type: 3}
+  texture: {fileID: 2800000, guid: 8a7b47df22973004a8cb1be53e4524bf, type: 3}

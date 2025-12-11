@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Squishy Stack Member
-  m_Shader: {fileID: 4800000, guid: 5b1426101008c494a8b50b55167b0b6a, type: 3}
+  m_Name: Stack Member UI Mat
+  m_Shader: {fileID: 4800000, guid: 0961b7d314b748447a70b27e340322b5, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -23,14 +23,23 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _FrameTex:
+        m_Texture: {fileID: 2800000, guid: 25d89b771b2b93541933d3976ef9c804, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: fdedf7bb43540cc498410f0831abd1bf, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskTex:
+        m_Texture: {fileID: 2800000, guid: 6ea19508a52df7247a8c6e783a754ab8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _BulgeIntensity: 0
     - _BulgePower: 0.5
-    - _BulgeStrength: 0
+    - _BulgeScale: 0.001
     - _ColorMask: 15
     - _Stencil: 0
     - _StencilComp: 8
@@ -41,5 +50,8 @@ Material:
     m_Colors:
     - _ClipRect: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _CropMax: {r: 0.7917, g: 0.8541, b: 0, a: 0}
+    - _CropMin: {r: 0.2091, g: 0.4276, b: 0, a: 0}
+    - _MaskColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

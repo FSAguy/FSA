@@ -32,8 +32,7 @@ namespace foursoulsauto.core
         public StackMemberUI CreateStackVisual()
         {
             var stackMember = Object.Instantiate(StackMemberClone);
-            var cardImage = stackMember.transform.Find("FrameMask/CardImage").GetComponent<Image>();
-            cardImage.sprite = OriginCard.TopSprite;
+            stackMember.texture = OriginCard.TopSprite.texture;
             
             return stackMember;
         }
