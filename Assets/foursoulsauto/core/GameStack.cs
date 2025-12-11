@@ -13,8 +13,8 @@ namespace foursoulsauto.core
         public event Action<IVisualStackEffect> ItemResolved;
         public event Action<IVisualStackEffect> ItemFizzled;
 
-        private List<IVisualStackEffect> Stack { get; }
-        public List<IVisualStackEffect> NewlyAdded { get; private set; }
+        private List<IVisualStackEffect> Stack { get; } = new();
+        public List<IVisualStackEffect> NewlyAdded { get; private set; } = new();
 
         // TODO: implement "may reorder" according to four souls rules - requires effect tags
         public bool MayReorder => NewlyAdded.Count > 0; 
@@ -36,12 +36,6 @@ namespace foursoulsauto.core
                 ItemPushed?.Invoke(effect); 
             }
 
-            NewlyAdded = new List<IVisualStackEffect>();
-        }
-
-        public GameStack()
-        {
-            Stack = new List<IVisualStackEffect>();
             NewlyAdded = new List<IVisualStackEffect>();
         }
 

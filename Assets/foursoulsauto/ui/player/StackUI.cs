@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using foursoulsauto.core;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace foursoulsauto.ui.player
 {
