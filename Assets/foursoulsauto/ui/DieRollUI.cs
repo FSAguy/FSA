@@ -23,8 +23,10 @@ namespace foursoulsauto.ui
             texture = sprites[value - 1].texture;
         }
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+            
             if (sprites.Count == 6) return;
             
             Debug.LogError($"{this} needs exactly 6 sprites.");
