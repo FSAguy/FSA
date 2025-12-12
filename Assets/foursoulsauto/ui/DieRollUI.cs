@@ -7,7 +7,7 @@ namespace foursoulsauto.ui
 {
     public class DieRollUI : StackMemberUI
     {
-        [SerializeField] private List<Sprite> sprites;
+        [SerializeField] private List<Texture> textures;
 
         private DieRoll _roll;
 
@@ -20,16 +20,16 @@ namespace foursoulsauto.ui
 
         private void UpdateSprite(int value)
         {
-            texture = sprites[value - 1].texture;
+            texture = textures[value - 1];
         }
 
         protected override void Awake()
         {
             base.Awake();
             
-            if (sprites.Count == 6) return;
+            if (textures.Count == 6) return;
             
-            Debug.LogError($"{this} needs exactly 6 sprites.");
+            Debug.LogError($"{this} needs exactly 6 textures.");
             throw new Exception();
         }
     }
