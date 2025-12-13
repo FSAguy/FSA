@@ -11,7 +11,6 @@ namespace foursoulsauto.ui.player
     public class EffectInputUI : PlayerUIModule
     {
         [SerializeField] private GameObject topUI;
-        [SerializeField] private GameObject clickThroughInputScreen; // TODO: use Find on topUI instead?
         [SerializeField] private GameObject multiCardSelectScreen;
         [SerializeField] private GameObject multiCardContentPanel;
         [SerializeField] private Button multiButtonClone;
@@ -28,7 +27,7 @@ namespace foursoulsauto.ui.player
 
         private void Awake()
         {
-            _subUIs = new List<GameObject> { clickThroughInputScreen, multiCardSelectScreen };
+            _subUIs = new List<GameObject> { multiCardSelectScreen };
         }
 
         protected override void OnClose()
@@ -80,7 +79,6 @@ namespace foursoulsauto.ui.player
         private void BeginSingleTarget()
         {
             _singleCardSelection = null;
-            clickThroughInputScreen.SetActive(true);
         }
 
         private void BeginCardList()
@@ -124,10 +122,13 @@ namespace foursoulsauto.ui.player
             if (!_currentRequest.IsCardEligible(card))
             {
                 header.text = "Invalid card!";
+                _singleCardSelection = null;
+                confirmButton.interactable = false;
                 return;
             }
 
             _singleCardSelection = card;
+            header.text = $"Selected {card.CardName}";
 
             confirmButton.interactable = true;
 
