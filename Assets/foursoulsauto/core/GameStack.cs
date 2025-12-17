@@ -12,6 +12,7 @@ namespace foursoulsauto.core
         public event Action<IVisualStackEffect> ItemPushed;
         public event Action<IVisualStackEffect> ItemResolved;
         public event Action<IVisualStackEffect> ItemFizzled;
+        public event Action<IVisualStackEffect> ItemAboutToPop;
 
         private List<IVisualStackEffect> Stack { get; } = new();
         public List<IVisualStackEffect> NewlyAdded { get; private set; } = new();
@@ -76,6 +77,11 @@ namespace foursoulsauto.core
         public DieRoll TopRollEffect => GetFirstWhere(effect => effect is DieRoll) as DieRoll;
         
         public bool HasRoll => TopRollEffect is not null;
+
+        public void WarnPop()
+        {
+            ItemAboutToPop?.Invoke(Stack[0]);
+        }
 
         private IEnumerator ResolveItem(IVisualStackEffect effect)
         {

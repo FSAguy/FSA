@@ -338,7 +338,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27dcb3146c9d4b71afc7b4c36057fbec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::foursoulsauto.ui.StackMemberUI
-  m_Material: {fileID: 2100000, guid: 295286d832ab1aa44bcd6a447f34497e, type: 2}
+  m_Material: {fileID: 2100000, guid: 2e78d32535d58f64290e6a0763696f47, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}

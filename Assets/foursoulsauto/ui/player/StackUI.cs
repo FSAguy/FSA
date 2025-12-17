@@ -19,6 +19,8 @@ namespace foursoulsauto.ui.player
 
         private TMP_Text _descriptionText;
         private Coroutine _descriptionCoroutine;
+
+        private StackMemberUI _aboutToPop = null;
         
         private readonly Dictionary<IVisualStackEffect, StackMemberUI> _effectToMember = new();
 
@@ -45,18 +47,29 @@ namespace foursoulsauto.ui.player
             stack.ItemPushed += OnItemPushed;
             stack.ItemFizzled += OnItemFizzled;
             stack.ItemResolved += OnItemFizzled; //TODO: make fizzled and resolved different (cool disintegration effect)
+            stack.ItemAboutToPop += OnItemAboutToPop;
         }
-                    
+
+        private void OnItemAboutToPop(IVisualStackEffect obj)
+        {
+            _aboutToPop =  _effectToMember[obj];
+            _aboutToPop.AnimateAboutToPop();
+        }
+
         private void OnItemFizzled(IVisualStackEffect obj)
         {
             CloseEffectDescription();
             var stackMember = _effectToMember[obj];
             _effectToMember.Remove(obj);
             Destroy(stackMember.gameObject);
+            _aboutToPop = null;
         }
         
         private void OnItemPushed(IVisualStackEffect effect)
         {
+            _aboutToPop?.AnimateDeflate();
+            _aboutToPop = null;
+
             var stackMember = effect.CreateStackVisual();
             stackMember.Effect = effect;
             stackMember.PointerEntered += member =>

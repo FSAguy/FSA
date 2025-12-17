@@ -137,13 +137,16 @@ namespace foursoulsauto.core
             else
             {
                 // change priority player
-                _priorityIdx = (_priorityIdx + 1) % PlayerCount;
+                _priorityIdx = GetNextPriorityIdx(_priorityIdx);
                 if (_priorityIdx == _popIdx) PopStack();
+                else if (GetNextPriorityIdx(_priorityIdx) == _popIdx) Stack.WarnPop();
             }
 
             Debug.Log($"{_priorityIdx} gains priority");
             PriorityPlayer.HasPriority = true;
         }
+        
+        private int GetNextPriorityIdx(int current) => (current + 1) % PlayerCount;
 
         private void FlushStack()
         {

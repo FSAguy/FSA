@@ -9,6 +9,13 @@ namespace foursoulsauto.ui
     [RequireComponent(typeof(CanvasRenderer))]
     public class StackMemberUI : Graphic, IPointerEnterHandler, IPointerExitHandler
     {
+        protected override void Start()
+        {
+            base.Start();
+
+            material = Instantiate(material); // clone to avoid changing base values for all members
+        }
+
         public event Action<StackMemberUI> PointerEntered;
         public event Action<StackMemberUI> PointerExited;
 
@@ -28,6 +35,16 @@ namespace foursoulsauto.ui
         public void OnPointerExit(PointerEventData eventData)
         {
             PointerExited?.Invoke(this);
+        }
+
+        public void AnimateAboutToPop()
+        {
+            material.SetFloat("_BulgeIntensity", 20f);
+        }
+
+        public void AnimateDeflate()
+        {
+            material.SetFloat("_BulgeIntensity", 0f);
         }
 
         protected override void OnPopulateMesh(VertexHelper vh)
