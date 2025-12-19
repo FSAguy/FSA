@@ -6,13 +6,16 @@ using UnityEngine.UI;
 
 namespace foursoulsauto.ui
 {
-    [RequireComponent(typeof(CanvasRenderer))]
+    [RequireComponent(typeof(CanvasRenderer)), ExecuteAlways]
     public class StackMemberUI : Graphic, IPointerEnterHandler, IPointerExitHandler
     {
+        private static readonly int BULGE_INTENSITY = Shader.PropertyToID("_BulgeIntensity");
+        
         protected override void Start()
         {
             base.Start();
 
+            _actualBulgeIntensity = material.GetFloat(BULGE_INTENSITY);
             material = Instantiate(material); // clone to avoid changing base values for all members
         }
 
@@ -21,6 +24,19 @@ namespace foursoulsauto.ui
 
         public Mesh mesh;
         public Texture texture;
+        public Animator animator;
+
+        [SerializeField] private float bulgeIntensity;
+        
+        private float _actualBulgeIntensity;
+
+        private void LateUpdate()
+        {
+            if (Mathf.Approximately(bulgeIntensity, _actualBulgeIntensity)) return;
+            
+            _actualBulgeIntensity = bulgeIntensity;
+            material.SetFloat(BULGE_INTENSITY, _actualBulgeIntensity);
+        }
         
         public IVisualStackEffect Effect { get; set; }
 
@@ -39,12 +55,12 @@ namespace foursoulsauto.ui
 
         public void AnimateAboutToPop()
         {
-            material.SetFloat("_BulgeIntensity", 20f);
+            animator.SetTrigger("BulgeStart");
         }
 
         public void AnimateDeflate()
         {
-            material.SetFloat("_BulgeIntensity", 0f);
+            animator.SetTrigger("BulgeCancel");
         }
 
         protected override void OnPopulateMesh(VertexHelper vh)

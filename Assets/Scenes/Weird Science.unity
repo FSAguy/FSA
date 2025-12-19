@@ -300,6 +300,7 @@ GameObject:
   - component: {fileID: 1533162711}
   - component: {fileID: 1533162713}
   - component: {fileID: 1533162712}
+  - component: {fileID: 1533162714}
   m_Layer: 5
   m_Name: BREH
   m_TagString: Untagged
@@ -338,12 +339,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27dcb3146c9d4b71afc7b4c36057fbec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::foursoulsauto.ui.StackMemberUI
-  m_Material: {fileID: 2100000, guid: 2e78d32535d58f64290e6a0763696f47, type: 2}
+  m_Material: {fileID: 1658847431}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   mesh: {fileID: -2432090755550338912, guid: 33a3ea19ce6687443acfdde807187a96, type: 3}
   texture: {fileID: 2800000, guid: c13397941c2c8fa4abd13bc8fd340532, type: 3}
+  bulgeIntensity: 0
 --- !u!222 &1533162713
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -352,6 +354,83 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1533162710}
   m_CullTransparentMesh: 1
+--- !u!95 &1533162714
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533162710}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a8416e442e197c44e9987f2768621bf3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!21 &1658847431
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Stack Member UI Mat(Clone)
+  m_Shader: {fileID: 4800000, guid: 0961b7d314b748447a70b27e340322b5, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _FrameTex:
+        m_Texture: {fileID: 2800000, guid: 25d89b771b2b93541933d3976ef9c804, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 2fb6611328683724e9aa2ce2cf8a68c1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MaskTex:
+        m_Texture: {fileID: 2800000, guid: 6ea19508a52df7247a8c6e783a754ab8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _BulgeIntensity: 20
+    - _BulgePower: 0.5
+    - _BulgeScale: 0.001
+    - _ColorMask: 15
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _ClipRect: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _CropMax: {r: 0.7917, g: 0.8541, b: 0, a: 0}
+    - _CropMin: {r: 0.2091, g: 0.4276, b: 0, a: 0}
+    - _MaskColor: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
