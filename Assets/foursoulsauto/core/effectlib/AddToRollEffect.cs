@@ -23,7 +23,7 @@ namespace foursoulsauto.core.effectlib
         public string GetEffectText()
         {
             var start = _amount() > 0 ? "Increase" : "Decrease";
-            return $"{start} a roll by {_amount}";
+            return $"{start} a roll by {_amount()}";
         }
     }
 }

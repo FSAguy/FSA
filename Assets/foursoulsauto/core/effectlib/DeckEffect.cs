@@ -26,8 +26,7 @@ namespace foursoulsauto.core.effectlib
         public StackMemberUI CreateStackVisual() 
         {
             var stackMember = Object.Instantiate(StackMemberClone);
-            var cardImage = stackMember.transform.Find("CardImage").GetComponent<Image>();
-            cardImage.sprite = Board.Instance.GetCardback(DeckBehaviour.DeckType);
+            stackMember.texture = Board.Instance.GetCardback(DeckBehaviour.DeckType).texture;
                         
             return stackMember;
         }
