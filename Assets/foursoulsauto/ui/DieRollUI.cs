@@ -14,13 +14,14 @@ namespace foursoulsauto.ui
         public void Subscribe(DieRoll roll)
         {
             _roll = roll;
-            _roll.ResultChanged += UpdateSprite;
-            UpdateSprite(_roll.RawResult);
+            _roll.ResultChanged += UpdateRoll;
+            UpdateRoll(_roll.RawResult);
         }
 
-        private void UpdateSprite(int value)
+        private void UpdateRoll(int value)
         {
             texture = textures[value - 1];
+            canvasRenderer.SetTexture(texture);
         }
 
         protected override void Awake()
