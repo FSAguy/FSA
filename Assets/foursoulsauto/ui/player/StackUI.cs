@@ -67,7 +67,7 @@ namespace foursoulsauto.ui.player
             stackMember.transform.SetParent(null);
             Destroy(stackMember.gameObject);
             _aboutToPop = null;
-            RebuildAnimated();
+            RebuildAnimated(goingUp:false);
         }
         
         private void OnItemPushed(IVisualStackEffect effect)
@@ -94,8 +94,7 @@ namespace foursoulsauto.ui.player
             
             _effectToMember.Add(effect, stackMember);
             
-            RebuildAnimated();
-            
+            RebuildAnimated(goingUp:true);
         }
 
         private void CloseEffectDescription()
@@ -115,7 +114,7 @@ namespace foursoulsauto.ui.player
             _descriptionCoroutine = null;
         }
 
-        private void RebuildAnimated()
+        private void RebuildAnimated(bool goingUp)
         {
             if (_layoutTurnOn is not null) StopCoroutine(_layoutTurnOn);
             
@@ -140,7 +139,8 @@ namespace foursoulsauto.ui.player
             {
                 pair.Key.anchoredPosition = prevPositions[pair.Key];
                 LeanTween.cancel(pair.Key);
-                LeanTween.move(pair.Key, pair.Value, slideTime).setEase(LeanTweenType.easeOutBounce);
+                var tween = LeanTween.move(pair.Key, pair.Value, slideTime);
+                tween.setEase(goingUp ? LeanTweenType.easeInOutExpo : LeanTweenType.easeOutBounce);
             }
             
             _layoutTurnOn = StartCoroutine(turnLayoutBackOn(slideTime));
