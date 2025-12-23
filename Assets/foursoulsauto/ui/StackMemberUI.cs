@@ -9,13 +9,15 @@ namespace foursoulsauto.ui
     [RequireComponent(typeof(CanvasRenderer)), ExecuteAlways]
     public class StackMemberUI : Graphic, IPointerEnterHandler, IPointerExitHandler
     {
-        private static readonly int BULGE_INTENSITY = Shader.PropertyToID("_BulgeIntensity");
-        
+        private static readonly int BulgeIntensity = Shader.PropertyToID("_BulgeIntensity");
+        private static readonly int BulgeStartTrigger = Animator.StringToHash("BulgeStart");
+        private static readonly int BulgeCancelTrigger = Animator.StringToHash("BulgeCancel");
+
         protected override void Start()
         {
             base.Start();
 
-            _actualBulgeIntensity = material.GetFloat(BULGE_INTENSITY);
+            _actualBulgeIntensity = material.GetFloat(BulgeIntensity);
             material = Instantiate(material); // clone to avoid changing base values for all members
         }
 
@@ -35,7 +37,7 @@ namespace foursoulsauto.ui
             if (Mathf.Approximately(bulgeIntensity, _actualBulgeIntensity)) return;
             
             _actualBulgeIntensity = bulgeIntensity;
-            material.SetFloat(BULGE_INTENSITY, _actualBulgeIntensity);
+            material.SetFloat(BulgeIntensity, _actualBulgeIntensity);
         }
         
         public IVisualStackEffect Effect { get; set; }
@@ -55,12 +57,12 @@ namespace foursoulsauto.ui
 
         public void AnimateAboutToPop()
         {
-            animator.SetTrigger("BulgeStart");
+            animator.SetTrigger(BulgeStartTrigger);
         }
 
         public void AnimateDeflate()
         {
-            animator.SetTrigger("BulgeCancel");
+            animator.SetTrigger(BulgeCancelTrigger);
         }
 
         protected override void OnPopulateMesh(VertexHelper vh)

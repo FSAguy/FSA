@@ -3,27 +3,29 @@ using System.Collections;
 using System.Collections.Generic;
 using foursoulsauto.core;
 using TMPro;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace foursoulsauto.ui.player
 {
-    //TODO: Animate
     public class StackUI : PlayerUIModule
     {
-        private static readonly int ItemPushedTrigger = Animator.StringToHash("Item Pushed");
-        [SerializeField] private Transform stackPanel;
+        [SerializeField] private RectTransform stackPanel;
         [SerializeField] private GameObject descriptionBox; 
         [SerializeField] private float stackDescriptionTime;
-        [SerializeField] private Animator animator;
+        [SerializeField] private VerticalLayoutGroup stackLayoutGroup;
 
+        [SerializeField] private float slideTime = 0.2f;
+        
         private TMP_Text _descriptionText;
         private Coroutine _descriptionCoroutine;
+        private Coroutine _layoutTurnOn;
 
         private StackMemberUI _aboutToPop = null;
         
         private readonly Dictionary<IVisualStackEffect, StackMemberUI> _effectToMember = new();
-
+        
         private void Awake()
         {
             _descriptionText = descriptionBox.GetComponentInChildren<TMP_Text>();
@@ -58,29 +60,42 @@ namespace foursoulsauto.ui.player
 
         private void OnItemFizzled(IVisualStackEffect obj)
         {
+            stackLayoutGroup.enabled = false;
             CloseEffectDescription();
             var stackMember = _effectToMember[obj];
             _effectToMember.Remove(obj);
+            stackMember.transform.SetParent(null);
             Destroy(stackMember.gameObject);
             _aboutToPop = null;
+            RebuildAnimated();
         }
         
         private void OnItemPushed(IVisualStackEffect effect)
         {
+            stackLayoutGroup.enabled = false;
             _aboutToPop?.AnimateDeflate();
             _aboutToPop = null;
 
             var stackMember = effect.CreateStackVisual();
             stackMember.Effect = effect;
+            
             stackMember.PointerEntered += member =>
             {
                 if (_descriptionCoroutine is not null) StopCoroutine(_descriptionCoroutine);
                 _descriptionCoroutine = StartCoroutine(DisplayEffectDescription(member));
             };
             stackMember.PointerExited += _ => CloseEffectDescription();
+
             stackMember.transform.SetParent(stackPanel);
+            
+            var localPos = new Vector2(stackPanel.rect.width / 2, -stackPanel.rect.height * 1.25f);
+            stackMember.rectTransform.anchoredPosition = localPos;
+            Debug.Log(localPos);
+            
             _effectToMember.Add(effect, stackMember);
-            animator.SetTrigger(ItemPushedTrigger);
+            
+            RebuildAnimated();
+            
         }
 
         private void CloseEffectDescription()
@@ -98,6 +113,43 @@ namespace foursoulsauto.ui.player
             descriptionBox.transform.position = newPos;
             descriptionBox.SetActive(true);
             _descriptionCoroutine = null;
+        }
+
+        private void RebuildAnimated()
+        {
+            if (_layoutTurnOn is not null) StopCoroutine(_layoutTurnOn);
+            
+            var prevPositions = new Dictionary<RectTransform, Vector2>();
+            foreach (RectTransform child in stackPanel)
+                prevPositions.Add(child, child.anchoredPosition);
+            
+            stackLayoutGroup.enabled = true;
+            LayoutRebuilder.ForceRebuildLayoutImmediate(stackPanel);
+            
+            var targetPositions = new Dictionary<RectTransform, Vector2>();
+            foreach (RectTransform child in stackPanel)
+            {
+                
+                Debug.Log(child.anchoredPosition);
+                targetPositions[child] = child.anchoredPosition;
+            }
+
+            stackLayoutGroup.enabled = false;
+
+            foreach (var pair in targetPositions)
+            {
+                pair.Key.anchoredPosition = prevPositions[pair.Key];
+                LeanTween.cancel(pair.Key);
+                LeanTween.move(pair.Key, pair.Value, slideTime).setEase(LeanTweenType.easeOutBounce);
+            }
+            
+            _layoutTurnOn = StartCoroutine(turnLayoutBackOn(slideTime));
+        } 
+        
+        private IEnumerator turnLayoutBackOn(float time)
+        {
+            yield return new WaitForSeconds(time);
+            stackLayoutGroup.enabled = true;
         }
     }
 }
