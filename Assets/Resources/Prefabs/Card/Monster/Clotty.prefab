@@ -48,6 +48,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 789081339843340358, guid: 8faea79d6053ffd45a7424bf759ff9ab, type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
+      objectReference: {fileID: 0}
+    - target: {fileID: 1032560118588427153, guid: 8faea79d6053ffd45a7424bf759ff9ab, type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
+      objectReference: {fileID: 0}
+    - target: {fileID: 2087754260044914797, guid: 8faea79d6053ffd45a7424bf759ff9ab, type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
+      objectReference: {fileID: 0}
     - target: {fileID: 2126790758745777065, guid: 8faea79d6053ffd45a7424bf759ff9ab, type: 3}
       propertyPath: m_Sprite
       value: 
