@@ -90,7 +90,6 @@ namespace foursoulsauto.ui.player
             
             var localPos = new Vector2(stackPanel.rect.width / 2, -stackPanel.rect.height * 1.25f);
             stackMember.rectTransform.anchoredPosition = localPos;
-            Debug.Log(localPos);
             
             _effectToMember.Add(effect, stackMember);
             
